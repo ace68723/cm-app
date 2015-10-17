@@ -1,0 +1,88 @@
+<ion-view>
+
+  <ion-header-bar class="bar-cmorange" >
+      <h1 class="title">{{name}}</h1>
+  </ion-header-bar>
+
+	<div class="bar bar-loading bar-cmblue" >
+      <i class="icon ion-ios7-heart"></i> 税前菜金满30起送哦亲
+    </div>
+  <ion-content class="has-loading">
+
+	  <div class="card">
+      	<div ng-repeat="dstype in menu">
+
+      		<div class="item item-button-right item-icon-right item-divider" ng-click='dstype.open = !dstype.open'>
+		          {{dstype.name}}
+		          <i class="icon ion-ios7-arrow-right" ng-if="!dstype.open"></i>
+		          <i class="icon ion-ios7-arrow-down" ng-if="dstype.open"></i>
+		    </div>
+
+		    <a class="item item-button-right item-icon-right" ng-repeat="dish in dstype.dishes" ng-if="dstype.open">
+      			<h3> {{dish.int_no}} - {{dish.ds_name}}
+      				<span class="item-note"> $ {{dish.price}}  </span>
+				</h3> 
+      			<button class="button button-clear button-positive" ng-if="!dstype.status && open==1"  ng-click="order({{dish.ds_id}}, '{{dish.int_no}}', '{{dish.ds_name}}',{{dish.price}}  )">
+			      	点餐
+			    </button>
+      			<button class="button button-clear button-positive" ng-if="dstype.status" >
+			      	今日售完
+			    </button>		
+
+      		</a> 
+
+		</div>
+
+		<button class="button button-full button-light button-clear button-small">
+		</button>		
+
+      </div>  
+  </ion-content>
+  
+  <ion-footer-bar class="bar bar-positive "  align-title="left" ng-if="open==1">
+  <!--   align-title="left" class="bar-cmblue"
+  	<h1 class="title "><button class="button button-clear button-positive " ng-click="gotoCheckout()"><i class="icon ion-compose"></i> 修改/结账</button></h1> -->
+	  <!-- <h1 class="title "  ></h1>
+	  		<div class="button button-cmwarning " ng-click="gotoModify()"><i class="icon ion-compose"></i> 修改/结账 - 	
+	  			当前已点<span class="badge badge-royal">{{totaldish}}</span>个菜品
+	  		</div> -->
+	  <button class="button button-positive " ng-click="gotoModify()" >
+		<i class="icon ion-compose"></i> 修改/结账 - 当前已点<span class="badge badge-royal">{{totaldish}}</span>个菜品
+	  </button>
+  </ion-footer-bar>
+  
+  <ion-footer-bar class="bar bar-assertive "  align-title="left" ng-if="open==0">
+	  <button class="button button-assertive " >
+		该餐厅当前尚未营业，先去看看别家吧
+	  </button>
+  </ion-footer-bar>
+
+</ion-view>
+
+
+<script id="order-menu-modal.html" type="text/ng-template">
+  <div class="modal">
+    <header class="bar bar-header">
+      <h1 class="title"></h1>
+    </header>
+    <ion-content has-header="true" padding="true">
+        <div class="card">
+		  <div class="item item-divider">
+		     	{{int_no}} - {{ds_name}}
+		  </div>
+		  <div class="item item-text-wrap">
+			  <button class="button button-clear button-large button-positive icon ion-ios7-minus-outline"   ng-click="amountRemove()">
+			  </button>
+			  <button class="button button-outline button-positive">
+			  来 {{amount}} 份
+			  </button>
+			  <button class="button button-clear button-large button-positive icon ion-ios7-plus-outline"  ng-click="amountAdd()">
+			  </button>
+		  </div>
+          
+          <button class="button button-full button-positive" ng-click="dishAdd(ds_id, amount, int_no, ds_name, price)">确认添加</button>
+          <button class="button button-full button-cmwarning" ng-click="closeModal()">取消</button>
+        </div>
+    </ion-content>
+  </div>
+</script>

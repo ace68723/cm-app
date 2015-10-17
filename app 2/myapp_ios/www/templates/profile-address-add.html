@@ -1,0 +1,69 @@
+<ion-view>
+  <ion-header-bar class="bar-cmorange">
+  	<h1 class="title">新增地址</h1>
+  </ion-header-bar>
+  <ion-content has-header="true">
+  	<form name="AddressAddForm" ng-controller="AddressAddValidateCtrl">
+	  	<div class="card">	
+	  		<label class="item item-input" >
+			  <span class="input-label">联系人</span> 
+			  <input type="text" ng-model="addr.name" name="name">
+			</label>
+			<label class="item item-input">
+			  <span class="input-label">Telephone</span>
+			  <input type="tel" ng-model="addr.tel" >
+			</label>
+			<label class="item item-input ">
+			  <span class="input-label">City</span>
+			  <input type="text" ng-model="addr.city" name="city">
+			</label>
+			<label class="item item-input">
+			  <span class="input-label">Postal Code</span>
+			  <input type="text" ng-model="addr.postal" >
+			</label>
+			<label class="item item-input">
+			  <span class="input-label">Address</span>
+			  <input type="text" ng-model="addr.addr" name="addr">
+			</label>
+			<label class="item item-input">
+			  <span class="input-label">Unit / Apt No.</span>
+			  <input type="text" ng-model="addr.apt_no">
+			</label>
+			<label class="item item-input">
+			  <span class="input-label">Buzz Code</span>
+			  <input type="text" ng-model="addr.buzz">
+			</label>		
+			
+	     </div> 
+	     <div class="padding-horizontal">
+	      	<button class="button button-block button-positive" ng-click="validate()">
+			       验证地址
+			</button>
+	     </div>	
+	</form>
+  </ion-content>
+</ion-view>
+
+<script id="addr-validate-modal.html" type="text/ng-template">
+  <div class="modal">
+  	<ion-header-bar class="bar-cmorange">
+  		<h1 class="title">地址验证结果</h1>
+  	</ion-header-bar>
+    <ion-content has-header="true" padding="true">
+        <div class="card">
+		  <div class="item item-divider">
+		    请检查以下地址是否正确:
+		  </div>
+		  <div class="item item-text-wrap" ng-model="addr.address">
+		    {{addr.address}}
+		  </div>
+		  <div class="padding-horizontal">
+          	<button class="button button-full button-cmwarning" ng-click="closeModal()">返回修改</button>
+		  </div>
+		  <div class="padding-horizontal">
+          	<button class="button button-full button-positive" ng-click="createAddr()">确认创建</button>		  
+          </div>
+        </div>
+    </ion-content>
+  </div>
+</script>

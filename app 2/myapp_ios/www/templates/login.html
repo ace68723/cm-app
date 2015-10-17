@@ -1,0 +1,49 @@
+<ion-view class="cmbg">  	
+
+  <ion-header-bar>
+  </ion-header-bar>
+
+  <ion-content scroll="false" class="cmbg">
+
+     <img src="img/cat.png" class="chanmao-logo">
+  	 <form name="LoginForm" ng-controller="LoginFormCtrl">  
+	  	<div class="list card">	
+	  		
+	  		<label class="item item-input" >
+			  <span class="input-label">用户名</span> 
+			  <input type="text" ng-model="login.username">
+			</label>
+			<label class="item item-input">
+			  <span class="input-label">密码</span>
+			  <input type="password" ng-model="login.password">
+			</label>
+			
+	     </div> 
+	     <div class="padding-horizontal">
+	      	<button class="button button-block button-positive" ng-click="login()">
+			       登录
+			</button>
+	    </div>
+	</form>
+	<div class="row">
+	  <!-- <div class="col col-10"></div> -->
+	  <div class="col col-40"><a href="#/register"><button class="button button-cmconfirm" >
+  		注册新用户
+	</button></a></div>
+	<div class="col col-25"></div>
+	  <div class="col col-35"><a href="#/forget"><button class="button button-cmwarning">
+  		忘记密码 
+	</button></a></div>
+	  <!-- <div class="col col-10"></div> -->
+	</div>
+	
+
+  </ion-content>
+  
+  <ion-footer-bar>
+		<button class="button button-block button-clear button-light button-small">
+			 @2014, Chanmao Inc.
+		</button>
+  </ion-footer-bar>
+  
+</ion-view> 

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="plunker">
+
+<head>
+  <meta charset="utf-8" />
+  <title>AngularJS Plunker</title>
+  <script>
+    document.write('<base href="' + document.location + '" />');
+  </script>
+  <link rel="stylesheet" href="http://code.ionicframework.com/0.9.25/css/ionic.min.css" />
+
+  <script src="http://code.ionicframework.com/0.9.26/js/ionic.bundle.min.js"></script>
+</head>
+
+<body >
+	  <ion-content   has-header="true"     has-footer="true"     scroll="true" ng-controller="MainCtrl">
+    <div class="list">
+      <div ng-repeat="model in stuff">
+        <div class="item item-icon-right item-divider" ng-click='go()'>
+          {{model.id}}
+        </div>
+        
+        <div class="item" ng-repeat="item in model.list" ng-if="showThis">{{item}}</div>
+      </div>
+    </div>
+     <ion-infinite-scroll></ion-infinite-scroll>
+     </ion-content>
+
+</body>
+
+</html>
+
+<script>
+	var app = angular.module('plunker', ['ionic']);
+
+app.controller('MainCtrl', function($scope) {
+  $scope.$broadcast('scroll.resize');	
+  list = [];
+  for(var i=0;i<50;i++) {
+    list.push(i);
+    }
+
+  var data = [{
+    'id': '1',
+    'list': list
+  }, {
+    'id': '2',
+    'list': list
+  }];
+  $scope.stuff = data;
+  $scope.go = function(){
+    $scope.showThis = !$scope.showThis;
+    $scope.$broadcast('scroll.resize');
+  };
+ 
+});
+</script>
