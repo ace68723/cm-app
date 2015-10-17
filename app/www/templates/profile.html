@@ -1,0 +1,39 @@
+<ion-view>
+  <ion-header-bar class="bar-cmorange">
+  	<h1 class="title">馋猫订餐</h1>
+  </ion-header-bar>
+  
+  <ion-content has-header="true" has-tabs="true" padding="true">
+
+	<div class="list padding">
+		  <!-- <div class="item item-divider">
+		    	系统设置
+		  </div> -->
+			  <a class="item item-icon-left" href="#/tab/address">
+			    <i class="icon ion-ios7-location-outline"></i>
+			    	地址维护
+			  </a>
+		
+  </div>
+  	<div class="list padding-horizontal">
+		  <!-- <div class="item item-divider">
+		    	系统相关
+		  </div> -->
+		  	   <!-- <a class="item item-icon-left" href="#/tab/history">
+		    		<i class="icon ion-ios7-gear-outline"></i>
+		    		功能设置
+		 	   </a> -->
+		  	   <a class="item item-icon-left" href="#/tab/about">
+		    		<i class="icon ion-ios7-information-outline"></i>
+		    		关于我们
+		    		<!-- <span class="badge badge-assertive">{{0}}</span> -->
+		 	   </a>
+	</div>	 	   
+	<div class="list padding-horizontal">
+		 	   <a class="item item-icon-left" ng-click="logout()">
+		    		<i class="icon ion-ios7-minus"></i>
+		    		退出登录
+		 	   </a>		
+  	</div>
+  </ion-content>
+</ion-view>
