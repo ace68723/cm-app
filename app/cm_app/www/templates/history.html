@@ -1,0 +1,56 @@
+<ion-view title="我的订单">
+ 	
+
+ 	
+  	<div class="bar bar-loading bar-cmblue" >
+     	<i class="icon ion-ios7-heart"></i> 该页面分钟会自动刷新，也可以手动刷新
+    </div>
+  <ion-content  class="has-loading">
+	<ion-refresher
+	    on-refresh="doRefresh(pull)">
+	</ion-refresher>
+	
+	<div class="card" ng-if="current!=null">
+	  <div class="item item-divider center_text">
+	    	当前处理中订单: # {{current.oid}}
+	  </div>
+	  <div class="item item-text-wrap">
+	  	        当前状态: <span class="badge badge-{{status.badge}}">{{status.text}}</span> 
+	  </div>
+	  <div class="item item-button-right" ng-if="available != null">
+	  	 	继续点单: <button class="button button-small button-positive" ng-click="recover()">要保留已点菜品</button>
+	  </div>
+	  <div class="item item-text-wrap">
+	    	查询时间: <span class="badge badge-stable">{{updated | date:'yyyy-MM-dd HH:mm:ss'}} </span>
+	  </div>
+	  <div class="item item-divider">
+	    	客服电话: 647-515-6699
+	  </div>
+	</div>
+	
+<!-- 	<div class="list" ng-if="current==null">
+	  <div class="item item-divider">
+	    	当前没有正在处理的订单
+	  </div>
+	</div> -->	
+
+	<div class="list cur_order_list" ng-if="current==null">
+	  	<label class="item cur_order_title" >
+	    	当前没有正在处理的订单
+	  	</label>
+	</div>
+
+	<div class="list">
+		<div class="item  order_history_title">
+	    	历史订单
+	    </div>
+	    <ion-list>
+	
+	      <ion-item ng-repeat="order in orders"> <!-- href="#/tab/history/{{order.oid}}"> -->
+	        <h3> # {{order.oid}} 总价: $ {{order.total}} — {{order.created | dateToISO | date:'mediumDate' }} </h3>
+	      </ion-item>
+	      
+	    </ion-list>
+	</div>
+  </ion-content>
+</ion-view>
