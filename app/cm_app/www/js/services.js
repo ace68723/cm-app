@@ -117,103 +117,110 @@ angular.module('chanmao.services', [])
   };
 })
 
-.factory('RRService', function($http, $state, $rootScope,API_URL) {
- return {
- 	gotoRR	: function(rid) {
- 	  old_rid = window.localStorage.getItem("sv_rid");
- 	  if (rid != old_rid){
- 	  	window.localStorage.setItem("sv_rid", rid);
- 	  	window.localStorage.removeItem('sa_dishes');
- 	  }
+// .factory('RRService', function($http, $state, $rootScope,API_URL) {
+//  return {
+//  	gotoRR	: function(rid) {
+//  	  old_rid = window.localStorage.getItem("sv_rid");
+//  	  if (rid != old_rid){
+//  	  	window.localStorage.setItem("sv_rid", rid);
+//  	  	window.localStorage.removeItem('sa_dishes');
+//  	  }
  	  
-      // $state.go('tab.ordermenu');
-    },
+//       // $state.go('tab.ordermenu');
+//     },
     
-    rrlist	: function($scope) {
+//     rrlist	: function($scope) {
    
-      $http.get(API_URL+'MobOrder/Rrlist')
-      .success(function(data, status, headers, config) {
-            if (data.result== 1)
-                console.log(data)
-                // data.folder = "http://cmtest.littlesailing.com/" + data.folder; 
-           	   $scope.types = [{ 'type':1, 'open': 1,'desc': '营业中','rrs': data.open,'img_url':data.folder }, { 'type':0, 'open': 0,'desc': '尚未营业', 'rrs': data.close }];
-           	    setTimeout(function() {
-                    $scope.$broadcast('scroll.refreshComplete');
-                }, 1000);
-           }).error(function(data, status) { 
-                $rootScope.noNetwork(); 
-           }).then(function(){
-           	  
-           }); 
-    },
+//       $http.get(API_URL+'MobOrder/Rrlist')
+//       .success(function(data, status, headers, config) {
+//             if (data.result== 1)
+//                 console.log(data)
+//                 // console.log( data.folder) 
+//                 // data.folder = "http://cmtest.littlesailing.com/" + data.folder;
+//                 data.folder = "http://cmtest.littlesailing.com/img/oldapp/";
+//                 console.log(data)
+//            	    $scope.types = [{ 'type':1, 'open': 1,'desc': '营业中','rrs': data.open,'img_url':data.folder }, { 'type':0, 'open': 0,'desc': '尚未营业', 'rrs': data.close,'img_url':data.folder }];
+//            	    $scope.restaurant_open  =   { 'type':1, 'open': 1,'desc': '营业中','rrs': data.open,'img_url':data.folder };
+//                 $scope.restaurant_close =   { 'type':0, 'open': 0,'desc': '尚未营业', 'rrs': data.close,'img_url':data.folder };
 
-    rrmenu: function($scope) {
-      order_dishes = window.localStorage.getItem("sa_dishes");
-      if (order_dishes != null){
-      	order_dishes = JSON.parse(order_dishes);
-      	$scope.totaldish = order_dishes.length;
-      } else {
-      	$scope.totaldish = 0;
-      }
-      rid = window.localStorage.getItem("sv_rid");   
-      // $http.post(API_URL+'MobOrder/Rrmenu', { rid: rid })
-      // .success(function(data, status, headers, config) {
-      //       if (data.result== 1)
-      //      	   $scope.menu =  data.menu;
-      //      	   $scope.name =  data.name;
-      //      	   $scope.open =  data.open; 
-      //      }).error(function(data, status) { 
-      //          $rootScope.noNetwork(); 
-      //      }).then(function(){
+//                 setTimeout(function() {
+//                     $scope.$broadcast('scroll.refreshComplete');
+//                 }, 1000);
+//            }).error(function(data, status) { 
+//                 $rootScope.noNetwork(); 
+//            }).then(function(){
            	  
-      //      });  
-        $http({
-          method: 'POST',
-          url: API_URL+'MobOrder/Rrmenu',
-          data:{ rid: rid }
-        }).then(function successCallback(response) {
-            var data = response.data;
-            console.log(response)
-            if (data.result== 1)
-                $scope.menu =  data.menu;
-                $scope.name =  data.name;
-                $scope.open =  data.open; 
-          }, function errorCallback(response) {
-             $rootScope.noNetwork(); 
-          });
-    },
+//            }); 
+//     },
 
-    dishadd	: function($scope,  ds_id, amount, int_no, ds_name, price) {
-    	// window.localStorage.clear();
-    	order_dishes = window.localStorage.getItem("sa_dishes");
+//     rrmenu: function($scope) {
+//       order_dishes = window.localStorage.getItem("sa_dishes");
+//       if (order_dishes != null){
+//       	order_dishes = JSON.parse(order_dishes);
+//       	$scope.totaldish = order_dishes.length;
+//       } else {
+//       	$scope.totaldish = 0;
+//       }
+//       rid = window.localStorage.getItem("sv_rid");   
+//       // $http.post(API_URL+'MobOrder/Rrmenu', { rid: rid })
+//       // .success(function(data, status, headers, config) {
+//       //       if (data.result== 1)
+//       //      	   $scope.menu =  data.menu;
+//       //      	   $scope.name =  data.name;
+//       //      	   $scope.open =  data.open; 
+//       //      }).error(function(data, status) { 
+//       //          $rootScope.noNetwork(); 
+//       //      }).then(function(){
+           	  
+//       //      });  
+//         $http({
+//           method: 'POST',
+//           url: API_URL+'MobOrder/Rrmenu',
+//           data:{ rid: rid }
+//         }).then(function successCallback(response) {
+//             var data = response.data;
+//             console.log(response)
+//             if (data.result== 1)
+//                 $scope.menu =  data.menu;
+//                 $scope.name =  data.name;
+//                 $scope.open =  data.open;
+//                 console.log($scope.menu) 
+//           }, function errorCallback(response) {
+//              $rootScope.noNetwork(); 
+//           });
+//     },
+
+//     dishadd	: function($scope,  ds_id, amount, int_no, ds_name, price) {
+//     	// window.localStorage.clear();
+//     	order_dishes = window.localStorage.getItem("sa_dishes");
   
-    	var dish = { 'ds_id':  ds_id, 'amount': amount, 'int_no': int_no , 'ds_name': ds_name, 'price':price  };
-    	if (order_dishes == null){
-    		order_dishes = new Array();
-    	} else {
-    		order_dishes = JSON.parse(order_dishes);
-    	};
+//     	var dish = { 'ds_id':  ds_id, 'amount': amount, 'int_no': int_no , 'ds_name': ds_name, 'price':price  };
+//     	if (order_dishes == null){
+//     		order_dishes = new Array();
+//     	} else {
+//     		order_dishes = JSON.parse(order_dishes);
+//     	};
     	
-    	for (var i = 0, len = order_dishes.length, flag = 0; i < len; i++) {
-    		if (order_dishes[i].ds_id == dish.ds_id) {
-    				order_dishes[i].amount = order_dishes[i].amount+dish.amount;
-    				flag = 1;
-    		}
-		}	
-        if (flag == 0) order_dishes.push(dish);
-    	window.localStorage.setItem("sa_dishes", JSON.stringify(order_dishes));
-        // window.localStorage.setItem("sv_pretax", $scope.totalpre);
-    	$scope.totaldish = order_dishes.length;
-    	$scope.closeModal();
+//     	for (var i = 0, len = order_dishes.length, flag = 0; i < len; i++) {
+//     		if (order_dishes[i].ds_id == dish.ds_id) {
+//     				order_dishes[i].amount = order_dishes[i].amount+dish.amount;
+//     				flag = 1;
+//     		}
+// 		}	
+//         if (flag == 0) order_dishes.push(dish);
+//     	window.localStorage.setItem("sa_dishes", JSON.stringify(order_dishes));
+//         // window.localStorage.setItem("sv_pretax", $scope.totalpre);
+//     	$scope.totaldish = order_dishes.length;
+//     	$scope.closeModal();
 
-    },
+//     },
     
-    // tomodify : function($scope) {
- 	     // $state.go('tab.ordermodify');
-// 
-    // },	
-  };
-})
+//     // tomodify : function($scope) {
+//  	     // $state.go('tab.ordermodify');
+// // 
+//     // },	
+//   };
+// })
 
 .factory('OrderService', function($http, $location, $state,constant,$rootScope,API_URL) {
  return {
@@ -326,7 +333,7 @@ angular.module('chanmao.services', [])
   };
 })
 
-.factory('HistoryService', function($http, $state,$rootScope,API_URL) {
+.factory('HistoryService', function($http, $state,$rootScope,loadingService,API_URL) {
  return {
     load: function($scope, mode) {  	
       uid = window.localStorage.getItem("sv_uid");  
@@ -344,6 +351,10 @@ angular.module('chanmao.services', [])
            }).error(function(data, status) { 
               $rootScope.noNetwork(); 
            }).then(function(){
+              setTimeout(function() {
+                     loadingService.hideLoading()
+              }, 1500);
+
            	   if ($scope.current != null) {
            	   		$scope.updated = Date.now();
            	   		switch($scope.current.status) {

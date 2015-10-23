@@ -4,17 +4,29 @@
   		    on-refresh="rrlist_refresh(pull)">
   		</ion-refresher>
 	  <div class="list">
-      	<div ng-repeat="type in types">
+        <a class="item "
+            href="#/tab/ordermenu/{{rr.rid}}" 
+            ng-repeat="rr in restaurant_open.rrs" 
+            ng-click="gotoRR({{rr.rid}})"
+            style="
+                padding: 0px;*/;
+                border-color: #FFF;
+                border-bottom-width: 3px;
+            "
+            >
+            <img ng-src="{{restaurant_open.img_url + rr.rid}}.jpg"style="width: 100%;"  alt="">
+        </a> 
+      	
 
-      		<div class="item item-button-right item-icon-right item-divider" ng-click='type.open = !type.open'>
-		          {{type.desc}} - {{type.rrs.length}} 家
-		          <i class="icon ion-ios7-arrow-right" ng-if="!type.open"></i>
-		          <i class="icon ion-ios7-arrow-down" ng-if="type.open"></i>
+      		<div class="item item-button-right item-icon-right item-divider" ng-click='restaurant_close.open = !restaurant_close.open'>
+		          尚未营业:
+		          <i class="icon ion-ios-arrow-right" ng-if="!restaurant_close.open"></i>
+		          <i class="icon ion-ios-arrow-down" ng-if="restaurant_close.open"></i>
 		    </div>
 		    <a class="item "
                 href="#/tab/ordermenu/{{rr.rid}}" 
-                ng-repeat="rr in type.rrs" 
-                ng-if="type.open"
+                ng-repeat="rr in restaurant_close.rrs" 
+                ng-if="restaurant_close.open"
                 ng-click="gotoRR({{rr.rid}})"
                 style="
                     padding: 0px;*/;
@@ -22,10 +34,11 @@
                     border-bottom-width: 3px;
                 "
                 >
-      			<img ng-src="{{type.img_url + rr.rid}}.jpg"style="width: 100%;"  alt="">
+      			<img ng-src="{{restaurant_close.img_url + rr.rid}}.jpg"style="width: 100%;"  alt="">
       		</a> 
 
-		</div>
+		
+
       </div>  
 
 

@@ -203,7 +203,7 @@ angular.module('chanmao.controllers', [])
 
 .controller('OrderCtrl', function($scope,loadingService, RRService) {
     RRService.rrlist($scope);
-     $scope.gotoRR = function(rid) {	
+    $scope.gotoRR = function(rid) {	
       	RRService.gotoRR(rid);
   	};	
   	$scope.rrlist_refresh = function(){
@@ -213,96 +213,96 @@ angular.module('chanmao.controllers', [])
   	
 })
 
-.controller('OrderMenuCtrl', function($scope, $state, $stateParams, $ionicLoading, $ionicModal,$ionicScrollDelegate, RRService,$rootScope) {
-// Hide the tab
-    // var tabs = document.querySelectorAll('div.tabs')[0];
-    // tabs = angular.element(tabs);
-    // tabs.css('display', 'none');
- // Trigger the loading indicator
+// .controller('OrderMenuCtrl', function($scope, $state, $stateParams, $ionicLoading, $ionicModal,$ionicScrollDelegate, RRService,$rootScope) {
+// // Hide the tab
+//     // var tabs = document.querySelectorAll('div.tabs')[0];
+//     // tabs = angular.element(tabs);
+//     // tabs.css('display', 'none');
+//  // Trigger the loading indicator
  
- // Hide the tab
-     var tabs = document.querySelectorAll('div.tabs')[0];
-     tabs = angular.element(tabs);
-     tabs.css('display', 'none');
-   //tabs.css('class', 'tabs-item-hide');
-     $scope.$on('$destroy', function() {
-       tabs.css('display', '');
-     });
+//  // Hide the tab
+//      var tabs = document.querySelectorAll('div.tabs')[0];
+//      tabs = angular.element(tabs);
+//      tabs.css('display', 'none');
+//    //tabs.css('class', 'tabs-item-hide');
+//      $scope.$on('$destroy', function() {
+//        tabs.css('display', '');
+//      });
 
- 	var order_menu_scroll = $ionicScrollDelegate.$getByHandle('order_menu_scroll')
-  	$scope.showLoading = function() {
-		$ionicLoading.show({
-		    template: '<img src="http://cmtest.littlesailing.com/img/chanmao_logo.gif"style="height: 10%;"> </br>快到碗里来...'
-		});
-    };
-    $scope.showLoading()
-    $scope.$on('$destroy', function() {
-      // tabs.css('display', '');
-      $scope.modal.remove();
+//  	var order_menu_scroll = $ionicScrollDelegate.$getByHandle('order_menu_scroll')
+//   	$scope.showLoading = function() {
+// 		$ionicLoading.show({
+// 		    template: '<img src="http://cmtest.littlesailing.com/img/chanmao_logo.gif"style="height: 10%;"> </br>快到碗里来...'
+// 		});
+//     };
+//     $scope.showLoading()
+//     $scope.$on('$destroy', function() {
+//       // tabs.css('display', '');
+//       $scope.modal.remove();
       
-    });
+//     });
 
-    $scope.open_dstype = function(dstype) {
-    	dstype.open = ! dstype.open
-    	// order_menu_scroll.freezeScroll(true)
-        setTimeout(function() {
-       		order_menu_scroll.resize()
-       		// order_menu_scroll.freezeScroll(false)
-       	});
+//     $scope.open_dstype = function(dstype) {
+//     	dstype.open = ! dstype.open
+//     	// order_menu_scroll.freezeScroll(true)
+//         setTimeout(function() {
+//        		order_menu_scroll.resize()
+//        		// order_menu_scroll.freezeScroll(false)
+//        	});
 
-    };
+//     };
     
-	$scope.gotoModify = function() {
-		if ($scope.totaldish == 0) $rootScope.message('注意', '当前还没点任何菜品'); 
-		 else $state.go('tab.ordermodify');
-	};    
+// 	$scope.gotoModify = function() {
+// 		if ($scope.totaldish == 0) $rootScope.message('注意', '当前还没点任何菜品'); 
+// 		 else $state.go('tab.ordermodify');
+// 	};    
             
-    $scope.amountAdd = function(){
-    	if ($scope.amount < 10)
-    	$scope.amount = $scope.amount + 1;
-    };
+//     $scope.amountAdd = function(){
+//     	if ($scope.amount < 10)
+//     	$scope.amount = $scope.amount + 1;
+//     };
     
-    $scope.amountRemove = function(){
-    	if ($scope.amount > 1)
-    	$scope.amount = $scope.amount - 1;
-    };
+//     $scope.amountRemove = function(){
+//     	if ($scope.amount > 1)
+//     	$scope.amount = $scope.amount - 1;
+//     };
  	
- 	$scope.order = function(ds_id, int_no, ds_name, price) {
- 		$scope.amount = 1;
- 		$scope.ds_id = ds_id;
- 		$scope.int_no = int_no;
- 		$scope.ds_name = ds_name;
- 		$scope.price = price;
-		$scope.openModal();
-	};
+//  	$scope.order = function(ds_id, int_no, ds_name, price) {
+//  		$scope.amount = 1;
+//  		$scope.ds_id = ds_id;
+//  		$scope.int_no = int_no;
+//  		$scope.ds_name = ds_name;
+//  		$scope.price = price;
+// 		$scope.openModal();
+// 	};
 	   
-    $ionicModal.fromTemplateUrl('order-menu-modal.html', function(modal) {
-	    $scope.modal = modal;
-	  }, {
-	    // Use our scope for the scope of the modal to keep it simple
-	    scope: $scope,
-	    // The animation we want to use for the modal entrance
-	    animation: 'slide-in-up'
-	  });
+//     $ionicModal.fromTemplateUrl('order-menu-modal.html', function(modal) {
+// 	    $scope.modal = modal;
+// 	  }, {
+// 	    // Use our scope for the scope of the modal to keep it simple
+// 	    scope: $scope,
+// 	    // The animation we want to use for the modal entrance
+// 	    animation: 'slide-in-up'
+// 	  });
 
-	$scope.openModal = function() {
-	    $scope.modal.show();
-	};
-	$scope.closeModal = function() {
-	    $scope.modal.hide();
-	};    
+// 	$scope.openModal = function() {
+// 	    $scope.modal.show();
+// 	};
+// 	$scope.closeModal = function() {
+// 	    $scope.modal.hide();
+// 	};    
     
- 	$scope.dishAdd = function(ds_id,amount,int_no,ds_name,price) {
-		RRService.dishadd($scope,ds_id,amount,int_no,ds_name,price);
-	};    
+//  	$scope.dishAdd = function(ds_id,amount,int_no,ds_name,price) {
+// 		RRService.dishadd($scope,ds_id,amount,int_no,ds_name,price);
+// 	};    
 	
 	
-    RRService.rrmenu($scope);
- 	if ($scope.totaldish == null) $scope.totaldish = 0;
-	// $scope.orderModify = function(){
-		// RRService.tomodify();
-	// };
-})
+//     RRService.rrmenu($scope);
+//  	if ($scope.totaldish == null) $scope.totaldish = 0;
+// 	// $scope.orderModify = function(){
+// 		// RRService.tomodify();
+// 	// };
+// })
 
 .controller('OrderModifyCtrl', function($scope, $ionicModal, OrderService, AddressService) {
     $ionicModal.fromTemplateUrl('order-modify-modal.html', function(modal) {

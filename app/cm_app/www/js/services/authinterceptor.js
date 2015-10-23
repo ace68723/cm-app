@@ -31,10 +31,7 @@ angular.module('chanmao')
         return config   
     },
     authInterceptor.response=function(response) {
-        setTimeout(function() {
-            
-              loadingService.hideLoading()
-        }, 1500);
+       
         return response;
     }
     return authInterceptor

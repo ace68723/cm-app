@@ -57730,7 +57730,7 @@ IonicModule
     controller: '$ionicRefresher',
     template:
     '<div class="scroll-refresher invisible" collection-repeat-ignore>' +
-      '<div class="ionic-refresher-content" ' +
+      '<div class="ionic-refresher-content" style="bottom: 6px;"' +
       'ng-class="{\'ionic-refresher-with-text\': pullingText || refreshingText}">' +
         // '<div class="icon-pulling" ng-class="{\'pulling-rotation-disabled\':disablePullingRotation}">' +
         //   '<i class="icon {{pullingIcon}}"></i>' +
