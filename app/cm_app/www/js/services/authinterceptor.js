@@ -23,10 +23,10 @@ angular.module('chanmao')
         }
 
         if(isAuthenticated){
-            config.headers.AuthorToken = token;
+            config.headers.Authortoken = token;
         }else if(res_code){
             config.headers.Rescode = res_code;
-            config.headers.AuthorToken = '';
+            config.headers.Authortoken = '';
         } 
         return config   
     },

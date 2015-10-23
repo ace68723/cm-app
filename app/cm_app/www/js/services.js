@@ -27,95 +27,95 @@ angular.module('chanmao.services', [])
   };
 })
 
-.factory('LoginService', function($http, $state, $rootScope,API_URL,auth) {
- return {
-    login: function($scope, $ionicPopup) {	
-      errortext = '';	
-	  if (($scope.login.username == null) ||
-		  ($scope.login.password == null))  
-	  	errortext = '* 请按正确格式填写所有字段<br>';
-	  if (errortext != ''){	  		  
-		  $scope.showValidation(errortext); 
-	  } else {	
-      	$http.post(API_URL+'MobLogin/login', { username: $scope.login.username, password: $scope.login.password })
-      	.success(function(data, status, headers, config) {
-            $scope.result = data.result ;
-            if (data.result == 1) 
-                auth.setToken(data.token)
-           	   window.localStorage.setItem("sv_uid", data.uid);
-           	   window.localStorage.removeItem('sv_last');
-           	   window.localStorage.removeItem('sv_rid');
-           	   window.localStorage.removeItem('sa_dishes');
+// .factory('LoginService', function($http, $state, $rootScope,API_URL,auth) {
+//  return {
+//     login: function($scope, $ionicPopup) {	
+//       errortext = '';	
+// 	  if (($scope.login.username == null) ||
+// 		  ($scope.login.password == null))  
+// 	  	errortext = '* 请按正确格式填写所有字段<br>';
+// 	  if (errortext != ''){	  		  
+// 		  $scope.showValidation(errortext); 
+// 	  } else {	
+//       	$http.post(API_URL+'MobLogin/login', { username: $scope.login.username, password: $scope.login.password })
+//       	.success(function(data, status, headers, config) {
+//             $scope.result = data.result ;
+//             if (data.result == 1) 
+//                 auth.setToken(data.token)
+//            	   window.localStorage.setItem("sv_uid", data.uid);
+//            	   window.localStorage.removeItem('sv_last');
+//            	   window.localStorage.removeItem('sv_rid');
+//            	   window.localStorage.removeItem('sa_dishes');
            	   
-           }).error(function(data, status) { 
-                $rootScope.noNetwork(); 
-           }).then(function(){
-           	 if ($scope.result != 1){      	 
-           	 	errortext = '* 用户名和密码不匹配<br>';	
-           	 	$scope.showValidation(errortext); 
-			 } else {
-			 	$scope.showSuccess();
-			 } 	 	 
-         });
-      }     
-    },
+//            }).error(function(data, status) { 
+//                 $rootScope.noNetwork(); 
+//            }).then(function(){
+//            	 if ($scope.result != 1){      	 
+//            	 	errortext = '* 用户名和密码不匹配<br>';	
+//            	 	$scope.showValidation(errortext); 
+// 			 } else {
+// 			 	$scope.showSuccess();
+// 			 } 	 	 
+//          });
+//       }     
+//     },
 
-	register: function($scope, $ionicPopup) {
-	  errortext = '';	
-	  if (($scope.register.username == null) ||
-		  ($scope.register.password == null) ||
-		  ($scope.register.password2 == null) ||
-		  ($scope.register.email == null) ||
-		  ($scope.register.email2 == null) )
-		  errortext = '* 请按正确格式填写所有字段<br>';
-	  if ($scope.register.password != $scope.register.password2)
-		  errortext = errortext + '* 两次输入的密码不一致<br>';
-	  if ($scope.register.email != $scope.register.email2)
-		  errortext = errortext + '* 两次输入的Email不一致<br>';
-	  if (errortext != ''){	  		  
-		  $scope.showValidation(errortext); 
-	  } else {	  	
-	      $http.post(API_URL+'MobLogin/register', { username: $scope.register.username, password: $scope.register.password, email: $scope.register.email })
-	      .success(function(data, status, headers, config) {
-	            $scope.result = data.result;  
-	            if (data.result == 2)
-	           	   errortext = data.errorcontent; 
-	           }).error(function(data, status) { 
-	                $rootScope.noNetwork(); 
-	           }).then(function(){
-	           	 if ($scope.result == 1){      	 	
-	           	 	$scope.showSuccess(); 
-				 } else if ($scope.result == 2){  
-				 	$scope.showValidation(errortext); 
-				 }    	 
-	           }); 
-      }
-    },    
+// 	register: function($scope, $ionicPopup) {
+// 	  errortext = '';	
+// 	  if (($scope.register.username == null) ||
+// 		  ($scope.register.password == null) ||
+// 		  ($scope.register.password2 == null) ||
+// 		  ($scope.register.email == null) ||
+// 		  ($scope.register.email2 == null) )
+// 		  errortext = '* 请按正确格式填写所有字段<br>';
+// 	  if ($scope.register.password != $scope.register.password2)
+// 		  errortext = errortext + '* 两次输入的密码不一致<br>';
+// 	  if ($scope.register.email != $scope.register.email2)
+// 		  errortext = errortext + '* 两次输入的Email不一致<br>';
+// 	  if (errortext != ''){	  		  
+// 		  $scope.showValidation(errortext); 
+// 	  } else {	  	
+// 	      $http.post(API_URL+'MobLogin/register', { username: $scope.register.username, password: $scope.register.password, email: $scope.register.email })
+// 	      .success(function(data, status, headers, config) {
+// 	            $scope.result = data.result;  
+// 	            if (data.result == 2)
+// 	           	   errortext = data.errorcontent; 
+// 	           }).error(function(data, status) { 
+// 	                $rootScope.noNetwork(); 
+// 	           }).then(function(){
+// 	           	 if ($scope.result == 1){      	 	
+// 	           	 	$scope.showSuccess(); 
+// 				 } else if ($scope.result == 2){  
+// 				 	$scope.showValidation(errortext); 
+// 				 }    	 
+// 	           }); 
+//       }
+//     },    
  
-    forget: function($scope, $ionicPopup, mode) {	
-      errortext = "";	
-	  if ($scope.forget.email == null )
-		  errortext = '* 请按正确格式填写所有字段<br>';
-	  if (errortext != ''){	  		  
-		  $scope.showValidation(errortext); 
-	  } else {		  
-	      $http.post(API_URL+'MobLogin/forget', { email: $scope.forget.email, mode: mode })
-	      .success(function(data, status, headers, config) {
-	           	 $scope.result = data.result ; 
-	           	 errortext = data.errorcontent;
-	           }).error(function(data, status) { 
-	                $rootScope.noNetwork(); 
-	           }).then(function(){
-	           	 if ($scope.result == 1){      	 	
-	           	 	$scope.showAlert(); 
-				 } else if ($scope.result == 2){  
-					 	$scope.showValidation(errortext); 
-				 }    	
-	           }); 
-	   }
-    },
-  };
-})
+//     forget: function($scope, $ionicPopup, mode) {	
+//       errortext = "";	
+// 	  if ($scope.forget.email == null )
+// 		  errortext = '* 请按正确格式填写所有字段<br>';
+// 	  if (errortext != ''){	  		  
+// 		  $scope.showValidation(errortext); 
+// 	  } else {		  
+// 	      $http.post(API_URL+'MobLogin/forget', { email: $scope.forget.email, mode: mode })
+// 	      .success(function(data, status, headers, config) {
+// 	           	 $scope.result = data.result ; 
+// 	           	 errortext = data.errorcontent;
+// 	           }).error(function(data, status) { 
+// 	                $rootScope.noNetwork(); 
+// 	           }).then(function(){
+// 	           	 if ($scope.result == 1){      	 	
+// 	           	 	$scope.showAlert(); 
+// 				 } else if ($scope.result == 2){  
+// 					 	$scope.showValidation(errortext); 
+// 				 }    	
+// 	           }); 
+// 	   }
+//     },
+//   };
+// })
 
 // .factory('RRService', function($http, $state, $rootScope,API_URL) {
 //  return {
@@ -222,116 +222,116 @@ angular.module('chanmao.services', [])
 //   };
 // })
 
-.factory('OrderService', function($http, $location, $state,constant,$rootScope,API_URL) {
- return {
-    readyList : function($scope) {
-      order_dishes = window.localStorage.getItem("sa_dishes");
-      order_dishes = JSON.parse(order_dishes);  
-      totalpre = 0.00;
-      for (var i = 0; i < order_dishes.length; i++){
-      	totalpre = totalpre + order_dishes[i].price * order_dishes[i].amount;
-      };
-      $scope.dishes = order_dishes;
-      $scope.totaldish = order_dishes.length;
-      $scope.totalpre = totalpre;
-    },
+// .factory('OrderService', function($http, $location, $state,constant,$rootScope,API_URL) {
+//  return {
+//     readyList : function($scope) {
+//       order_dishes = window.localStorage.getItem("sa_dishes");
+//       order_dishes = JSON.parse(order_dishes);  
+//       totalpre = 0.00;
+//       for (var i = 0; i < order_dishes.length; i++){
+//       	totalpre = totalpre + order_dishes[i].price * order_dishes[i].amount;
+//       };
+//       $scope.dishes = order_dishes;
+//       $scope.totaldish = order_dishes.length;
+//       $scope.totalpre = totalpre;
+//     },
     
-    dishDelete : function($scope, ds_id) {
-      pre_dishes = window.localStorage.getItem("sa_dishes");
-      pre_dishes = JSON.parse(pre_dishes);
-      totalpre = 0.00;
-      order_dishes = new Array();
-      for (var i = 0; i < pre_dishes.length; i++){
-      	if (pre_dishes[i].ds_id != ds_id){
-      		order_dishes.push(pre_dishes[i]);
-      		totalpre = totalpre + pre_dishes[i].price * pre_dishes[i].amount;
-      	}
-      };
-      $scope.dishes = order_dishes;
-      $scope.totaldish = order_dishes.length;
-      $scope.totalpre = totalpre;
-      window.localStorage.setItem("sa_dishes", JSON.stringify(order_dishes));
-      // window.localStorage.setItem("sv_pretax", $scope.totalpre);
-      $scope.closeModal();
-    },
+//     dishDelete : function($scope, ds_id) {
+//       pre_dishes = window.localStorage.getItem("sa_dishes");
+//       pre_dishes = JSON.parse(pre_dishes);
+//       totalpre = 0.00;
+//       order_dishes = new Array();
+//       for (var i = 0; i < pre_dishes.length; i++){
+//       	if (pre_dishes[i].ds_id != ds_id){
+//       		order_dishes.push(pre_dishes[i]);
+//       		totalpre = totalpre + pre_dishes[i].price * pre_dishes[i].amount;
+//       	}
+//       };
+//       $scope.dishes = order_dishes;
+//       $scope.totaldish = order_dishes.length;
+//       $scope.totalpre = totalpre;
+//       window.localStorage.setItem("sa_dishes", JSON.stringify(order_dishes));
+//       // window.localStorage.setItem("sv_pretax", $scope.totalpre);
+//       $scope.closeModal();
+//     },
 
-    dishChange : function($scope, ds_id, amount) {
-      pre_dishes = window.localStorage.getItem("sa_dishes");
-      pre_dishes = JSON.parse(pre_dishes);
-      order_dishes = new Array();
-      totalpre = 0.00;
-      for (var i = 0; i < pre_dishes.length; i++){
-      	if (pre_dishes[i].ds_id == ds_id){
-      		pre_dishes[i].amount = amount;
-      	};
-      	order_dishes.push(pre_dishes[i]);
-      	totalpre = totalpre + pre_dishes[i].price * pre_dishes[i].amount;
-      };
-      $scope.dishes = order_dishes;
-      $scope.totaldish = order_dishes.length;
-      $scope.totalpre = totalpre;
-      window.localStorage.setItem("sa_dishes", JSON.stringify(order_dishes));
-      // window.localStorage.setItem("sv_pretax", $scope.totalpre);
-      $scope.closeModal();
-    },
+//     dishChange : function($scope, ds_id, amount) {
+//       pre_dishes = window.localStorage.getItem("sa_dishes");
+//       pre_dishes = JSON.parse(pre_dishes);
+//       order_dishes = new Array();
+//       totalpre = 0.00;
+//       for (var i = 0; i < pre_dishes.length; i++){
+//       	if (pre_dishes[i].ds_id == ds_id){
+//       		pre_dishes[i].amount = amount;
+//       	};
+//       	order_dishes.push(pre_dishes[i]);
+//       	totalpre = totalpre + pre_dishes[i].price * pre_dishes[i].amount;
+//       };
+//       $scope.dishes = order_dishes;
+//       $scope.totaldish = order_dishes.length;
+//       $scope.totalpre = totalpre;
+//       window.localStorage.setItem("sa_dishes", JSON.stringify(order_dishes));
+//       // window.localStorage.setItem("sv_pretax", $scope.totalpre);
+//       $scope.closeModal();
+//     },
 
-    delifee : function($scope) {
-      dlexp = 0.00;
-      $scope.dlexp = dlexp ;
-      if ($scope.dltype == 1) {
-      	 rid = window.localStorage.getItem("sv_rid");
-      	 $http.post(API_URL+'MobOrder/calcdeli', { rid: parseInt(rid), uaid: parseInt($scope.uaid) })
-      		.success(function(data, status, headers, config) {
-            	$scope.result = data.result; 
-            	$scope.dlexp = data.dlexp;
-	           }).error(function(data, status) { 
-	                $rootScope.noNetwork(); 
-	           }).then(function(){
-	           		if ( $scope.result == 0) {
-	           			$scope.showExceed(); 	           			
-	           		}
-	           }); 
-      };
+//     delifee : function($scope) {
+//       dlexp = 0.00;
+//       $scope.dlexp = dlexp ;
+//       if ($scope.dltype == 1) {
+//       	 rid = window.localStorage.getItem("sv_rid");
+//       	 $http.post(API_URL+'MobOrder/calcdeli', { rid: parseInt(rid), uaid: parseInt($scope.uaid) })
+//       		.success(function(data, status, headers, config) {
+//             	$scope.result = data.result; 
+//             	$scope.dlexp = data.dlexp;
+// 	           }).error(function(data, status) { 
+// 	                $rootScope.noNetwork(); 
+// 	           }).then(function(){
+// 	           		if ( $scope.result == 0) {
+// 	           			$scope.showExceed(); 	           			
+// 	           		}
+// 	           }); 
+//       };
       
-    },
+//     },
     
-    checkout : function($scope) {
-      order_dishes = window.localStorage.getItem("sa_dishes");
-      order_dishes = JSON.parse(order_dishes);
-      // // if ($scope.dltype == 1) {
-      	 rid = window.localStorage.getItem("sv_rid");
-      	 uid = window.localStorage.getItem("sv_uid");
-      	 $http.post(API_URL+'MobOrder/checkout', { 
-      	 						rid: parseInt(rid), 
-      	 						uaid: parseInt($scope.uaid),
-								uid : parseInt(uid),
-								channel : constant.channel, // 0. Web 1. Android 2. iOS 
-								dltype : $scope.dltype,
-								dlexp : $scope.dlexp,
-								pretax : $scope.totalpre,
-								comment : $scope.comment,
-								items : order_dishes,
-      	 						 })
-      		.success(function(data, status, headers, config) {
-                $scope.result = data.result;
-            	$scope.content = data.errorcontent; 
-	           }).error(function(data, status) { 
-	           		if ((status === null) || (status === undefined)){
+//     checkout : function($scope) {
+//       order_dishes = window.localStorage.getItem("sa_dishes");
+//       order_dishes = JSON.parse(order_dishes);
+//       // // if ($scope.dltype == 1) {
+//       	 rid = window.localStorage.getItem("sv_rid");
+//       	 uid = window.localStorage.getItem("sv_uid");
+//       	 $http.post(API_URL+'MobOrder/checkout', { 
+//       	 						rid: parseInt(rid), 
+//       	 						uaid: parseInt($scope.uaid),
+// 								uid : parseInt(uid),
+// 								channel : constant.channel, // 0. Web 1. Android 2. iOS 
+// 								dltype : $scope.dltype,
+// 								dlexp : $scope.dlexp,
+// 								pretax : $scope.totalpre,
+// 								comment : $scope.comment,
+// 								items : order_dishes,
+//       	 						 })
+//       		.success(function(data, status, headers, config) {
+//                 $scope.result = data.result;
+//             	$scope.content = data.errorcontent; 
+// 	           }).error(function(data, status) { 
+// 	           		if ((status === null) || (status === undefined)){
 	           			
-	           		} else {
-	                	$rootScope.noNetwork(); 
-	           		}
-	           }).then(function(){
-	           	if ($scope.result == 1) {
-	           		$scope.showSuccess('请不要关闭App,直至商家确认，谢谢');
-	           		window.localStorage.removeItem('sv_rid');
-  					window.localStorage.removeItem('sa_dishes');
-	           	 } else $scope.showError('下单失败，请联系客服: 647-515-6699'); //$scope.content
-	           }); 
-      // };
-    },  
-  };
-})
+// 	           		} else {
+// 	                	$rootScope.noNetwork(); 
+// 	           		}
+// 	           }).then(function(){
+// 	           	if ($scope.result == 1) {
+// 	           		$scope.showSuccess('请不要关闭App,直至商家确认，谢谢');
+// 	           		window.localStorage.removeItem('sv_rid');
+//   					window.localStorage.removeItem('sa_dishes');
+// 	           	 } else $scope.showError('下单失败，请联系客服: 647-515-6699'); //$scope.content
+// 	           }); 
+//       // };
+//     },  
+//   };
+// })
 
 .factory('HistoryService', function($http, $state,$rootScope,loadingService,API_URL) {
  return {
@@ -405,103 +405,103 @@ angular.module('chanmao.services', [])
   };
 })
 
-.factory('AddressService', function($http, $state,$rootScope,API_URL) {
-    var editing_addr;
- return {
-    all: function($scope) {
-    	uid = window.localStorage.getItem("sv_uid");  
-      $http.post(API_URL+'MobAddress/addresslist', { uid: uid  })
-      .success(function(data, status, headers, config) {
-            if (data.result == 1)
-           	 $scope.address = data.address; 
-           	 // $scope.loadingIndicator.hide();
-           }).error(function(data, status) { 
-               $rootScope.noNetwork(); 
-           }).then(); 
-    },
-    exist: function($scope) {
-    	uid = window.localStorage.getItem("sv_uid"); 
-    	exist = 0; 
-      $http.post(API_URL+'MobAddress/addressexist', { uid: uid  })
-      .success(function(data, status, headers, config) {
-            if (data.result == 1)
-           	exist = data.exist; 
-           }).error(function(data, status) { 
-                 $rootScope.noNetwork(); 
-           }).then(function(){
-           		$scope.exist = exist;
-           }); 
-    },
-	validate: function($scope) {
-		errortext = '';	
-		if (($scope.addr.name == null) ||
-			  ($scope.addr.tel == null) ||
-			  ($scope.addr.city == null) ||
-			  ($scope.addr.postal == null) ||
-			  ($scope.addr.addr == null) )
-			  errortext = '* 请按正确格式填写所有字段<br>';
-	    if (errortext != ''){	  		  
-			  $scope.showValidation(errortext); 
-		} else	{  
-	   		var address_str = $scope.addr.addr+'+'+$scope.addr.city+'+ON';
-	   		address_str = address_str.replace(/\s/g,"+");
-	   		var geocoder = new google.maps.Geocoder();
-			var geocoderRequest = { address: address_str };
-			geocoder.geocode(geocoderRequest, function(results, status){
-				if (status == 'OK'){
-			  		$scope.addr.address = results[0]['formatted_address'];
-					$scope.addr.lat = results[0].geometry.location.lat();
-					$scope.addr.lng = results[0].geometry.location.lng();
-			  	} else {
-			  		$scope.addr.address = "系统无法检测到您的地址，请返回重新检查地址格式";			
-			  	}		
-			  	console.log("service_inner"+$scope.addr.address+"service_inner"+$scope.addr.lat+$scope.addr.lng);
-			  	$scope.openModal();
-			//do your result related activities here, maybe push the coordinates to the backend for later use, etc.
-			});
-		}
-	},
-	create: function($scope) {
-	  $scope.addr.uid = window.localStorage.getItem("sv_uid");
-      $http.post(API_URL+'MobAddress/Addresscreate',  $scope.addr )
-      .success(function(data, status, headers, config) {
-            if (data.result == 1)
-           	 $scope.result = data.result;          	 
-           }).error(function(data, status) { 
-                 $rootScope.noNetwork(); 
-           }).then(function(){
-           	 if ($scope.result == 1){
-           	 	$scope.closeModal();
-			 	$state.go('tab.address');
-			 }
-           }); 
-    },
-    save_addr:function(addr) {
-        editing_addr = addr;
-    },
-    get_addr:function() {
-        return editing_addr;
-    },
-    addr_delete:function(addr) {
-        console.log(addr)
-        var uaid = addr.uaid
-        var data = {};
-        data.uaid = uaid;
-        data.del = "1";
-        $http.post(API_URL+'MobAddress/Addressupdate', data)
-        .success(function(data, status, headers, config) {
-              if (data.result == 1){
+// .factory('AddressService', function($http, $state,$rootScope,API_URL) {
+//     var editing_addr;
+//  return {
+//     all: function($scope) {
+//     	uid = window.localStorage.getItem("sv_uid");  
+//       $http.post(API_URL+'MobAddress/addresslist', { uid: uid  })
+//       .success(function(data, status, headers, config) {
+//             if (data.result == 1)
+//            	 $scope.address = data.address; 
+//            	 // $scope.loadingIndicator.hide();
+//            }).error(function(data, status) { 
+//                $rootScope.noNetwork(); 
+//            }).then(); 
+//     },
+//     exist: function($scope) {
+//     	uid = window.localStorage.getItem("sv_uid"); 
+//     	exist = 0; 
+//       $http.post(API_URL+'MobAddress/addressexist', { uid: uid  })
+//       .success(function(data, status, headers, config) {
+//             if (data.result == 1)
+//            	exist = data.exist; 
+//            }).error(function(data, status) { 
+//                  $rootScope.noNetwork(); 
+//            }).then(function(){
+//            		$scope.exist = exist;
+//            }); 
+//     },
+// 	validate: function($scope) {
+// 		errortext = '';	
+// 		if (($scope.addr.name == null) ||
+// 			  ($scope.addr.tel == null) ||
+// 			  ($scope.addr.city == null) ||
+// 			  ($scope.addr.postal == null) ||
+// 			  ($scope.addr.addr == null) )
+// 			  errortext = '* 请按正确格式填写所有字段<br>';
+// 	    if (errortext != ''){	  		  
+// 			  $scope.showValidation(errortext); 
+// 		} else	{  
+// 	   		var address_str = $scope.addr.addr+'+'+$scope.addr.city+'+ON';
+// 	   		address_str = address_str.replace(/\s/g,"+");
+// 	   		var geocoder = new google.maps.Geocoder();
+// 			var geocoderRequest = { address: address_str };
+// 			geocoder.geocode(geocoderRequest, function(results, status){
+// 				if (status == 'OK'){
+// 			  		$scope.addr.address = results[0]['formatted_address'];
+// 					$scope.addr.lat = results[0].geometry.location.lat();
+// 					$scope.addr.lng = results[0].geometry.location.lng();
+// 			  	} else {
+// 			  		$scope.addr.address = "系统无法检测到您的地址，请返回重新检查地址格式";			
+// 			  	}		
+// 			  	console.log("service_inner"+$scope.addr.address+"service_inner"+$scope.addr.lat+$scope.addr.lng);
+// 			  	$scope.openModal();
+// 			//do your result related activities here, maybe push the coordinates to the backend for later use, etc.
+// 			});
+// 		}
+// 	},
+// 	create: function($scope) {
+// 	  $scope.addr.uid = window.localStorage.getItem("sv_uid");
+//       $http.post(API_URL+'MobAddress/Addresscreate',  $scope.addr )
+//       .success(function(data, status, headers, config) {
+//             if (data.result == 1)
+//            	 $scope.result = data.result;          	 
+//            }).error(function(data, status) { 
+//                  $rootScope.noNetwork(); 
+//            }).then(function(){
+//            	 if ($scope.result == 1){
+//            	 	$scope.closeModal();
+// 			 	$state.go('tab.address');
+// 			 }
+//            }); 
+//     },
+//     save_addr:function(addr) {
+//         editing_addr = addr;
+//     },
+//     get_addr:function() {
+//         return editing_addr;
+//     },
+//     addr_delete:function(addr) {
+//         console.log(addr)
+//         var uaid = addr.uaid
+//         var data = {};
+//         data.uaid = uaid;
+//         data.del = "1";
+//         $http.post(API_URL+'MobAddress/Addressupdate', data)
+//         .success(function(data, status, headers, config) {
+//               if (data.result == 1){
 
-              }
-             }).error(function(data, status) { 
-                 $rootScope.noNetwork(); 
-             }).then(); 
-    }
+//               }
+//              }).error(function(data, status) { 
+//                  $rootScope.noNetwork(); 
+//              }).then(); 
+//     }
 
 	
-  };
+//   };
   
-})
+// })
 
 
 

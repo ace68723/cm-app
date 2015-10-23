@@ -30,25 +30,25 @@ angular.module('chanmao.controllers', [])
 })
 
 
-.controller('LoginCtrl', function($scope, $state,auth) {
- 	uid = window.localStorage.getItem("sv_uid");  
-	if (uid != null){
-		$state.go('tab.history');
-	}
-	//  new version 
+// .controller('LoginCtrl', function($scope, $state,auth) {
+//  	uid = window.localStorage.getItem("sv_uid");  
+// 	if (uid != null){
+// 		$state.go('tab.history');
+// 	}
+// 	//  new version 
 
-	$scope.isInstalledWechat = function() {
-		Wechat.isInstalled(function (installed) {
-		    alert("Wechat installed: " + (installed ? "Yes" : "No"));
-		}, function (reason) {
-		    alert("Failed: " + reason);
-		});
-	};
+// 	$scope.isInstalledWechat = function() {
+// 		Wechat.isInstalled(function (installed) {
+// 		    alert("Wechat installed: " + (installed ? "Yes" : "No"));
+// 		}, function (reason) {
+// 		    alert("Failed: " + reason);
+// 		});
+// 	};
 	
-	$scope.wechat_login = function() {
-		auth.doWechatAuth()
-	};
-})
+// 	$scope.wechat_login = function() {
+// 		auth.doWechatAuth()
+// 	};
+// })
 
 .controller('IntroCtrl', function( $scope) {
 	
@@ -68,42 +68,42 @@ angular.module('chanmao.controllers', [])
   };
 
 })
-.controller('LoginFormCtrl', function( $scope, $state, $ionicLoading, $ionicPopup, LoginService, $window) {
-	$scope.showSuccess = function() {
+// .controller('LoginFormCtrl', function( $scope, $state, $ionicLoading, $ionicPopup, LoginService, $window) {
+// 	$scope.showSuccess = function() {
 		
-	    $state.go('tab.history');
-	};
+// 	    $state.go('tab.history');
+// 	};
 		
-	$scope.showValidation = function(content) {
-		$ionicPopup.alert({
-		              title: '请检查以下错误',
-		              content: content,
-		              okText: '返回修改'
-		            }).then(function(res) {
-		                 // $state.go('login');
-		            });
-		};	
+// 	$scope.showValidation = function(content) {
+// 		$ionicPopup.alert({
+// 		              title: '请检查以下错误',
+// 		              content: content,
+// 		              okText: '返回修改'
+// 		            }).then(function(res) {
+// 		                 // $state.go('login');
+// 		            });
+// 		};	
 
-	$scope.showLoading = function() {
-  		$ionicLoading.show({
-	        content: '登录验证中...',
-	        animation: 'fade-in',
-	        showBackdrop: true,
-	        maxWidth: 200,
-        // showDelay: 500
-    	}); 
-    };
-    $scope.hideLoading = function(){
-    	$ionicLoading.hide();
-  	};
+// 	$scope.showLoading = function() {
+//   		$ionicLoading.show({
+// 	        content: '登录验证中...',
+// 	        animation: 'fade-in',
+// 	        showBackdrop: true,
+// 	        maxWidth: 200,
+//         // showDelay: 500
+//     	}); 
+//     };
+//     $scope.hideLoading = function(){
+//     	$ionicLoading.hide();
+//   	};
     
-    $scope.login = function() {
-		$scope.showLoading();
-		LoginService.login($scope, $ionicPopup);
-	};	
+//     $scope.login = function() {
+// 		$scope.showLoading();
+// 		LoginService.login($scope, $ionicPopup);
+// 	};	
 
 
-})
+// })
 
 .controller('RegisterFormCtrl', function( $scope, $state, $ionicLoading, $ionicPopup, LoginService) {
 	$scope.showSuccess = function() {
@@ -358,117 +358,89 @@ angular.module('chanmao.controllers', [])
 })
 
 
-.controller('OrderCheckoutCtrl', function($scope, $state, $location, $ionicPopup, $ionicLoading, OrderService, AddressService) {
-    // $ionicModal.fromTemplateUrl('order-checkout-modal.html', function(modal) {
-	    // $scope.modal = modal;
-	  // }, {
-	    // // Use our scope for the scope of the modal to keep it simple
-	    // scope: $scope,
-	    // // The animation we want to use for the modal entrance
-	    // animation: 'slide-in-up'
-	  // });
-// 
-	// $scope.openModal = function() {
-	    // $scope.modal.show();
-	// };
-// 	
-	// $scope.closeModal = function() {
-	    // $scope.modal.hide();
-	// }; 
-// 	
- 	// $scope.dishDelete = function(ds_id) {
-		// OrderService.dishDelete($scope,ds_id);
-// 		
-	// };
-// 
- 	// $scope.dishModify = function(ds_id, int_no, ds_name, amount) {
- 		// $scope.amount = amount;
- 		// $scope.ds_id = ds_id;
- 		// $scope.int_no = int_no;
- 		// $scope.ds_name = ds_name;
-		// $scope.openModal();
-	// };	
+// .controller('OrderCheckoutCtrl', function($scope, $state, $location, $ionicPopup, $ionicLoading, OrderService, AddressService) {
+
 	
-	$scope.showLoading = function() {
-    	$ionicLoading.show({
-      		content: '数据提交中...',
-      		animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-    	});
-  	};
-  	$scope.hideLoading = function(){
-    	$ionicLoading.hide();
-  	};
+// 	$scope.showLoading = function() {
+//     	$ionicLoading.show({
+//       		content: '数据提交中...',
+//       		animation: 'fade-in',
+//             showBackdrop: true,
+//             maxWidth: 200,
+//     	});
+//   	};
+//   	$scope.hideLoading = function(){
+//     	$ionicLoading.hide();
+//   	};
 	
-	$scope.showExceed = function() {
-		$ionicPopup.alert({
-		              title: '请注意',
-		              content: '您的地址已超出普通送餐范围，只能选择订制运费',
-		              okText: '好的，我了解'
-		            }).then(function(res) {
-		                 // $state.go('login');  
+// 	$scope.showExceed = function() {
+// 		$ionicPopup.alert({
+// 		              title: '请注意',
+// 		              content: '您的地址已超出普通送餐范围，只能选择订制运费',
+// 		              okText: '好的，我了解'
+// 		            }).then(function(res) {
+// 		                 // $state.go('login');  
 	           			
-       		                $scope.select.selected_dltype =  2;
+//        		                $scope.select.selected_dltype =  2;
        		                  
-		            });
-		};		
+// 		            });
+// 		};		
 	
-	$scope.showSuccess = function(content) {
-		$ionicPopup.alert({
-		              title: '订单提交成功',
-		              content: content,
-		              okText: '好的'
-		            }).then(function(res) {
-		            	$state.go('tab.history', null, { reload: true });
-		            });
-		};
-	$scope.showError = function(content) {
-		$ionicPopup.alert({
-		              title: '请注意',
-		              content: content,
-		              okText: '好的'
-		            }).then(function(res) {
-		                 // $state.go('tab.history');
-		            });
-		};			
-  	$scope.dltypeChange = function(delitype){
-  		$scope.dltype = $scope.select.selected_dltype;
-  		$scope.deliChange();//$scope.dltype, $scope.uaid); 
-  	};	
-  	$scope.uaidChange = function(addr){
-  		$scope.selected_addr = JSON.parse(addr);
-  		$scope.uaid = $scope.selected_addr.uaid;
-  		$scope.select.selected_dltype = 1
-  		$scope.dltype = $scope.select.selected_dltype; // init dltype
-  		$scope.deliChange();
-  	};	
+// 	$scope.showSuccess = function(content) {
+// 		$ionicPopup.alert({
+// 		              title: '订单提交成功',
+// 		              content: content,
+// 		              okText: '好的'
+// 		            }).then(function(res) {
+// 		            	$state.go('tab.history', null, { reload: true });
+// 		            });
+// 		};
+// 	$scope.showError = function(content) {
+// 		$ionicPopup.alert({
+// 		              title: '请注意',
+// 		              content: content,
+// 		              okText: '好的'
+// 		            }).then(function(res) {
+// 		                 // $state.go('tab.history');
+// 		            });
+// 		};			
+//   	$scope.dltypeChange = function(delitype){
+//   		$scope.dltype = $scope.select.selected_dltype;
+//   		$scope.deliChange();//$scope.dltype, $scope.uaid); 
+//   	};	
+//   	$scope.uaidChange = function(addr){
+//   		$scope.selected_addr = JSON.parse(addr);
+//   		$scope.uaid = $scope.selected_addr.uaid;
+//   		$scope.select.selected_dltype = 1
+//   		$scope.dltype = $scope.select.selected_dltype; // init dltype
+//   		$scope.deliChange();
+//   	};	
 		
-  	$scope.deliChange = function(){
-  		 // console.log($scope.dltype, $scope.uaid);
-  		if ($scope.uaid != null) OrderService.delifee($scope);
-  	};		
+//   	$scope.deliChange = function(){
+//   		 // console.log($scope.dltype, $scope.uaid);
+//   		if ($scope.uaid != null) OrderService.delifee($scope);
+//   	};		
   	
-  	$scope.orderCheckout = function(){
-  		  $scope.showLoading();
-  		  OrderService.checkout($scope);
-  	};	
-  	$scope.select = {}
- 	$scope.select.delitypes = [
-      { value: 0, name: "自取" },
-      { value: 1, name: "送餐" },
-      { value: 2, name: "订制运费" }
-    ];
+//   	$scope.orderCheckout = function(){
+//   		  $scope.showLoading();
+//   		  OrderService.checkout($scope);
+//   	};	
+//   	$scope.select = {}
+//  	$scope.select.delitypes = [
+//       { value: 0, name: "自取" },
+//       { value: 1, name: "送餐" },
+//       { value: 2, name: "订制运费" }
+//     ];
    
     
     
     
-  	$scope.dltype = 1;
-	$scope.showLoading();
-	OrderService.readyList($scope);
-    AddressService.all($scope);
+//   	$scope.dltype = 1;
+// 	$scope.showLoading();
+// 	OrderService.readyList($scope);
+//     AddressService.all($scope);
       
-})
+// })
 
 
 .controller('HistoryCtrl', function($scope, $location, $ionicLoading, $http, $timeout, HistoryService, SystemService,loadingService) {
@@ -507,47 +479,47 @@ angular.module('chanmao.controllers', [])
 .controller('AboutCtrl', function($scope) {
 
 })
-.controller('AddressCtrl', function($scope, $ionicLoading, $state, AddressService,addrService) {
+// .controller('AddressCtrl', function($scope, $ionicLoading, $state, AddressService,addrService) {
 
-// Hide the tab
-    var tabs = document.querySelectorAll('div.tabs')[0];
-    tabs = angular.element(tabs);
-    tabs.css('display', 'none');
-  //tabs.css('class', 'tabs-item-hide');
-    $scope.$on('$destroy', function() {
-      tabs.css('display', '');
-    });
-//  right Button 
-	$scope.addButton = function() {
-	      $state.go('tab.addradd');
-	 };  
+// // Hide the tab
+//     var tabs = document.querySelectorAll('div.tabs')[0];
+//     tabs = angular.element(tabs);
+//     tabs.css('display', 'none');
+//   //tabs.css('class', 'tabs-item-hide');
+//     $scope.$on('$destroy', function() {
+//       tabs.css('display', '');
+//     });
+// //  right Button 
+// 	$scope.addButton = function() {
+// 	      $state.go('tab.addradd');
+// 	 };  
   
-// data loadings  
+// // data loadings  
 
-    $scope.showLoading = function() {
-    	$ionicLoading.show({
-      		content: '地址获取中...',
-      		animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-    	});
-  	};
-  	$scope.hideLoading = function(){
-    	$ionicLoading.hide();
-  	};
-  	$scope.addr_edit = function(addr) {
-  		AddressService.save_addr(addr)
-  		$state.go('tab.editradd');
-  	};
-  	$scope.addr_delete = function(addr,$index) {
-  			console.log(addr,$index)
-  			$scope.address.splice($index,1)
-  			AddressService.addr_delete(addr)
-  	}		
-  	$scope.showLoading();
+//     $scope.showLoading = function() {
+//     	$ionicLoading.show({
+//       		content: '地址获取中...',
+//       		animation: 'fade-in',
+//             showBackdrop: true,
+//             maxWidth: 200,
+//     	});
+//   	};
+//   	$scope.hideLoading = function(){
+//     	$ionicLoading.hide();
+//   	};
+//   	$scope.addr_edit = function(addr) {
+//   		AddressService.save_addr(addr)
+//   		$state.go('tab.editradd');
+//   	};
+//   	$scope.addr_delete = function(addr,$index) {
+//   			console.log(addr,$index)
+//   			$scope.address.splice($index,1)
+//   			AddressService.addr_delete(addr)
+//   	}		
+//   	$scope.showLoading();
   	
-    AddressService.all($scope);
-})
+//     AddressService.all($scope);
+// })
 
 
 
@@ -567,81 +539,81 @@ angular.module('chanmao.controllers', [])
 
 
 
-.controller('AddressAddValidateCtrl', function($scope,  $ionicLoading, $ionicPopup, $ionicModal,$stateParams, AddressService) {
+// .controller('AddressAddValidateCtrl', function($scope,  $ionicLoading, $ionicPopup, $ionicModal,$stateParams, AddressService) {
 
-// Hide the tab
-    var tabs = document.querySelectorAll('div.tabs')[0];
-    tabs = angular.element(tabs);
-    tabs.css('display', 'none');
+// // Hide the tab
+//     var tabs = document.querySelectorAll('div.tabs')[0];
+//     tabs = angular.element(tabs);
+//     tabs.css('display', 'none');
     
-    $scope.$on('$destroy', function() {
-      tabs.css('display', '');
-      $scope.modal.remove();
-    });
+//     $scope.$on('$destroy', function() {
+//       tabs.css('display', '');
+//       $scope.modal.remove();
+//     });
 
-	$scope.showLoading = function() {
-  		$ionicLoading.show({
-	        content: '地址验证中...',
-	        animation: 'fade-in',
-	        showBackdrop: true,
-	        maxWidth: 200,
-        // showDelay: 500
-    	}); 
-    };
+// 	$scope.showLoading = function() {
+//   		$ionicLoading.show({
+// 	        content: '地址验证中...',
+// 	        animation: 'fade-in',
+// 	        showBackdrop: true,
+// 	        maxWidth: 200,
+//         // showDelay: 500
+//     	}); 
+//     };
 
-  	$scope.hideLoading = function(){
-    	$ionicLoading.hide();
-  	};
+//   	$scope.hideLoading = function(){
+//     	$ionicLoading.hide();
+//   	};
   	
-	$scope.showValidation = function(content) {
-		$ionicPopup.alert({
-		              title: '请检查以下错误',
-		              content: content,
-		              okText: '返回修改'
-		            }).then(function(res) {
-		                 // $state.go('login');
-		            });
-		};	
+// 	$scope.showValidation = function(content) {
+// 		$ionicPopup.alert({
+// 		              title: '请检查以下错误',
+// 		              content: content,
+// 		              okText: '返回修改'
+// 		            }).then(function(res) {
+// 		                 // $state.go('login');
+// 		            });
+// 		};	
   	
-// Address Validation by Google Map    
-	$scope.validate = function() {
-		$scope.showLoading();
-		AddressService.validate($scope);
-	};	
+// // Address Validation by Google Map    
+// 	$scope.validate = function() {
+// 		$scope.showLoading();
+// 		AddressService.validate($scope);
+// 	};	
 
-    $ionicModal.fromTemplateUrl('addr-validate-modal.html', function(modal) {
-	    $scope.modal = modal;
-	  }, {
-	    // Use our scope for the scope of the modal to keep it simple
-	    scope: $scope,
-	    // The animation we want to use for the modal entrance
-	    animation: 'slide-in-up'
-	  });
+//     $ionicModal.fromTemplateUrl('addr-validate-modal.html', function(modal) {
+// 	    $scope.modal = modal;
+// 	  }, {
+// 	    // Use our scope for the scope of the modal to keep it simple
+// 	    scope: $scope,
+// 	    // The animation we want to use for the modal entrance
+// 	    animation: 'slide-in-up'
+// 	  });
 
-	$scope.openModal = function() {
-	    $scope.modal.show();
-	  };
-	$scope.closeModal = function() {
-	    $scope.modal.hide();
-	  };
+// 	$scope.openModal = function() {
+// 	    $scope.modal.show();
+// 	  };
+// 	$scope.closeModal = function() {
+// 	    $scope.modal.hide();
+// 	  };
 	
 
-	$scope.createAddr = function() {
-		$scope.result = 0;
-		$scope.showLoading();
-		AddressService.create($scope);
-	};
-	$scope.addr_delete = function(addr) {
-		console.log(addr)
-		console.log(AddressService.addr_delete())
-		AddressService.addr_delete(addr)
+// 	$scope.createAddr = function() {
+// 		$scope.result = 0;
+// 		$scope.showLoading();
+// 		AddressService.create($scope);
+// 	};
+// 	$scope.addr_delete = function(addr) {
+// 		console.log(addr)
+// 		console.log(AddressService.addr_delete())
+// 		AddressService.addr_delete(addr)
 
-	};
+// 	};
 	
-	$scope.addr =  { name : null, tel : null ,city : null, postal : null,addr : null};
+// 	$scope.addr =  { name : null, tel : null ,city : null, postal : null,addr : null};
 
 
 
-})
+// })
 
 ;

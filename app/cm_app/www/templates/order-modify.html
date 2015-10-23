@@ -1,63 +1,40 @@
-<ion-view> 
-  <ion-header-bar class="bar-cmorange" >
-      <h1 class="title">已点菜品</h1>
-  </ion-header-bar>
-
-  <ion-content >
-
-	<div class="card">
-		<div class="item item-divider">
-			    直接点击菜品修改数量
-		</div>
-      	<div ng-repeat="dish in dishes">
-
-		  <div class="item item-complex">
-			  <button class="button button-clear  button-positive"  ng-click="dishModify(dish.ds_id, dish.int_no, dish.ds_name, dish.amount)">
-				  <i class="icon ion-edit"></i> {{dish.ds_name}} — {{dish.amount}} 份
-			  </button>
-		  </div>
-
-		</div>
-		<div class="item item-divider">
-			 税前总价: {{totalpre | currency}} 
-		</div>
-	    <a class="button button-full button-positive" href="#/tab/ordercheckout" ng-if="totalpre>=30.00 && exist==1">下单结账</a>
-	    <a class="button button-full button-cmwarning" href="#/tab/ordermenu" ng-if="totalpre>=30.00 && exist==1">返回</a>
-	    <a class="button button-full button-cmwarning" href="#/tab/ordermenu" ng-if="totalpre<30.00">税前菜金不满30,请返回继续点餐</a> 
-	    <button class="button button-full button-cmwarning" ng-if="exist==0">亲，请先用右下角的更多维护地址信息</button>
-     </div>  
-
-  </ion-content>
-  
-  <!-- <ion-footer-bar align-title="left" class="bar-assertive">
-	  <h1 class="title">税前菜金满30起送哦亲</h1>
-  </ion-footer-bar> -->
-</ion-view>
-
-<script id="order-modify-modal.html" type="text/ng-template">
-  <div class="modal">
-    <ion-header-bar class="bar-cmorange" >
-      <h1 class="title">修改菜品</h1>
+<div class="modal">
+    <ion-header-bar>
+        <div class="buttons">
+          <button class="button button-clear button-calm" ng-click="close_confirm_order()">返回美食清单</button>
+        </div>
+        <h1 class="title">美食清单</h1>
     </ion-header-bar>
     <ion-content>
-        <div class="card">
-		  <div class="item item-divider">
-		     	{{ds_name}}
-		  </div>
-		  <div class="item item-text-wrap">
-			  <button class="button button-clear button-positive icon ion-ios7-minus-outline"   ng-click="amountRemove()">
-			  </button>
-			  <button class="button button-outline button-positive">
-			  改成 {{amount}} 份
-			  </button>
-			  <button class="button button-clear button-positive icon ion-ios7-plus-outline"  ng-click="amountAdd()">
-			  </button>
-		  </div>
+        <div ng-repeat="dish in  hc.confirm_dish">        
+            <ion-item  
+                class=" item-thumbnail-left item-button-right"
+                ng-if="dish.quantity >0" 
+                on-tap="hc.add_dish(dish.menu_dish)"
+                >
+                
+                <img src="http://lorempixel.com/250/250/?q=2">
+                <h2>{{dish.ds_name}}</h2>
+                <p>{{dish.dish_price | currency}}</p>
+                <h2 ng-if="dish.quantity >0">数量:{{dish.quantity}}</h2>
+                
+                <button class="button button-calm button-outline"
+                        ng-if="dish.quantity >0"
+                        on-tap="hc.dec_dish(dish.menu_dish) "
+                        style="top: 30px;font-size: 35px;height: 38px;"
+                        >
+                -   
+                </button>
+            </ion-item >
+
           
-          <button class="button button-full button-positive" ng-click="dishChange(ds_id, amount)">修改</button>
-          <button class="button button-full button-stable" ng-click="dishDelete(ds_id)">不要了</button>
-          <button class="button button-full button-cmwarning" ng-click="closeModal()">关闭</button>
         </div>
+        <div class="check_out_box">
+            <button class="button button-calm button-outline"ng-click="hc.check_out()">
+                税后小计{{hc.total *1.13 |currency}}    
+            </button>
+            
+        </div>
+    
     </ion-content>
-  </div>
-</script>
+</div>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chanmao')
-  .controller('OrderMenuCtrl', function($scope, $state, $stateParams,$timeout, $ionicLoading, $ionicModal,$ionicScrollDelegate, RRService,$rootScope) {
+  .controller('OrderMenuCtrl', function($scope, $state, $stateParams,$location,$timeout, $ionicLoading, $ionicModal,$ionicScrollDelegate, RRService,OrderService,$rootScope) {
   // Hide the tab
       // var tabs = document.querySelectorAll('div.tabs')[0];
       // tabs = angular.element(tabs);
@@ -170,17 +170,18 @@ angular.module('chanmao')
     $scope.confirm_dish = []
     $scope.add_dish = function(dish) {
         if(!$scope.disable_add){
-            dish.quantity +=1
+            dish.amount +=1
             var dish_id = dish.dish_id;
             if(!!dish.confirm_index || dish.confirm_index == 0){
-                $scope.confirm_dish[dish.confirm_index].quantity = dish.quantity
+                $scope.confirm_dish[dish.confirm_index].amount = dish.amount
             }else{
                 var item = {}
-                item.dish_id = dish.dish_id 
-                item.dish_name = dish.dish_name;
+                item.dish_id    = dish.dish_id 
+                item.ds_name    = dish.ds_name;
                 item.dish_price = dish.dish_price;
-                item.quantity = dish.quantity;
-                item.menu_dish = dish;
+                item.amount     = dish.amount;
+                item.int_no     = dish.int_no;
+                item.menu_dish  = dish;
                 dish.confirm_index = $scope.confirm_dish.length;
                 $scope.confirm_dish.push(item);
             }
@@ -193,11 +194,50 @@ angular.module('chanmao')
     };
     $scope.dec_dish = function(dish) {
         $scope.disable_add = true;
-        dish.quantity -=1
-        $scope.confirm_dish[dish.confirm_index].quantity = dish.quantity
+        dish.amount -=1
+        $scope.confirm_dish[dish.confirm_index].amount = dish.amount
         $scope.total -= Number(dish.dish_price)*1
         $timeout(function() {
             $scope.disable_add = false;
         },100)
     };
-  })
+
+    //************************
+    // confirm order
+    //************************
+
+
+    // Create the login modal that we will use later
+        $ionicModal.fromTemplateUrl('templates/confirm_order.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+
+            }).then(function(confirm) {
+                console.log(confirm)
+                $scope.confirm = confirm;
+              
+            });
+
+        $scope.to_checkout = function() {
+            var ea_order    = {}
+            ea_order.dishes = $scope.confirm_dish;
+            ea_order.total  = $scope.total
+            OrderService.save_order(ea_order)
+            $scope.close_confirm_order()
+            setTimeout(function() {
+               $location.path("/tab/ordercheckout")
+            }, 100);
+           
+        };   
+
+              // Open the confirm modal
+          $scope.open_confirm_order = function() {
+            $scope.confirm.show();
+          };
+             // Open the confirm modal
+           $scope.close_confirm_order = function() {
+             $scope.confirm.hide();
+           };
+})//ordermenu ctrl end
+
+

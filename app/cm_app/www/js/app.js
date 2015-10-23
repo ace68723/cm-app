@@ -127,7 +127,7 @@ angular.module('chanmao', ['ionic', 'ngCordova','chanmao.services', 'chanmao.con
       views: {
         'order-tab': {
           templateUrl: 'templates/order-modify.html',
-          controller: 'OrderModifyCtrl'
+          controller: 'OrderMenuCtrl'
         }
       }
     }) 

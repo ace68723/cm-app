@@ -129,12 +129,13 @@ angular.module('chanmao')
                 item.id = 'a'+id_k
                 id_k += 1;
                 item.has_cate_name = false;
-                item.dish_name  = dish.ds_name;
+                item.ds_name  = dish.ds_name;
                 item.dish_price = dish.price;
                 item.dish_id    = dish.ds_id
                 item.status     = dish.status
+                item.int_no     = dish.int_no
                 // item.height = 100;
-                item.quantity = 0;
+                item.amount = 0;
                 la_menu.push(item);
             })
            

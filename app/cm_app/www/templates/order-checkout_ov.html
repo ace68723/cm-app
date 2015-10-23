@@ -7,20 +7,20 @@
   	<div class="bar bar-loading bar-cmblue" >
       <i class="icon ion-ios7-heart"></i> 税前菜金满30起送哦亲
     </div>
-  <ion-content class=" has-header hide_tabs">
+  <ion-content class="has-loading">
 
 	<div class="list">
 		<div class="item item-divider">
 			 已点菜品
 		</div>
-       	<div ng-repeat="dish in dishes" ng-if="dish.amount>0">
+       	<div ng-repeat="dish in dishes">
 
-		  	<div class="item item-complex">
-			  	<span class="button button-clear  button-positive"> 
+		  <div class="item item-complex">
+			  <span class="button button-clear  button-positive"> 
 			  	 <!-- ng-click="dishModify(dish.ds_id, dish.int_no, dish.ds_name, dish.amount)"> -->
-				   	{{$index+1}}. {{dish.ds_name}} — {{dish.amount}} 份
-			  	</span>
-		 	 </div>
+				   {{dishes.index+1}}. {{dish.ds_name}} — {{dish.amount}} 份
+			  </span>
+		  </div>
 		</div>
 		
 
@@ -94,7 +94,7 @@
 		<button class="button button-full button-assertive" ng-if="uaid == null">在上面选取地址后才可下单</button>
 
 	    <button class="button button-full button-positive" ng-if="uaid != null" ng-click="orderCheckout()">下单结账</button>
-	    <!-- <a class="button button-full button-cmwarning" href="#/tab/ordermenu">返回</a> -->
+	    <a class="button button-full button-cmwarning" href="#/tab/ordermenu">返回</a>
 	    
      </div>  
 
