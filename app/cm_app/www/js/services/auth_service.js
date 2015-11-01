@@ -13,6 +13,7 @@ angular.module('chanmao')
     var auth = {};
     var cachedToken;
     var cachedLocation;
+    var cachedChannel;
     var res_code;
 
    
@@ -58,7 +59,7 @@ angular.module('chanmao')
         var $http =  $injector.get('$http')
         $http.get(API_URL + 'MobLogin/loginwc').
             success(function(data, status, headers,conifg) {
-                console.log(data)
+                // console.log(data)
                 if(data.result == 1){
                     if(data.token){
                         auth.setToken(data.token)
@@ -101,6 +102,15 @@ angular.module('chanmao')
             // error
         });
     };
-
+    
+    auth.setChannel = function(channel) {
+        cachedChannel = channel;
+        storage.setItem('channel', channel);
+    };
+    auth.getChannel = function() {
+        if(!cachedChannel)
+            cachedChannel = storage.getItem('channel');
+        return cachedChannel;
+    };
     return auth
   }]);

@@ -1,15 +1,17 @@
 angular.module('chanmao.controllers', [])
-.run(function($rootScope, $ionicPopup, SystemService) {
+.run(function($rootScope, $ionicPopup, SystemService,alertService) {
 
-  $rootScope.noNetwork = function() {
-		$ionicPopup.alert({
-			          title: '发生错误',
-		              content: '网络故障，请检查网络是否连接正常',
-		              okText: '了解'
-		            }).then(function(res) {
-		                 // SystemService.logout($scope);
-		            });
-		};
+    var network_tag
+    $rootScope.noNetwork = function() {
+        if(!network_tag){
+            network_tag = true
+            alertService.alert('没有网络链接啦','阿西吧 #_#!')
+                .then(function() {
+                    network_tag = false
+                })
+        }
+		
+	};
 		
   $rootScope.message = function(title, content) {
 		$ionicPopup.alert({
@@ -53,7 +55,7 @@ angular.module('chanmao.controllers', [])
 .controller('IntroCtrl', function( $scope) {
 	
   $scope.startApp = function() {
-    $state.go('tabs.history');
+    // $state.go('tabs.history');
   };
   $scope.next = function() {
     $ionicSlideBoxDelegate.next();
@@ -201,14 +203,25 @@ angular.module('chanmao.controllers', [])
 })
 
 
-.controller('OrderCtrl', function($scope,loadingService, RRService) {
+.controller('OrderCtrl', function($scope,$ionicFrostedDelegate,$ionicScrollDelegate,loadingService, RRService) {
     RRService.rrlist($scope);
+   
     $scope.gotoRR = function(rid) {	
       	RRService.gotoRR(rid);
   	};	
   	$scope.rrlist_refresh = function(){
 		RRService.rrlist($scope);
+        setTimeout(function() {
+            $ionicScrollDelegate.resize();
+            $ionicFrostedDelegate.update();
+        }, 1500);
+      
   	}
+  	$scope.open_restaurant_close = function() {
+  		$ionicScrollDelegate.resize();
+  		$ionicFrostedDelegate.update();
+  		$scope.restaurant_close.open = !$scope.restaurant_close.open
+  	};
   	loadingService.showLoading()
   	
 })
@@ -443,7 +456,7 @@ angular.module('chanmao.controllers', [])
 // })
 
 
-.controller('HistoryCtrl', function($scope, $location, $ionicLoading, $http, $timeout, HistoryService, SystemService,loadingService) {
+.controller('HistoryCtrl', function($scope, $location, $ionicLoading, $http, $timeout,$ionicFrostedDelegate, HistoryService, SystemService,loadingService) {
 	loadingService.showLoading()
  
     $scope.hideLoading = function(){
@@ -452,10 +465,10 @@ angular.module('chanmao.controllers', [])
     $scope.doRefresh = function(pull) {
     	var page = $location.path();
     	if (page == '/tab/history') {
-    		// $scope.showLoading();
 	    	HistoryService.load($scope,1);
 	    	$timeout($scope.doRefresh, 60000);
 	    }
+        $ionicFrostedDelegate.update();
 	};
 
     $scope.recover = function() {
@@ -526,13 +539,13 @@ angular.module('chanmao.controllers', [])
 
 .controller('AddressAddCtrl', function($scope, $ionicLoading, $ionicModal, $state, AddressService) {
 // Hide the tab
-    var tabs = document.querySelectorAll('div.tabs')[0];
-    tabs = angular.element(tabs);
-    tabs.css('display', 'none');
+    // var tabs = document.querySelectorAll('div.tabs')[0];
+    // tabs = angular.element(tabs);
+    // tabs.css('display', 'none');
   
-    $scope.$on('$destroy', function() {
-      tabs.css('display', '');
-    });
+    // $scope.$on('$destroy', function() {
+    //   tabs.css('display', '');
+    // });
 
 })
 

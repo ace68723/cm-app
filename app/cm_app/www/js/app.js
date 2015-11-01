@@ -5,56 +5,101 @@
 // the 2nd parameter is an array of 'requires'
 // 'chanmao.services' is found in services.js
 // 'chanmao.controllers' is found in controllers.js
-angular.module('chanmao', ['ionic', 'ngCordova','chanmao.services', 'chanmao.controllers'])
+angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch','ionic.contrib.frostedGlass','ngCordova','chanmao.services', 'chanmao.controllers'])
 
-.constant('constant', {'channel':1})
 
 // .run(function($ionicPlatform, $rootScope, $cordovaSplashscreen,$cordovaNetwork,$cordovaDialogs,$timeout) {
 
-.run(function($ionicPlatform,$cordovaGeolocation,auth){
+.run(function($rootScope,$location,$ionicPlatform,$ionicFrostedDelegate,$ionicHistory,$cordovaGeolocation,auth){
   $ionicPlatform.ready(function() {
-    auth.doAuth()
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    
-    // $rootScope.showLogin = true;
-    
-    // $timeout(function() {
-    //   if (window.cordova) {
-    //     $cordovaSplashscreen.hide();
-    //   }
-       
-    //    $rootScope.showLogin = true;
-    // }, 100);
-    
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-        cordova.plugins.Keyboard.disableScroll(true);
+	auth.doAuth()
+	// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+	// for form inputs)
+	
+	// $rootScope.showLogin = true;
+	
+	// $timeout(function() {
+	//   if (window.cordova) {
+	//     $cordovaSplashscreen.hide();
+	//   }
+	   
+	//    $rootScope.showLogin = true;
+	// }, 100);
+	
+	if (window.cordova && window.cordova.plugins.Keyboard) {
+		cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+		cordova.plugins.Keyboard.disableScroll(true);
 
-    }
-    if(window.cordova){
-         auth.get_cur_position()
-    }
-    
-    // if (window.StatusBar) {
-    //   // org.apache.cordova.statusbar required
-    //   StatusBar.styleDefault();
-    // }
+	}
+	if(window.cordova){
+		console.log(window.cordova.platformId)
+		if(window.cordova.platformId == 'ios'){
+			auth.setChannel(1)
+		}else if (window.cordova.platformId == 'android'){
+			auth.setChannel(2)
+		}
 
-    // if(window.cordova){
-    //     $cordovaNetwork.watchOffline()
+		auth.get_cur_position()
+	}else{
+		auth.setChannel(99)
+	}
+	// $routeUpdate   $locationChangeSuccess routeChangeStart
+	// var tabs;
+	// setTimeout(function() {
+	// 	tabs = document.querySelectorAll('div.tabs')[0];
+	// 	tabs = angular.element(tabs);
+	// 	tabs.addClass("animated");
+	// 	tabs.addClass("slideInUp");
+	// },100);
+	$rootScope.$on('$locationChangeStart', function(event){
+			var url = $location.url(),
+				params = $location.search();
+				// console.log(url)
+				//update header when location change
+				$ionicFrostedDelegate.update();
+				// console.log(url)
+				// var url_master = url.split('/');
+				var tabs = document.querySelectorAll('div.tabs')[0];
+					tabs = angular.element(tabs);
+					tabs.addClass("animated");
+				if(url == "/tab/history" || url == "/tab/profile" || url == "/tab/order" ){
+					if(tabs.hasClass("slideOutDown")){
+						tabs.removeClass("slideOutDown")
+						tabs.addClass("slideInUp");
+					}
+				}else{
+					if(tabs.hasClass("slideInUp")){
+						tabs.removeClass("slideInUp")
+					}
+					tabs.addClass("slideOutDown");
+				}
+	})
 
+	$rootScope.go_back = function() {
+		$ionicHistory.goBack()
+	};
+	
+	var deploy = new Ionic.Deploy();
+	$rootScope.doUpdate = function() {
+	   	deploy.update().then(function(res) {
+	     console.log('Ionic Deploy: Update Success! ', res);
+	   	}, function(err) {
+	     console.log('Ionic Deploy: Update error! ', err);
+	   	}, function(prog) {
+	     console.log('Ionic Deploy: Progress... ', prog);
+	   	});
+	};
 
-    //   //check network
-    //     $rootScope.$on("networkOffline", function(event, networkState){
-    //         console.log("networkOffline")
-    //         $cordovaDialogs.alert('当前网络已断开', '提示', '知道了')
-    //           .then(function() {
-
-    //         });
-    //     })
-    // };
-
+	 // Check Ionic Deploy for new code
+	$rootScope.checkForUpdates = function() {
+	   	console.log('Ionic Deploy: Checking for updates');
+	   	deploy.check().then(function(hasUpdate) {
+	     	console.log('Ionic Deploy: Update available: ' + hasUpdate);
+	     	$rootScope.hasUpdate = hasUpdate;
+	   	}, function(err) {
+	     	console.error('Ionic Deploy: Unable to check for updates', err);
+	   	});
+	};
   });
 
 })
@@ -65,157 +110,157 @@ angular.module('chanmao', ['ionic', 'ngCordova','chanmao.services', 'chanmao.con
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-    .state('login', {
-      url: "/login",
-      templateUrl: "templates/login.html",
-      controller: 'LoginCtrl'
-    })
-    
-    .state('register', {
-      url: "/register",
-      templateUrl: "templates/login-register.html",
-      controller: 'LoginCtrl'
-    })
-    
-    .state('forget', {
-      url: "/forget",
-      templateUrl: "templates/login-forget.html",
-      controller: 'LoginCtrl'
-    })
+	.state('login', {
+	  url: "/login",
+	  templateUrl: "templates/login.html",
+	  controller: 'LoginCtrl'
+	})
+	
+	.state('register', {
+	  url: "/register",
+	  templateUrl: "templates/login-register.html",
+	  controller: 'LoginCtrl'
+	})
+	
+	.state('forget', {
+	  url: "/forget",
+	  templateUrl: "templates/login-forget.html",
+	  controller: 'LoginCtrl'
+	})
    
-    .state('logindone', {
-      url: "/logindone",
-      templateUrl: "templates/login-done.html",
-      controller: 'LoginDoneCtrl'
-    })
-     // .state('ordermenu', {
-      // url: '/ordermenu',
-      // // views: {
-        // 'order-tab': {
-          // templateUrl: 'templates/order-menu.html',
-          // controller: 'OrderMenuCtrl'
-        // }
-      // // }
-    // })  
-    .state('tab', {
-      url: "/tab",
-      abstract: true,
-      templateUrl: "templates/tabs.html"
-    })
+	.state('logindone', {
+	  url: "/logindone",
+	  templateUrl: "templates/login-done.html",
+	  controller: 'LoginDoneCtrl'
+	})
+	.state('tab', {
+	  url: "/tab",
+	  abstract: true,
+	  templateUrl: "templates/tabs.html"
+	})
 
-    .state('tab.order', {
-      url: '/order',
-      views: {
-        'order-tab': {
-          templateUrl: 'templates/order.html',
-          controller: 'OrderCtrl'
-        }
-      }
-    })
-    
-    .state('tab.ordermenu', {
-      url: '/ordermenu/:rid',
-      views: {
-        'order-tab': {
-          templateUrl: 'templates/order-menu.html',
-          controller: 'OrderMenuCtrl'
-        }
-      }
-    })      
-    .state('tab.ordermodify', {
-      url: '/ordermodify',
-      views: {
-        'order-tab': {
-          templateUrl: 'templates/order-modify.html',
-          controller: 'OrderMenuCtrl'
-        }
-      }
-    }) 
-    .state('tab.ordercheckout', {
-      url: '/ordercheckout',
-      views: {
-        'order-tab': {
-          templateUrl: 'templates/order-checkout.html',
-          controller: 'OrderCheckoutCtrl'
-        }
-      }
-    }) 
-    .state('tab.history', {
-      url: '/history',
-      views: {
-        'history-tab': {
-          templateUrl: 'templates/history.html',
-          controller: 'HistoryCtrl'
-        }
-      }
-    })
+	.state('tab.order', {
+	  url: '/order',
+	  views: {
+		'order-tab': {
+		  templateUrl: 'templates/order.html',
+		  controller: 'OrderCtrl'
+		}
+	  }
+	})
+	
+	.state('tab.ordermenu', {
+	  url: '/order/menu/:rid',
+	  views: {
+		'order-tab': {
+		  templateUrl: 'templates/order-menu.html',
+		  controller: 'OrderMenuCtrl'
+		}
+	  }
+	})      
+	.state('tab.ordermodify', {
+	  url: '/ordermodify',
+	  views: {
+		'order-tab': {
+		  templateUrl: 'templates/order-modify.html',
+		  controller: 'OrderMenuCtrl'
+		}
+	  }
+	}) 
+	.state('tab.ordercheckout', {
+	  url: '/order/ordercheckout',
+	  views: {
+		'order-tab': {
+		  templateUrl: 'templates/order-checkout.html',
+		  controller: 'OrderCheckoutCtrl'
+		}
+	  }
+	}) 
+	.state('tab.add_address', {
+	  url: '/order/add_address',
+	  views: {
+	    'order-tab': {
+	      templateUrl: 'templates/menu_address_add.html',
+	      controller: 'AddressAddValidateCtrl'
+	    }
+	  }
+	}) 
+	.state('tab.history', {
+	  url: '/history',
+	  views: {
+		'history-tab': {
+		  templateUrl: 'templates/history.html',
+		  controller: 'HistoryCtrl'
+		}
+	  }
+	})
 
-    .state('tab.profile', {
-      url: '/profile',
-      views: {
-        'profile-tab': {
-          templateUrl: 'templates/profile.html',
-          controller: 'ProfileCtrl'
-        }
-      }
-    })
-     .state('tab.about', {
-      url: '/about',
-      views: {
-        'profile-tab': {
-          templateUrl: 'templates/profile-about.html',
-          controller: 'AboutCtrl'
-        }
-      }
-    })   
-    .state('tab.address', {
-      url: '/address',
-      views: {
-        'profile-tab': {
-          templateUrl: 'templates/profile-address.html',
-          controller: 'AddressCtrl'
-        }
-      }
-    })
-    .state('tab.addradd', {
-      url: '/addradd',
-      views: {
-        'profile-tab': {
-          templateUrl: 'templates/profile-address-add.html',
-          controller: 'AddressAddCtrl'
-        }
-      }
-    })
-    .state('tab.editradd', {
-        url: '/editradd',
-        views: {
-            'profile-tab': {
-            templateUrl: 'templates/profile-address-edit.html',
-            controller: 'AddressAddCtrl'
-            }
-        }
-    })  
+	.state('tab.profile', {
+	  url: '/profile',
+	  views: {
+		'profile-tab': {
+		  templateUrl: 'templates/profile.html',
+		  controller: 'ProfileCtrl'
+		}
+	  }
+	})
+	 .state('tab.about', {
+	  url: '/about',
+	  views: {
+		'profile-tab': {
+		  templateUrl: 'templates/profile-about.html',
+		  controller: 'AboutCtrl'
+		}
+	  }
+	})   
+	.state('tab.address', {
+	  url: '/address',
+	  views: {
+		'profile-tab': {
+		  templateUrl: 'templates/profile-address.html',
+		  controller: 'AddressCtrl as ac'
+		}
+	  }
+	})
+	.state('tab.addradd', {
+	  url: '/addradd',
+	  views: {
+		'profile-tab': {
+		  templateUrl: 'templates/profile-address-add.html',
+		  controller: 'AddressAddCtrl'
+		}
+	  }
+	})
+	.state('tab.editradd', {
+		url: '/editradd',
+		views: {
+			'profile-tab': {
+			templateUrl: 'templates/profile-address-edit.html',
+			controller: 'AddressAddCtrl'
+			}
+		}
+	})  
 
-    // .state('tab.about', {
-      // url: '/about',
-      // views: {
-        // 'about-tab': {
-          // templateUrl: 'templates/about.html',
-          // controller: 'AboutCtrl'
-        // }
-      // }
-    // })
-    
-    ;
+	// .state('tab.about', {
+	  // url: '/about',
+	  // views: {
+		// 'about-tab': {
+		  // templateUrl: 'templates/about.html',
+		  // controller: 'AboutCtrl'
+		// }
+	  // }
+	// })
+	
+	;
 
   // if none of the above states are matched, use this as the fallback
-   $urlRouterProvider.otherwise('/login');
+   // $urlRouterProvider.otherwise('/login');
    // $urlRouterProvider.otherwise('/tab/history');
 
    $httpProvider.interceptors.push('authInterceptor');
    
 })
-.constant('API_URL', 'http://cmtest.littlesailing.com/index.php?r=');//api url constant
+.constant('API_URL', 'https://www.chanmao.ca/index.php?r=');//api url constant
 ;
 
 

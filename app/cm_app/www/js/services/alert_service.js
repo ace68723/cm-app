@@ -28,8 +28,8 @@ angular.module('chanmao')
                 }
 
                 $cordovaDialogs.alert(lv_message, lv_title, lv_btn)
-                  .then(function() {
-                    resolve('alert done');
+                  .then(function(result) {
+                    resolve(result);
                   });
             });  
         };
@@ -52,7 +52,7 @@ angular.module('chanmao')
                     lv_title = "馋猫提请您"
                 }
 
-                if (lv_btn1 && lv_btn2) {
+                if (iv_btn1 && iv_btn2) {
                     lv_btn1 = iv_btn1 
                     lv_btn2 = iv_btn2
                 } else{
@@ -61,8 +61,8 @@ angular.module('chanmao')
                 }
 
                 $cordovaDialogs.confirm(lv_message, lv_title,[lv_btn1,lv_btn2])
-                  .then(function() {
-                    resolve('alert done');
+                  .then(function(result) {
+                    resolve(result);
                   });
             });  
         };

@@ -1,0 +1,14 @@
+{
+  "name": "ionic-contrib-frosted-glass",
+  "homepage": "https://github.com/driftyco/ionic-contrib-frosted-glass",
+  "_release": "425db32a1d",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "425db32a1de14f4553696c429c9acac6e4eac3de"
+  },
+  "_source": "https://github.com/driftyco/ionic-contrib-frosted-glass.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/driftyco/ionic-contrib-frosted-glass.git",
+  "_direct": true
+}

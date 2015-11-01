@@ -4,14 +4,14 @@ angular.module('chanmao')
 	.controller('AddressAddValidateCtrl', function($scope,  $ionicLoading, $ionicPopup, $ionicModal,$stateParams, loadingService,AddressService) {
 
 	// Hide the tab
-	    var tabs = document.querySelectorAll('div.tabs')[0];
-	    tabs = angular.element(tabs);
-	    tabs.css('display', 'none');
+	    // var tabs = document.querySelectorAll('div.tabs')[0];
+	    // tabs = angular.element(tabs);
+	    // tabs.css('display', 'none');
 	    
-	    $scope.$on('$destroy', function() {
-	      tabs.css('display', '');
-	      $scope.modal.remove();
-	    });
+	    // $scope.$on('$destroy', function() {
+	    //   // tabs.css('display', '');
+	    //   $scope.modal.remove();
+	    // });
 
 		$scope.showLoading = function() {
 	  		$ionicLoading.show({
@@ -63,7 +63,10 @@ angular.module('chanmao')
 		$scope.createAddr = function() {
 			$scope.result = 0;
 			loadingService.showLoading()
-			AddressService.create($scope);
+			AddressService.create($scope)
+				.then(function() {
+					AddressService.all($scope)
+				});
 		};
 		$scope.addr_delete = function(addr) {
 			console.log(addr)

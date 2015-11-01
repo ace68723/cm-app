@@ -2,9 +2,12 @@
   "name": "HelloIonic",
   "private": "true",
   "devDependencies": {
-    "ionic": "driftyco/ionic-bower#1.1.0"
+    "ionic": "driftyco/ionic-bower#1.1.0",
+    "ionic-platform-web-client": "~0.2.1"
   },
   "dependencies": {
-    "gsap": "https://github.com/greensock/GreenSock-JS.git#~1.18.0"
+    "animate.css": "https://github.com/daneden/animate.css.git#~3.4.0",
+    "gsap": "https://github.com/greensock/GreenSock-JS.git#~1.18.0",
+    "ionic-contrib-frosted-glass": "https://github.com/driftyco/ionic-contrib-frosted-glass.git"
   }
 }

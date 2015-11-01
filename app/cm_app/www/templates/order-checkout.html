@@ -1,22 +1,28 @@
-<ion-view>
+<ion-view >
   
-   <ion-header-bar class="bar-cmorange" >
-      <h1 class="title">下单结账</h1>
-   </ion-header-bar>
+   <ion-header-bar frosted-bar class="bar-frosted">
+        <div class="buttons button_on_blur ">
+            <button class="button   button-outline button-cm-blue" ng-click="go_back()"><_<</button>
+        </div>
+        <h1 class="title">点餐</h1>
+        <div class="buttons button_on_blur ">
+            <a class="button   button-outline button-cm-blue" href="#/tab/order/add_address">添加新地址</a>
+        </div>
+    </ion-header-bar>
 
-  	<div class="bar bar-loading bar-cmblue" >
+<!--   	<div class="bar bar-loading bar-cmblue" >
       <i class="icon ion-ios7-heart"></i> 税前菜金满30起送哦亲
-    </div>
+    </div> -->
   <ion-content class=" has-header hide_tabs">
 
 	<div class="list">
 		<div class="item item-divider">
 			 已点菜品
 		</div>
-       	<div ng-repeat="dish in dishes" ng-if="dish.amount>0">
+       	<div ng-repeat="dish in dishes"  ng-if="dish.amount>0">
 
 		  	<div class="item item-complex">
-			  	<span class="button button-clear  button-positive"> 
+			  	<span class="button button-clear  button-blue" style="font-size: 15px;"> 
 			  	 <!-- ng-click="dishModify(dish.ds_id, dish.int_no, dish.ds_name, dish.amount)"> -->
 				   	{{$index+1}}. {{dish.ds_name}} — {{dish.amount}} 份
 			  	</span>
@@ -24,17 +30,23 @@
 		</div>
 		
 
-		<div class="item item-input item-select"> <!-- 选择地址 -->
+		<div class="item item-input item-select "> <!-- 选择地址 -->
 		    <div class="input-label"style="width: 15%;">
 		     	地址:
 		    </div>
-		    <select name="uaidslect" id="uaidslect" ng-model="addr" ng-change="uaidChange(addr)"style="max-width: 82%;">
-	          	<option ng-repeat="addr in address" value="{{addr}}">
+		    <select name="uaidslect" 
+                    id="uaidslect" 
+                    ng-model="addr" 
+                    ng-change="uaidChange(addr)"
+                    style="max-width: 82%;"
+                    ng-focus="select_focus()"
+                    ng-blur="select_blur()">
+	          	<option ng-repeat="addr in address"  value="{{addr}}">
 		          	{{ addr.addr }} 
 	          	</option>
 		    </select>
 		</div>
-		<div class="item" ng-if="selected_addr"><!-- 已选地址 -->
+		<div class="item item-text-wrap" ng-if="selected_addr"><!-- 已选地址 -->
 			    {{selected_addr.name}} - {{selected_addr.tel}}
 			    </br>
 			    {{selected_addr.addr}}
@@ -55,7 +67,9 @@
     	      		ng-options="delitype.value as delitype.name for delitype in select.delitypes "
     	      		ng-model="select.selected_dltype"
     	      		ng-change="dltypeChange()"
-    	      		style="max-width: 82%;">
+    	      		style="max-width: 82%;"
+                    ng-focus="select_focus()"
+                    ng-blur="select_blur()">
 		    </select>
 		</div>
 		
@@ -87,13 +101,13 @@
 		<div class="item item-divider">
 			 还有什么要嘱咐的:
 		
-			<textarea ng-model="comment" rows="5" placeholder="有什么特别要嘱咐的？辣度？葱姜蒜香菜？">
+			<textarea ng-model="$parent.comment" style="width: 100%;" rows="5" placeholder="有什么特别要嘱咐的？辣度？葱姜蒜香菜？">
 	
 			</textarea>
 		</div>
-		<button class="button button-full button-assertive" ng-if="uaid == null">在上面选取地址后才可下单</button>
+		<button class="button  button-block button-blue" ng-if="uaid == null ">在上面选取地址后才可下单</button>
 
-	    <button class="button button-full button-positive" ng-if="uaid != null" ng-click="orderCheckout()">下单结账</button>
+	    <button class="button  button-block button-blue" ng-if="uaid != null " ng-click="orderCheckout()">下单结账</button>
 	    <!-- <a class="button button-full button-cmwarning" href="#/tab/ordermenu">返回</a> -->
 	    
      </div>  

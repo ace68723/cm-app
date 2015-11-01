@@ -57730,11 +57730,12 @@ IonicModule
     controller: '$ionicRefresher',
     template:
     '<div class="scroll-refresher invisible" collection-repeat-ignore>' +
-      '<div class="ionic-refresher-content" style="bottom: 6px;"' +
+      '<div class="ionic-refresher-content" style="bottom: -11px;"' +
       'ng-class="{\'ionic-refresher-with-text\': pullingText || refreshingText}">' +
         // '<div class="icon-pulling" ng-class="{\'pulling-rotation-disabled\':disablePullingRotation}">' +
         //   '<i class="icon {{pullingIcon}}"></i>' +
-        ' <img src="http://cmtest.littlesailing.com/img/chanmao_logo.gif" alt="" style="height:80%">  '+
+        ' <img src="http://cmtest.littlesailing.com/img/chanmao_logo.gif" alt="" style="height:67%">  '+
+        '<p style="font-size: 13px;" >在刷新啦/w\\~</p> ' + 
         '</div>' +
         '<div class="text-pulling" ng-bind-html="pullingText"></div>' +
         '<div class="icon-refreshing">' +

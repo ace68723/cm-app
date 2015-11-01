@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chanmao')
-  .factory('authInterceptor', function (auth,loadingService) {
+  .factory('authInterceptor', function (auth,alertService) {
     var authInterceptor = {}
     authInterceptor.request = function(config) {
         var method = config.method
@@ -31,7 +31,31 @@ angular.module('chanmao')
         return config   
     },
     authInterceptor.response=function(response) {
-       
+        if(response.data.alert){
+            var alert       = response.data.alert;
+            var lv_message  = alert.message;
+            var lv_title    = alert.title;
+            var lv_btn      = alert.btn;
+            alertService.alert(lv_message,lv_title,lv_btn)
+        }else if(response.data.update){
+            var update      = response.data.update;
+            var lv_message  = update.message;
+            var lv_title    = update.title;
+            var lv_btn1     = update.btn1;
+            var lv_btn2     = update.btn2; 
+            var link        = update.link;
+            alertService.confirm(lv_message,lv_title,lv_btn1,lv_btn2)
+                .then(function(result) {
+                    var btn_index = result
+                    console.log(btn_index)
+                    if(btn_index == 1){
+                   
+                    }else if (btn_index == 2){
+                        // window.open(link, "_system");
+                        cordova.plugins.market.open(link)
+                    }
+                })
+        }
         return response;
     }
     return authInterceptor

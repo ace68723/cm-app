@@ -17,66 +17,91 @@
 	color:#76d5ff;
 }
 .button.button-blue {
-    border-color:#76d5ff;
-    background-color: #76d5ff;
-    color: #fff;
-    border-radius: 10px;
-    font-size: 22px;
+	border-color:#76d5ff;
+	background-color: #76d5ff;
+	color: #fff;
+	border-radius: 10px;
+	font-size: 22px;
 }
 .button.button-blue:active {
-    border-color:#76d5ff;
-    background-color: #fff;
-    color: #76d5ff;
+	border-color:#76d5ff;
+	background-color: #fff;
+	color: #76d5ff;
 }
 .button.button-blue-clear {
-    border-color:#76d5ff;
-    background-color: #fff;
-    color: #76d5ff;
-    border-radius: 10px;
-    font-size: 15px;
-    width: 100%;
-    min-height: 38px;
-    line-height: 35px;
+	border-color:#76d5ff;
+	background-color: #fff;
+	color: #76d5ff;
+	border-radius: 10px;
+	font-size: 15px;
+	width: 100%;
+	min-height: 38px;
+	line-height: 35px;
 }
+.button-clear.button-blue {
+
+	border-color: transparent;
+	background: none;
+	box-shadow: none;
+	color: #76d5ff; 
+}
+
+.button.button-cm-blue.button-outline {
+	border-radius: 10px;
+	border-color: #76d5ff;
+	background: transparent;
+	color: #76d5ff; 
+}
+.button.button-cm-blue.button-clear{
+    border-color: transparent;
+    background: none;
+    box-shadow: none;
+    color: #76d5ff;
+}
+.button.button-cm-blue.button-outline.active, .button.button-cm-blue.button-outline.activated {
+  background-color: #76d5ff;
+  box-shadow: none;
+  color: #fff; }
+
 .button.cm_full{
 	width: 100%;
 	font-size: 20px;
 }
 .button-blue-outline {
-    -webkit-transition: opacity 0.1s;
-    transition: opacity 0.1s;
-    background: none;
-    box-shadow: none;
-    color:#76d5ff;
-    border-color:#76d5ff;
-    border-radius: 10px;
-    font-size: 15px;
+	-webkit-transition: opacity 0.1s;
+	transition: opacity 0.1s;
+	background: none;
+	box-shadow: none;
+	color:#76d5ff;
+	border-color:#76d5ff;
+	border-radius: 10px;
+	font-size: 15px;
 
 }
 .button.button-blue-clear:active {
-    border-color:#fff ;
-    background-color: #76d5ff;
-    color: #fff ;
+	border-color:#fff ;
+	background-color: #76d5ff;
+	color: #fff ;
 }
 button.cm-button-block, button.cm-button-full, .button-full > button.cm-button, input.button.cm-button-block {
-    width: 100%;
+	width: 100%;
 }
 
 .button.cm-button-block, .button.cm-button-full {
-    margin-top: 10px;
-    margin-bottom: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 .wechat_logo{
 	max-width: 37%;
-  	max-height: 100%;
-  	display: block;
-  	margin: auto auto;
-  	margin-top: 27px;
+	max-height: 100%;
+	display: block;
+	margin: auto auto;
+	margin-top: 27px;
 }
 .footer{
 	bottom: 4px;
-    position: absolute;	
-    width: 100%;
+	position: absolute;	
+	width: 100%;
 }
 .center{
 	display: flex;
@@ -86,7 +111,7 @@ button.cm-button-block, button.cm-button-full, .button-full > button.cm-button, 
 	color:#b3b3b3;
 }
 .center_text{
-    text-align: center;
+	text-align: center;
 }
 .cur_order_title{
 	background-color: #e6e6e6;
@@ -150,22 +175,32 @@ button.cm-button-block, button.cm-button-full, .button-full > button.cm-button, 
   visibility: hidden;
   opacity: 0; }
   .loading-container:not(.visible) .icon, .loading-container:not(.visible) .spinner {
-    display: none; }
+	display: none; }
   .loading-container.visible {
-    visibility: visible; }
+	visibility: visible; }
   .loading-container.active {
-    opacity: 1; }
+	opacity: 1; }
   .loading-container .loading {
-      padding: 20px;
-      border-radius: 20px;
-      background-color: rgba(255,255,255,1);
-      color: #76d5ff;
-      text-align: center;
-      text-overflow: ellipsis;
-      font-size: 15px;
+	  padding: 20px;
+	  border-radius: 20px;
+	  background-color: rgba(255,255,255,1);
+	  color: #76d5ff;
+	  text-align: center;
+	  text-overflow: ellipsis;
+	  font-size: 15px;
   }
-    .loading-container .loading h1, .loading-container .loading h2, .loading-container .loading h3, .loading-container .loading h4, .loading-container .loading h5, .loading-container .loading h6 {
-      color: #fff; }
+	.loading-container .loading h1, .loading-container .loading h2, .loading-container .loading h3, .loading-container .loading h4, .loading-container .loading h5, .loading-container .loading h6 {
+	  color: #fff; }
+
+
+/**
+ * Header
+ * --------------------------------------------------
+ */
+  
+.button_on_blur{
+	z-index: 5;
+}
 
 
 
@@ -187,41 +222,59 @@ button.cm-button-block, button.cm-button-full, .button-full > button.cm-button, 
   transition: 0.1s opacity linear;
   }
   .backdrop.visible {
-    visibility: visible; }
+	visibility: visible; }
   .backdrop.active {
-    opacity: 1; }
+	opacity: 1; }
 
 
 
-    .tabs-blue > .tabs, .tabs.tabs-blue {
-        padding-top: 0px;
-        border-color: #e6e6e6; 
-        background-color: #e6e6e6;
-        /*background-image: linear-gradient(0deg, #0c63ee, #0c63ee 50%, transparent 50%);*/
-        color: #fff;
-    }
-    .cm_tab{
-        background-color: #e6e6e6;
-        color:#999999;
-        opacity: 1;
-    }
-    .tab-item.tab-item-active, .tab-item.active, .tab-item.activated {
-        background-color: #76d5ff;
-        color:#ffffff;
-        opacity: 1; 
-    }
-    .tab-item-active'{
-        background-color: #76d5ff;
-    }
+	.tabs-blue > .tabs, .tabs.tabs-blue {
+		padding-top: 0px;
+		border-color: #e6e6e6; 
+		background-color: #e6e6e6;
+		/*background-image: linear-gradient(0deg, #0c63ee, #0c63ee 50%, transparent 50%);*/
+		color: #fff;
+	}
+	.cm_tab{
+		background-color: #e6e6e6;
+		color:#999999;
+		opacity: 1;
+	}
+	.tab-item.tab-item-active, .tab-item.active, .tab-item.activated {
+		background-color: #76d5ff;
+		color:#ffffff;
+		opacity: 1; 
+	}
+	.tab-item-active'{
+		background-color: #76d5ff;
+	}
 
 
 /**
  * content 
  * --------------------------------------------------
  */
-    .hide_tabs{
-        bottom: 0px;
+	.hide_tabs{
+		bottom: 0px;
+	}
+	.hide_tabs, .bar-footer.hide_tabs {
+	  bottom: 0px;
+	  }
+
+/**
+ * menu 
+ * --------------------------------------------------
+ */
+
+ 	.button.rr_close{
+ 		right: 14px;
+    	position: absolute;
+    	top: 8px;
+    	font-size: 15px;
+ 	}
+    .search_bar{
+        width: 87%;
+        height: 38px;
+        margin-top: 4px;
     }
-    .hide_tabs, .bar-footer.hide_tabs {
-      bottom: 0px;
-      }
+

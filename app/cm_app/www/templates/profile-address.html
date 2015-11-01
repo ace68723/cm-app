@@ -1,38 +1,45 @@
 <ion-view title="我的地址">
-  <ion-header-bar class="bar-cmorange" >
-  </ion-header-bar>
-
-   <ion-nav-buttons side="right">
+    <ion-header-bar frosted-bar class="bar-frosted ">
+        <div class="buttons button_on_blur ">
+          <button class="button   button-outline button-cm-blue" ng-click="go_back()"><_<</button>
+        </div>
+          <h1 class="title">点餐</h1>
+        <div class="buttons button_on_blur ">
+            <button class="button   button-outline button-cm-blue "  ng-click="addButton()">+ 添加新地址</button>
+        </div>
+    </ion-header-bar>
+   <!-- <ion-nav-buttons side="right">
       <button class="button button-blue-outline " ng-click="addButton()">
         	+ 添加新地址
       </button>
-   </ion-nav-buttons> 
-  <ion-content  class="has-header hide_tabs" >
+   </ion-nav-buttons> --> 
+    <ion-content  class="has-header hide_tabs " >
 
+        <div id="address" ng-show="show_address_list">
+            <ion-list >
+                    <ion-item ng-repeat="addr in address" class="item ">
+                    <div class="row">
+                        <div class="col col-10"><i class="icon blue ion-person"style="font-size: 20px;"></i></div>
+                        <div class="col col-90"><h2>{{addr.name}} -  {{addr.tel}}</h2></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-10"><i class="icon blue ion-ios-location"style="font-size: 20px;"></i></div>
+                        <div class="col col-90"><h2>{{addr.apt_no}} <span ng-if="addr.apt_no"> - </span>{{addr.addr}}<br>{{addr.city}} - {{addr.postal}}</h2></div>
+                    </div>
+                    <ion-option-button class="button-assertive"
+                                       ng-click="addr_delete(addr,$index)">
+                                       Delete
+                    </ion-option-button>
+                   <!--  <ion-option-button class="button-positive"
+                                       ng-click="addr_edit(addr)">
+                      Edit
+                    </ion-option-button> -->
+                   
 
-    	<ion-list>
-
-        <ion-item ng-repeat="addr in address" class="item ">
-            <div class="row">
-                <div class="col col-10"><i class="icon blue ion-person"style="font-size: 20px;"></i></div>
-                <div class="col col-90"><h2>{{addr.name}} -  {{addr.tel}}</h2></div>
-            </div>
-            <div class="row">
-                <div class="col col-10"><i class="icon blue ion-ios-location"style="font-size: 20px;"></i></div>
-                <div class="col col-90"><h2>{{addr.addr}}<br>{{addr.city}} - {{addr.postal}}</h2></div>
-            </div>
-            <ion-option-button class="button-assertive"
-                               ng-click="addr_delete(addr,$index)">
-                               Delete
-            </ion-option-button>
-           <!--  <ion-option-button class="button-positive"
-                               ng-click="addr_edit(addr)">
-              Edit
-            </ion-option-button> -->
-           
-
-          </ion-item>
-    </ion-list>
-  <!-- </div> -->
-  </ion-content>
+                  </ion-item>
+            </ion-list>
+        </div>
+    	
+        <!-- </div> -->
+    </ion-content>
 </ion-view>

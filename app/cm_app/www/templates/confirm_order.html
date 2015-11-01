@@ -1,16 +1,25 @@
 <div class="modal">
-    <ion-header-bar>
+   <!--  <ion-header-bar>
         <div class="buttons">
           <button class="button button-clear button-calm" ng-click="close_confirm_order()">返回</button>
         </div>
         <h1 class="title">美食清单</h1>
+    </ion-header-bar> -->
+
+    <ion-header-bar frosted-bar class="bar-frosted">
+        <div class="buttons button_on_blur ">
+            <button class="button   button-outline button-cm-blue" ng-click="close_confirm_order()"><_<</button>
+          </div>
+          <h1 class="title">美食清单</h1>
     </ion-header-bar>
+
+
     <ion-content>
         <!-- {{confirm_dish}} -->
         <div ng-repeat="dish in  confirm_dish">        
             <ion-item  
                 class=" item-thumbnail-left item-button-right"
-                ng-if="dish.amount >0" 
+                ng-if="dish.amount >0  && dish.img_url " 
                 on-tap="add_dish(dish.menu_dish)"
                 >
                 
@@ -27,11 +36,28 @@
                 -   
                 </button>
             </ion-item >
+            <ion-item  
+                class=" item item-button-right" 
+                ng-if="dish.amount >0 && !dish.img_url "
+                on-tap="add_dish(dish.menu_dish)"
+                >
+                <h2>{{dish.ds_name}}</h2>
+                <p>{{dish.dish_price | currency}}</p>
+                <h2 ng-if="dish.amount >0">数量:{{dish.amount}}</h2>
+                
+                <button class="button button-calm button-outline"
+                        ng-if="dish.amount >0"
+                        on-tap="dec_dish(dish.menu_dish) "
+                        style="top: 30px;font-size: 35px;height: 38px;"
+                        >
+                -   
+                </button>
+            </ion-item >
 
           
         </div>
         <div class="check_out_box" ng-if="total >0">
-            <button class="button button-calm button-outline"ng-click="to_checkout()">
+            <button class="button button-outline button-cm-blue"ng-click="to_checkout()">
                 税后小计{{total *1.13 |currency}}    
             </button>
             
