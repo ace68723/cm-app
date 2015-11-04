@@ -13,7 +13,13 @@ angular.module('chanmao')
     loadingService.showLoading = function() {
         var $ionicLoading = $injector.get('$ionicLoading')
         $ionicLoading.show({
-            template: '<img src="http://cmtest.littlesailing.com/img/chanmao_logo.gif"style="height: 10%;"> </br>快到碗里来...'
+            template: '<img src="./img/chanmao_logo.gif"style="height: 10%;"> </br>快到碗里来...'
+        });
+    };
+    loadingService.showUpdate = function() {
+        var $ionicLoading = $injector.get('$ionicLoading')
+        $ionicLoading.show({
+            template: '<img src="./img/chanmao_logo.gif"style="height: 10%;"> </br>正在更新中...</br>{{prog}}'
         });
     };
     loadingService.hideLoading = function() {

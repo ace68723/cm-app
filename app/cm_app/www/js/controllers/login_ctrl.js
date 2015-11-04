@@ -2,10 +2,10 @@
 
 angular.module('chanmao')
   .controller('LoginCtrl', function($scope, $state,auth) {
-    var uid = window.localStorage.getItem("sv_uid");  
-    if (uid != null){
-      $state.go('tab.history');
-    }
+    // var uid = window.localStorage.getItem("sv_uid");  
+    // if (uid != null){
+    //   $state.go('tab.history');
+    // }
     //  new version 
 
     $scope.isInstalledWechat = function() {
@@ -24,7 +24,7 @@ angular.module('chanmao')
   .controller('LoginFormCtrl', function( $scope, $state, $ionicLoading, $ionicPopup, LoginService,loadingService, $window) {
     $scope.showSuccess = function() {
       
-        $state.go('tab.history');
+        // $state.go('tab.history');
     };
       
     $scope.showValidation = function(content) {

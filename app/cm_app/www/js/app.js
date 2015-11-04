@@ -9,22 +9,66 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 
 
 // .run(function($ionicPlatform, $rootScope, $cordovaSplashscreen,$cordovaNetwork,$cordovaDialogs,$timeout) {
-
-.run(function($rootScope,$location,$ionicPlatform,$ionicFrostedDelegate,$ionicHistory,$cordovaGeolocation,auth){
+.constant('version', '1.1.5')
+.run(function($rootScope,$location,$ionicPlatform,$ionicFrostedDelegate,$ionicHistory,$cordovaGeolocation,$cordovaNetwork,auth,alertService,loadingService){
   $ionicPlatform.ready(function() {
-	auth.doAuth()
-	// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-	// for form inputs)
+
+
+	setTimeout(function() {
+		navigator.splashscreen.hide();
+	}, 2000);
+
+	Ionic.io();
+	var deploy = new Ionic.Deploy();
+	$rootScope.doUpdate = function() {
+		loadingService.showUpdate()
+		deploy.update().then(function(res) {
+		 console.log('Ionic Deploy: Update Success! ', res);
+		 loadingService.hideLoading()
+		 auth.doAuth()
+		}, function(err) {
+		 console.log('Ionic Deploy: Update error! ', err);
+		 loadingService.hideLoading()
+		 auth.doAuth()
+		 // alertService.alert("更新失败","#_#")
+		}, function(prog) {
+			$rootScope.$evalAsync(function () {
+				$rootScope.prog = prog;
+			})
+		 console.log('Ionic Deploy: Progress... ', prog);
+		});
+	};
+		 // Check Ionic Deploy for new code
+	$rootScope.checkForUpdates = function() {
+		console.log('Ionic Deploy: Checking for updates');
+		deploy.check().then(function(hasUpdate) {
+			console.log('Ionic Deploy: Update available: ' + hasUpdate);
+			
+				$rootScope.hasUpdate = hasUpdate;
+			
+			
+			if(hasUpdate){
+				$rootScope.doUpdate();
+			}else{
+				auth.doAuth()
+			}
+			
+		}, function(err) {
+			console.error('Ionic Deploy: Unable to check for updates', err);
+		});
+	};
+	// $rootScope.checkForUpdates();
+	// cordova.plugins.market.open("itms-apps://itunes.apple.com/app/id888553991")
 	
-	// $rootScope.showLogin = true;
 	
-	// $timeout(function() {
-	//   if (window.cordova) {
-	//     $cordovaSplashscreen.hide();
-	//   }
-	   
-	//    $rootScope.showLogin = true;
-	// }, 100);
+
+	// var push = new Ionic.Push({});
+
+	// push.register(function(token) {
+	//   // Log out your device token (Save this!)
+	//   console.log("Got Token:",token.token);
+	// });
+
 	
 	if (window.cordova && window.cordova.plugins.Keyboard) {
 		cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -78,37 +122,23 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 	$rootScope.go_back = function() {
 		$ionicHistory.goBack()
 	};
-	
-	var deploy = new Ionic.Deploy();
-	$rootScope.doUpdate = function() {
-	   	deploy.update().then(function(res) {
-	     console.log('Ionic Deploy: Update Success! ', res);
-	   	}, function(err) {
-	     console.log('Ionic Deploy: Update error! ', err);
-	   	}, function(prog) {
-	     console.log('Ionic Deploy: Progress... ', prog);
-	   	});
-	};
 
-	 // Check Ionic Deploy for new code
-	$rootScope.checkForUpdates = function() {
-	   	console.log('Ionic Deploy: Checking for updates');
-	   	deploy.check().then(function(hasUpdate) {
-	     	console.log('Ionic Deploy: Update available: ' + hasUpdate);
-	     	$rootScope.hasUpdate = hasUpdate;
-	   	}, function(err) {
-	     	console.error('Ionic Deploy: Unable to check for updates', err);
-	   	});
-	};
+	
+
+
   });
 
 })
-.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+.config(function($stateProvider, $urlRouterProvider,$httpProvider,$ionicConfigProvider) {
+	$ionicConfigProvider.tabs.style('standard');
+	$ionicConfigProvider.tabs.position('bottom');
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
+	if(window.cordova.platformId == 'ios'){
+			$ionicConfigProvider.scrolling.jsScrolling(true)
+		}else if (window.cordova.platformId == 'android'){
+			$ionicConfigProvider.scrolling.jsScrolling(false)
+		}
+
   $stateProvider
 	.state('login', {
 	  url: "/login",
@@ -179,10 +209,10 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 	.state('tab.add_address', {
 	  url: '/order/add_address',
 	  views: {
-	    'order-tab': {
-	      templateUrl: 'templates/menu_address_add.html',
-	      controller: 'AddressAddValidateCtrl'
-	    }
+		'order-tab': {
+		  templateUrl: 'templates/menu_address_add.html',
+		  controller: 'AddressAddValidateCtrl'
+		}
 	  }
 	}) 
 	.state('tab.history', {
@@ -254,7 +284,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 	;
 
   // if none of the above states are matched, use this as the fallback
-   // $urlRouterProvider.otherwise('/login');
+   $urlRouterProvider.otherwise('/login');
    // $urlRouterProvider.otherwise('/tab/history');
 
    $httpProvider.interceptors.push('authInterceptor');

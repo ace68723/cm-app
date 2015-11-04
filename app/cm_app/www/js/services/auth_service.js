@@ -8,7 +8,9 @@
  * Factory in the smartDriverApp.
  */
 angular.module('chanmao')
-  .factory('auth', ['$window','$injector','$location','API_URL',function ($window, $injector,$location,API_URL) {
+  .factory('auth', ['$window','$injector','$location','alertService','loadingService','API_URL',
+    function ($window, $injector,$location,alertService,loadingService,API_URL) {
+    
     var storage = $window.localStorage;
     var auth = {};
     var cachedToken;
@@ -42,13 +44,15 @@ angular.module('chanmao')
        
     };
     auth.doWechatAuth = function() {
+        loadingService.showLoading()
         Wechat.auth("snsapi_userinfo", function (response) {
-            alert(JSON.stringify(response));;
+            // alert(JSON.stringify(response));;
             res_code = response.code;
             auth.doAuth()
 
         }, function (reason) {
-            alert("Failed: " + reason);
+            loadingService.hideLoading()
+            alertService.alert(reason,"#_#失败了");
         });
     };
     auth.get_res_code = function() {
@@ -70,10 +74,13 @@ angular.module('chanmao')
                     auth.removeToken(); 
                     $location.path('/login')
                 }
+
+                loadingService.hideLoading()
                 
             })
             .error(function(data, status, headers,conifg) {
                 console.log('error send res code')
+                loadingService.hideLoading()
             });
 
     }

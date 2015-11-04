@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chanmao')
-  .factory('authInterceptor', function (auth,alertService) {
+  .factory('authInterceptor', function (auth,alertService,version) {
     var authInterceptor = {}
     authInterceptor.request = function(config) {
         var method = config.method
@@ -19,6 +19,10 @@ angular.module('chanmao')
                  console.log(location)
                  config.headers.Userloc = location;
             }
+           
+        }
+        if(port == "loginwc" && method == "GET"){
+            config.headers.CmVersion = version;
            
         }
 

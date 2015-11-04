@@ -1,6 +1,6 @@
 {
   "name": "cm_app",
-  "version": "1.0.0",
+  "version": "1.1.5",
   "description": "cm_app: An Ionic project",
   "dependencies": {
     "gulp": "^3.5.6",
@@ -27,10 +27,13 @@
         "": ""
       }
     },
-    "ionic-plugin-deploy"
+    "phonegap-plugin-push",
+    {
+      "locator": "https://github.com/driftyco/ionic-plugin-deploy.git",
+      "id": "ionic-plugin-deploy"
+    }
   ],
   "cordovaPlatforms": [
-    "android",
-    "ios"
+    "android"
   ]
 }

@@ -188,6 +188,7 @@ button.cm-button-block, button.cm-button-full, .button-full > button.cm-button, 
 	  text-align: center;
 	  text-overflow: ellipsis;
 	  font-size: 15px;
+      width: 40%;
   }
 	.loading-container .loading h1, .loading-container .loading h2, .loading-container .loading h3, .loading-container .loading h4, .loading-container .loading h5, .loading-container .loading h6 {
 	  color: #fff; }

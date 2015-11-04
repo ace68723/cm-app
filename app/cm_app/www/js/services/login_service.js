@@ -8,12 +8,12 @@
  * Factory in the helloIonicApp.
  */
 angular.module('chanmao')
-.factory('LoginService', function($http, $state, $rootScope,$location, auth, loadingService,alertService, API_URL) {
+.factory('LoginService', function($http, $state, $rootScope,$location, auth, loadingService,alertService, API_URL,version) {
   var errortext;
  return {
     login: function($scope, $ionicPopup) {  
         errortext = ''; 
-        console.log($scope.login.password)
+        // console.log($scope.login.password)
     
     if (($scope.login.username == null) ||
         ($scope.login.password == null)){
@@ -26,7 +26,7 @@ angular.module('chanmao')
         loadingService.hideLoading(); 
     
     } else {  
-        $http.post(API_URL+'MobLogin/login', { username: $scope.login.username, password: $scope.login.password })
+        $http.post(API_URL+'MobLogin/login', { username: $scope.login.username, password: $scope.login.password,version:version })
         .success(function(data, status, headers, config) {
             $scope.result = data.result ;
             if (data.result == 1) 
