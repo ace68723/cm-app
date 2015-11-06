@@ -57,7 +57,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 			console.error('Ionic Deploy: Unable to check for updates', err);
 		});
 	};
-	// $rootScope.checkForUpdates();
+
 	// cordova.plugins.market.open("itms-apps://itunes.apple.com/app/id888553991")
 	
 	
@@ -75,12 +75,14 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 		cordova.plugins.Keyboard.disableScroll(true);
 
 	}
+	console.log(window.cordova.platformId)
 	if(window.cordova){
-		console.log(window.cordova.platformId)
 		if(window.cordova.platformId == 'ios'){
 			auth.setChannel(1)
+			$rootScope.checkForUpdates();
 		}else if (window.cordova.platformId == 'android'){
 			auth.setChannel(2)
+			auth.doAuth()
 		}
 
 		auth.get_cur_position()
@@ -132,12 +134,8 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 .config(function($stateProvider, $urlRouterProvider,$httpProvider,$ionicConfigProvider) {
 	$ionicConfigProvider.tabs.style('standard');
 	$ionicConfigProvider.tabs.position('bottom');
-
-	if(window.cordova.platformId == 'ios'){
-			$ionicConfigProvider.scrolling.jsScrolling(true)
-		}else if (window.cordova.platformId == 'android'){
-			$ionicConfigProvider.scrolling.jsScrolling(false)
-		}
+	$ionicConfigProvider.platform.android.scrolling.jsScrolling(false)
+	
 
   $stateProvider
 	.state('login', {

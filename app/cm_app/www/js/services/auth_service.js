@@ -47,12 +47,14 @@ angular.module('chanmao')
         loadingService.showLoading()
         Wechat.auth("snsapi_userinfo", function (response) {
             // alert(JSON.stringify(response));;
+             console.log('get')
             res_code = response.code;
             auth.doAuth()
 
         }, function (reason) {
             loadingService.hideLoading()
             alertService.alert(reason,"#_#失败了");
+            console.log('error',reason)
         });
     };
     auth.get_res_code = function() {
@@ -104,9 +106,11 @@ angular.module('chanmao')
                 var lat  = position.coords.latitude
                 var long = position.coords.longitude
                 var location = lat+','+long
+                console.log('location',location)
                 auth.save_location(location)
-            }, function(err) {
+            }, function(error) {
             // error
+            console.log('postion error',error)
         });
     };
     

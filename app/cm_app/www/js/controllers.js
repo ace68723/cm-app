@@ -186,22 +186,27 @@ angular.module('chanmao.controllers', [])
 		// $scope.showLoading();
 		if($scope.forget.email){
 			LoginService.forget($scope, $ionicPopup, mode);
-			
+			if(window.cordova){
+				if(window.cordova.platformId == 'ios'){
+					SafariViewController.isAvailable(function (available) {
+						if (available) {
+						  SafariViewController.show({
+								'url': 'https://mail.google.com/',
+								'enterReaderModeIfAvailable': false // default false
+							  },
+							  function(msg) {
+								console.log("OK: " + msg);
+							  },
+							  function(msg) {
+								alert("KO: " + msg);
+							  })
+						} else {
+						  // potentially powered by InAppBrowser because that (currently) clobbers window.open
 
-			SafariViewController.isAvailable(function (available) {
-				if (available) {
-				  SafariViewController.show({
-						'url': 'https://mail.google.com/',
-						'enterReaderModeIfAvailable': false // default false
-					  },
-					  function(msg) {
-						console.log("OK: " + msg);
-					  },
-					  function(msg) {
-						alert("KO: " + msg);
-					  })
-				} else {
-				  // potentially powered by InAppBrowser because that (currently) clobbers window.open
+						}
+					})
+				}else if (window.cordova.platformId == 'android'){
+					
 					$cordovaInAppBrowser.open('http://gmail.com', '_blank')
 					  .then(function(event) {
 						// success
@@ -209,8 +214,8 @@ angular.module('chanmao.controllers', [])
 					  .catch(function(event) {
 						// error
 					  });
-				}
-			})
+				}	
+			}
 		}
 		
 	};  
