@@ -289,7 +289,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
    $httpProvider.interceptors.push('authInterceptor');
    
 })
-.constant('API_URL', 'https://www.chanmao.ca/index.php?r=');//api url constant
+.constant('API_URL', 'http://www.chanmao.ca/index.php?r=');//api url constant
 ;
 
 
