@@ -5,44 +5,54 @@
 
   <!-- <ion-content scroll="false" class="cmbg" has-header="false"> -->
 	<ion-content scroll="false" has-header="false">
-     <img src="img/logo.png" class="chanmao-logo">
-  	 <form name="LoginForm" ng-controller="LoginFormCtrl">  
-	  	<div class="list list-inset">	
-	  		
-	  		<label class="item item-input "style="border-top-right-radius: 10px;border-top-left-radius: 10px;" >
-			  <!-- <span class="input-label ">用户名</span>  -->
-			  <input type="text" placeholder="用户名"ng-model="login.username">
-			</label>
-			<label class="item item-input"style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
-<!-- 			  <span class="input-label">密码</span> -->
-			  <input type="password"placeholder="密码" ng-model="login.password">
-			</label>
+
+
+		<div class="logo_mockup">
+			<logo-mockup>              
+			</logo-mockup>
+		</div>
+	 	
+	 	<img src="img/logo.png" class="chanmao-logo">
+		
+		<form name="LoginForm" ng-controller="LoginFormCtrl">  
+			<div class="list list-inset cm-form">	
+				<label class="item item-input "style="border-top-right-radius: 10px;border-top-left-radius: 10px;" >
+				  <input type="text" placeholder="用户名"ng-model="login.username">
+				</label>
+				<label class="item item-input"style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
+				  <input type="password"placeholder="密码" ng-model="login.password">
+				</label>
 			
-	     </div> 
-	     <div class="padding-horizontal">
-	      	<button class="button button-block button-blue" ng-click="login()">
-			       登录
-			</button>
-	    </div>
-	</form>
-	<div class="row">
-	  	<div class="col col-50">
-	  		<button class="button button-blue-clear" ng-click="wechat_login()" >
-  				注册新用户
-			</button>
-		</div>
-	  	<div class="col col-50"><a href="#/forget"><button class="button button-blue-clear">
-  		忘记密码 
-	</button></a></div>
-	</div>
-	<img src="img/wechat.png" ng-click="wechat_login()" class="wechat_logo">
-	<div class="footer">	
-		<div class="center">
-			<div class="copyright">Chanmao Inc. 版权所有</div>
+			</div> 
+		   <div class="padding-horizontal">
+				<button class="button button-block button-blue cm-login" ng-click="login()">
+					登录
+				</button>
+			</div>
+		</form>
+		
+		<div class="row cm-register">
+			<div class="col col-50">
+				<button class="button button-blue-clear " ng-click="wechat_login()" >
+					注册新用户
+				</button>
+			</div>
+			<div class="col col-50">
+				<a href="#/forget">
+					<button class="button button-blue-clear">
+						忘记密码 
+					</button>
+				</a>
+			</div>
 		</div>
 		
+		<img src="img/wechat.png" ng-click="wechat_login()" class="wechat_logo cm-wechat">
 		
-	</div>
+		<div class="footer">	
+			<div class="center">
+				<div class="copyright">Chanmao Inc. 版权所有</div>
+			</div>
+		</div>
   </ion-content>
   
   <!-- <ion-footer-bar>
