@@ -1,6 +1,6 @@
 {
   "name": "cm_app",
-  "version": "1.1.5",
+  "version": "1.1.7",
   "description": "cm_app: An Ionic project",
   "dependencies": {
     "gulp": "^3.5.6",
@@ -33,5 +33,7 @@
       "id": "ionic-plugin-deploy"
     }
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [
+    "ios"
+  ]
 }
