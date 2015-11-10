@@ -25,9 +25,9 @@ angular.module('chanmao')
 		$http.get(API_URL+'MobOrder/Rrlist')
 			.success(function(data, status, headers, config) {
 				if (data.result== 1){
-
+				
 					// data.folder = "http://cmtest.littlesailing.com/" + data.folder;
-					data.folder = "http://cmtest.littlesailing.com/img/oldapp/";
+					// data.folder = "http://cmtest.littlesailing.com/img/oldapp/";
 					  // $scope.types = [{ 'type':1, 'open': 1,'desc': '营业中','rrs': data.open,'img_url':data.folder }; { 'type':0, 'open': 0,'desc': '尚未营业', 'rrs': data.close,'img_url':data.folder }]
 					  $scope.restaurant_open  =   { 'type':1, 'open': 1,'desc': '营业中','rrs': data.open,'img_url':data.folder };
 					  $scope.restaurant_close =   { 'type':0, 'open': 0,'desc': '尚未营业', 'rrs': data.close,'img_url':data.folder };
