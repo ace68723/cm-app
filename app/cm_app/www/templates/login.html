@@ -4,7 +4,7 @@
   </ion-header-bar> -->
 
   <!-- <ion-content scroll="false" class="cmbg" has-header="false"> -->
-	<ion-content scroll="false" has-header="false">
+	<ion-content scroll="false" has-header="false" style="padding-left: 14px;padding-right: 14px;">
 
 
 		<div class="logo_mockup">
@@ -12,8 +12,8 @@
 			</logo-mockup>
 		</div>
 	 	
-	 	<img src="img/logo.png" class="chanmao-logo">
-		
+	 	<!-- <img src="img/logo.png" class="chanmao-logo"> -->
+		<img src="img/cat_head.png" class="chanmao-logo"/>
 		<form name="LoginForm" ng-controller="LoginFormCtrl">  
 			<div class="list list-inset cm-form">	
 				<label class="item item-input "style="border-top-right-radius: 10px;border-top-left-radius: 10px;" >
@@ -25,7 +25,7 @@
 			
 			</div> 
 		   <div class="padding-horizontal">
-				<button class="button button-block button-blue cm-login" ng-click="login()">
+				<button class="button button-block button-blue cm-login"style="height: 56px;" ng-click="login()">
 					登录
 				</button>
 			</div>
@@ -33,7 +33,7 @@
 		
 		<div class="row cm-register">
 			<div class="col col-50">
-				<button class="button button-blue-clear " ng-click="wechat_login()" >
+				<button class="button button-blue-clear "  ng-click="wechat_login()" >
 					注册新用户
 				</button>
 			</div>

@@ -5,12 +5,24 @@
   height: 96px;
 }
 
-.chanmao-logo {
+/*.chanmao-logo {
   max-width: 63%;
   max-height: 100%;
   display: block;
   margin: auto auto;
   margin-top: 25%;
+}*/
+.chanmao-logo {
+  /* max-width: 63%; */
+  /* max-height: 100%; */
+  display: block;
+  margin: auto auto;
+  margin-top: 44px;
+  width: 142px;
+  height: 142px;
+  left: 7px;
+  top: 4px;
+  position: relative;
 }
 
 .cmbg{

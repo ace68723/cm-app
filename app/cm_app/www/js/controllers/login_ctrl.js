@@ -28,22 +28,24 @@ angular.module('chanmao')
 	var copyright  	= document.getElementsByClassName("copyright");
 
 	TweenMax.set(logo, {"opacity":0});
-	TweenMax.set(cm_form,{"left":"110%"});
-	TweenMax.set(cm_login,{"left":"110%"});
-	TweenMax.set(cm_register,{"left":"110%","position": "relative"});
+	TweenMax.set(cm_form,{"opacity":0});
+	TweenMax.set(cm_login,{"opacity":0});
+	TweenMax.set(cm_register,{"opacity":0});
 	TweenMax.set(cm_wechat,{"opacity":0,"display":"none"});
 	TweenMax.set(copyright,{"top":"20px","position": "relative"});
 
 	var tl = new TimelineLite();
-	tl.add(	TweenMax.to(logo_mockup, 3, {"opacity":0}),8)
-	tl.add(	TweenMax.to(logo, 5, {"opacity":1}),9);
-	tl.add( TweenMax.to(cm_form,1,{ ease: Power2.easeIn, "left": "0" }),10)
-	tl.add( TweenMax.to(cm_login,1,{ ease: Power2.easeIn, "left": "0" }),10.5)
-	tl.add( TweenMax.to(cm_register,1,{ ease: Power2.easeIn, "left": "0" }),11)
-	tl.add( TweenMax.to(cm_wechat,0.1,{ ease: Power2.easeIn, clearProps:"display" }),11)
-	tl.add( TweenMax.to(cm_wechat,1,{ ease: Power2.easeIn, "opacity":1 }),11.5)
-	tl.add( TweenMax.to(copyright,1,{ ease: Power2.easeIn, "top": "0" }),12)
-	tl.add(	TweenMax.to(logo_mockup, 3, {"display":"none"}),11)
+	tl.add(	TweenMax.to(logo_mockup, 3, {"opacity":0}),3.5)
+	tl.add(	TweenMax.to(logo, 5, {"opacity":1}),3);
+	tl.add( TweenMax.to(cm_form,3,{"opacity":1}),3.5)
+	tl.add( TweenMax.to(cm_login,3,{"opacity":1}),4)
+	tl.add( TweenMax.to(cm_register,3,{"opacity":1}),4.5)
+	tl.add( TweenMax.to(cm_wechat,0.1,{ ease: Power2.easeIn, clearProps:"display" }),5)
+	tl.add( TweenMax.to(cm_wechat,3,{"opacity":1}),5.5)
+	tl.add( TweenMax.to(copyright,0.5,{"top": "0" }),6)
+	// tl.add(	TweenMax.to(logo_mockup, 3, {"display":"none"}),5.5)
+	// tl.add( TweenMax.to(logo, 3, {opacity:0}));
+
 	// tl.add( TweenMax.to(logo, 3, {opacity:0}));
 	
   })

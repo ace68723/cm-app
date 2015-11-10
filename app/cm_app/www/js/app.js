@@ -13,10 +13,10 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 .run(function($rootScope,$location,$ionicPlatform,$ionicFrostedDelegate,$ionicHistory,$cordovaGeolocation,$cordovaNetwork,auth,alertService,loadingService){
   $ionicPlatform.ready(function() {
 
-
-	setTimeout(function() {
-		navigator.splashscreen.hide();
-	}, 2000);
+  	navigator.splashscreen.hide();
+	// setTimeout(function() {
+	// 	navigator.splashscreen.hide();
+	// }, 2000);
 
 	Ionic.io();
 	var deploy = new Ionic.Deploy();
@@ -79,7 +79,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 	if(window.cordova){
 		if(window.cordova.platformId == 'ios'){
 			auth.setChannel(1)
-			$rootScope.checkForUpdates();
+//			$rootScope.checkForUpdates();
 		}else if (window.cordova.platformId == 'android'){
 			auth.setChannel(2)
 			loadingService.showUpdate()
