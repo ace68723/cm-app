@@ -43,7 +43,7 @@ angular.module('chanmao')
 	tl.add( TweenMax.to(cm_wechat,0.1,{ ease: Power2.easeIn, clearProps:"display" }),5)
 	tl.add( TweenMax.to(cm_wechat,3,{"opacity":1}),5.5)
 	tl.add( TweenMax.to(copyright,0.5,{"top": "0" }),6)
-	// tl.add(	TweenMax.to(logo_mockup, 3, {"display":"none"}),5.5)
+	tl.add(	TweenMax.to(logo_mockup, 3, {"display":"none"}),5.5)
 	// tl.add( TweenMax.to(logo, 3, {opacity:0}));
 
 	// tl.add( TweenMax.to(logo, 3, {opacity:0}));
