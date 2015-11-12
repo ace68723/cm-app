@@ -1,0 +1,24 @@
+
+<!-- 
+  Create tabs with an icon and label, using the tabs-positive style. 
+  Each tab's child <ion-nav-view> directive will have its own 
+  navigation history that also transitions its views in and out.
+-->
+<ion-tabs class="tabs-cmorange tabs-icon-top" >
+
+  <!-- Order Tab -->
+  <ion-tab title="点餐" icon-on="ion-ios7-checkmark" icon-off="ion-ios7-checkmark-outline" href="#/tab/order">
+    <ion-nav-view name="order-tab"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Order History Tab -->
+  <ion-tab title="我的订单" icon="ion-clipboard" href="#/tab/history">
+    <ion-nav-view name="history-tab"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Profile Tab -->
+  <ion-tab title="更多" icon="ion-more" href="#/tab/profile" badge="0">
+    <ion-nav-view name="profile-tab"></ion-nav-view>
+  </ion-tab>
+
+</ion-tabs>

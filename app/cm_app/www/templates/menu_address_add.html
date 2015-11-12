@@ -1,0 +1,93 @@
+<ion-view title="新增地址" cache-view="false" >
+    <ion-header-bar frosted-bar class="bar-frosted">
+        <div class="buttons button_on_blur ">
+          <button class="button    button-clear button-cm-blue" ng-click="go_back()"><_<</button>
+        </div>
+          <h1 class="title">新增地址</h1>
+    </ion-header-bar>
+  <ion-content class="has-header hide_tabs">
+    <form name="AddressAddForm" ng-controller="AddressAddValidateCtrl">
+        <div class="list">  
+            <label class="item item-input item-icon-left" >
+                <i class="icon ion-android-person cm_blue"></i>
+                <span class="input-label cm_input_with_icon">联系人:</span> 
+                <input type="text" ng-model="addr.name" name="name">
+            </label>
+
+            <label class="item item-input item-icon-left ">
+                <i class="icon ion-earth cm_blue"></i>
+                <span class="input-label cm_input_with_icon">City:</span>
+                <input type="text" ng-model="addr.city" name="city">
+            </label>
+
+            <label class="item item-input item-icon-left">
+                <i class="icon ion-flag cm_blue"></i>
+                <span class="input-label cm_input_with_icon">Postal Code:</span>
+                <input type="text" ng-model="addr.postal" >
+            </label>
+
+            <label class="item item-input item-icon-left">
+                <i class="icon ion-location cm_blue"></i>
+                <span class="input-label cm_input_with_icon">Address:</span>
+                <input type="text" ng-model="addr.addr" name="addr">
+            </label>
+
+            <label class="item item-input item-icon-left">
+                <i class="icon ion-ios-home cm_blue"></i>
+                <span class="input-label cm_input_with_icon">Unit / Apt No.:</span>
+                <input type="text" ng-model="addr.apt_no">
+            </label>
+
+            <label class="item item-input item-icon-left">
+                <i class="icon ion-key cm_blue"></i>
+                <span class="input-label cm_input_with_icon">Buzz Code:</span>
+                <input type="text" ng-model="addr.buzz">
+            </label> 
+
+            <label class="item item-input item-icon-left">
+                <i class="icon ion-ios-telephone cm_blue"></i>
+                <span class="input-label cm_input_with_icon">Telephone: ＋1</span>
+                <input type="tel" maxlength="10" ng-model="addr.tel" >
+            </label>       
+            
+         </div> 
+         <div class="padding-horizontal">
+            <button class="button button-block button-blue" ng-click="validate()">
+                   验证地址
+            </button>
+         </div> 
+    </form>
+  </ion-content>
+</ion-view>
+
+<script id="addr-validate-modal.html" type="text/ng-template">
+  <div class="modal">
+         <ion-header-bar frosted-bar class="bar-frosted">
+            <h1 class="title">新增地址</h1>
+        </ion-header-bar>
+    <ion-content has-header="true" padding="true">
+        <div class="list">
+          <div class="item item-divider">
+            请检查以下地址是否正确:
+          </div>
+          <div class="item item-text-wrap" >
+            {{addr.apt_no}} <span ng-if="addr.apt_no"> - </span> {{addr.address}} ,{{addr.city}}, {{addr.postal}}
+            <br>{{addr.name}} - {{addr.tel}}
+          </div>
+        
+            
+
+        
+                  
+            <div class="row">
+                <div class="col col-50">
+                <button class="button cm_full button-blue" ng-click="closeModal()">返回修改</button>
+                </div>
+                <div class="col col-50">
+                <button class="button cm_full button-blue" ng-if="addr.postal" ng-click="createAddr()">确认创建</button>    
+                </div>
+            </div>              
+        </div>
+    </ion-content>
+  </div>
+</script>

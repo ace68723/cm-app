@@ -1,0 +1,38 @@
+<ion-view class="cmbg">  	
+  
+  <ion-header-bar>
+  		<h1 class="title">忘记密码</h1>
+  </ion-header-bar>
+  
+  <ion-content scroll="false" class="cmbg">
+	
+  	 <form name="ForgetForm" ng-controller="ForgetFormCtrl">  
+	  	<div class="list card">	
+	  		
+			<label class="item item-input" >
+			  <span class="input-label">Email</span> 
+			  <input type="text" ng-model="forget.email">
+			</label>
+			
+	     </div> 
+
+	    <div class="padding-horizontal">
+		  
+		  <button class="button button-block button-positive" ng-click="forget(1)">
+	  		重新发送激活邮件
+		  </button>
+		</div>
+		<div class="padding-horizontal">  
+		  <button class="button button-block button-dark" ng-click="forget(2)">
+	  		找回密码
+		  </button> 
+		</div>
+	    <div class="padding-horizontal">
+	      	<button class="button button-block button-cmwarning" ng-click="backLogin()">
+			 返回
+			</button>
+	    </div>
+	</form>
+  </ion-content>
+
+</ion-view> 

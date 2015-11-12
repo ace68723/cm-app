@@ -1,0 +1,49 @@
+<ion-view class="cmbg">  	
+
+  <ion-header-bar>
+      <h1 class="title">注册新用户</h1>
+  </ion-header-bar>
+  
+  <ion-content scroll="false" class="bg">
+	
+  	 <form name="RegisterForm" ng-controller="RegisterFormCtrl">  
+	  	<div class="list card">	
+	  		
+	  		<label class="item item-input" >
+			  <span class="input-label">用户名</span> 
+			  <input type="text" ng-model="register.username">
+			</label>
+			<label class="item item-input" >
+			  <span class="input-label">Email</span> 
+			  <input type="email" ng-model="register.email">
+			</label>
+			<label class="item item-input" >
+			  <span class="input-label">Email确认</span> 
+			  <input type="email" ng-model="register.email2">
+			</label>
+			<label class="item item-input">
+			  <span class="input-label">密码</span>
+			  <input type="password" ng-model="register.password" ng-minlength="8">
+			</label>
+			<label class="item item-input">
+			  <span class="input-label">密码确认</span>
+			  <input type="password" ng-model="register.password2" ng-minlength="8">
+			</label>
+			
+	     </div> 
+	     <div class="padding-horizontal">
+	      	<button class="button button-block button-positive" ng-click="register()">
+			       注册
+			</button>
+			<button class="button button-block button-cmwarning" ng-click="backLogin()">
+			       返回
+			</button>
+	    </div>
+	</form>
+
+  </ion-content>
+  
+  
+
+  
+</ion-view> 

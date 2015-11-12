@@ -1,0 +1,168 @@
+<ion-view title="{{name}}" >
+	<ion-header-bar frosted-bar class="bar-frosted">
+		<div class="buttons button_on_blur ">
+			<button class="button   button-clear button-cm-blue" ng-click="go_back()"><_<</button>
+		  </div>
+		  <h1 class="title" style="font-size: 15px;">{{name}}</h1>
+		<div class="buttons button_on_blur " ng-if="open == 1">
+			<button class="button   button-outline button-cm-blue "  ng-click="open_confirm_order()">{{total|currency}}结账
+			</button>
+		</div>
+		<div class="buttons button_on_blur " ng-if="open == 0 ">
+			<button class="button   button-outline button-cm-blue " >
+				#_#还没开门
+			</button>
+		</div>
+	</ion-header-bar>
+	
+  <!-- <ion-content class="has-loading has-header hide_tabs" delegate-handle="order_menu_scroll" on-scroll="menu_scroll()" > -->
+	<ion-content id="menu_content"class="has-header hide_tabs" delegate-handle="order_menu_scroll"  >
+	  <div id="menu"class="list" ng-show="show_menu">
+			<div ng-repeat="dish in menu | filter:search_dish" >
+				<div ng-if="dish.has_cate_name"
+					class="item item-divider" 
+					id="{{dish.anchor}}">
+						{{dish.cate_name}}
+				</div>          
+				<ion-item  
+					class=" item-thumbnail-left item-button-right" 
+					ng-if="!dish.has_cate_name && dish.img_url "
+					on-tap="add_dish(dish)"
+					>
+					
+					<img ng-src="http://lorempixel.com/250/250/?q=2">
+					<h2>{{dish.ds_name}}</h2>
+					<p>{{dish.dish_price | currency}}</p>
+					<h2 ng-if="dish.amount >0">数量:{{dish.amount}}</h2>
+					
+					<button class="button button-calm button-outline"
+							ng-if="dish.amount >0"
+							on-tap="dec_dish(dish) "
+							style="top: 30px;font-size: 35px;height: 38px;"
+							>
+					-   
+					</button>
+				</ion-item >
+				<ion-item  
+					class=" item item-button-right" 
+					ng-if="!dish.has_cate_name && !dish.img_url "
+					on-tap="add_dish(dish)"
+					>
+					<div class="row">
+						<div class="col col-66"><h2>{{dish.ds_name}}</h2>
+						<p>{{dish.dish_price | currency}}</p></div>
+						<div class="col col-33">
+							<h2 ng-if="dish.amount >0">数量:{{dish.amount}}</h2>
+						</div>
+					</div>
+					
+					
+					
+					<button class="button button-calm button-outline"
+							ng-if="dish.amount >0"
+							on-tap="dec_dish(dish) "
+							style="top: 30px;font-size: 35px;height: 38px;"
+							>
+					-   
+					</button>
+				</ion-item >
+			</div>
+	  
+
+		<button class="button button-full button-light button-clear button-small">
+		</button>       
+
+	  </div>  
+
+  </ion-content>
+	<div id="menu_nav"class="tabs"  style="left: 90%;" keyboard-attach>
+		<!-- <input type="text"style="width: 36px;"> -->
+		
+		<i 	class="icon ion-ios-search-strong" 
+			style="font-size:33px;z-index: 3;padding: 8px;"
+			ng-click="search()"></i>
+		
+		<form action="do_search()" class="item item-input search_bar" >
+		  	<input type="text" name="search" ng-model="search_dish.ds_name">
+		</form>
+
+		<ion-scroll direction="x" class="nav-scroller" delegate-handle="Nav"style="width: 100%;z-index: 2;position: absolute;left: 33px;background-color: #f8f8f8">
+			<div id="nav_btn"class="nav_btn" style="border-color: #76d5ff"> 
+			</div>  
+			<div  class="nav" 
+				ng-repeat="(id,nav) in cate"
+				ng-click="nav_click(nav.anchor_nav)"
+				ng-class="{nav_color: nav.current}"
+				id="{{nav.anchor_nav}}"
+				 >
+			 {{nav.cate_name}}
+				  
+			  </div>
+							
+		</ion-scroll> 
+	</div>
+
+
+  <!-- <ion-footer-bar align-title="left" keyboard-attach class="bar-assertive">
+	 <label class="item item-input">
+	   <span class="input-label">Username</span>
+	   <input type="text">
+	 </label>
+   </ion-footer-bar> -->
+
+	<!-- <div class="tabs">
+		<a class="tab-item">
+			Home
+		</a>
+		<a class="tab-item">
+			<button class="button" ng-click="gotoModify()">
+			   修改/结账 - 当前已点<span class="badge badge-royal">{{totaldish}}</span>个菜品
+			</button>
+		</a>
+  </div> -->
+  
+  <!-- <ion-footer-bar class="bar bar-positive "  align-title="left" ng-show="open==1"> -->
+  <!--   align-title="left" class="bar-cmblue"
+	<h1 class="title "><button class="button button-clear button-positive " ng-click="gotoCheckout()"><i class="icon ion-compose"></i> 修改/结账</button></h1> -->
+	  <!-- <h1 class="title "  ></h1>
+			<div class="button button-cmwarning " ng-click="gotoModify()"><i class="icon ion-compose"></i> 修改/结账 -  
+				当前已点<span class="badge badge-royal">{{totaldish}}</span>个菜品
+			</div> -->
+	 
+  <!-- </ion-footer-bar> -->
+  
+<!--   <ion-footer-bar class="bar bar-assertive "  align-title="left" ng-if="open==0">
+	  <button class="button button-assertive " >
+		该餐厅当前尚未营业，先去看看别家吧
+	  </button>
+  </ion-footer-bar> -->
+
+</ion-view>
+
+
+<script id="order-menu-modal.html" type="text/ng-template">
+  <div class="modal">
+	<header class="bar bar-header">
+	  <h1 class="title"></h1>
+	</header>
+	<ion-content has-header="true" padding="true">
+		<div class="card">
+		  <div class="item item-divider">
+				{{int_no}} - {{ds_name}}
+		  </div>
+		  <div class="item item-text-wrap">
+			  <button class="button button-clear button-large button-positive icon ion-ios7-minus-outline"   ng-click="amountRemove()">
+			  </button>
+			  <button class="button button-outline button-positive">
+			  来 {{amount}} 份
+			  </button>
+			  <button class="button button-clear button-large button-positive icon ion-ios7-plus-outline"  ng-click="amountAdd()">
+			  </button>
+		  </div>
+		  
+		  <button class="button button-full button-positive" ng-click="dishAdd(ds_id, amount, int_no, ds_name, price)">确认添加</button>
+		  <button class="button button-full button-cmwarning" ng-click="closeModal()">取消</button>
+		</div>
+	</ion-content>
+  </div>
+</script>

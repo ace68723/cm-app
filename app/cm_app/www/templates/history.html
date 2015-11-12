@@ -1,0 +1,145 @@
+<ion-view title="我的订单" >
+	
+	<ion-header-bar frosted-bar class="bar-frosted">
+		
+	   <h1 class="title">我的订单</h1>
+	 </ion-header-bar>
+	
+	<!-- <div class="bar bar-loading bar-cmblue" >
+		<i class="icon ion-ios7-heart"></i> 该页面分钟会自动刷新，也可以手动刷新
+	</div> -->
+  <ion-content  class="has-header" delegate-handle="history_scroll">
+	<ion-refresher
+		on-refresh="doRefresh(pull)">
+	</ion-refresher>
+	
+	<div class="card" ng-if="current!=null">
+		
+		<div class="item center_text ng-binding" style="
+			background-color: #76D5FF;
+			color: #fff;
+		">
+			   ORDER PASS 	
+		</div>
+
+		<div class="item item-body " style="padding-bottom: 0px;margin-bottom: 0px;padding-top: 6px;padding-left:2px;padding-right: 2px;text-align: center;">
+			<div class="row">
+				<div class="col col-33" style="text-align: center;">
+					{{current.rrname}}
+					<br>
+					<div style="color: #666;font-size: 14px;">
+						{{current.rrarea}}
+					</div>
+				</div>
+				<div class="col col-33" style="text-align: center;">
+					<i class="icon ion-ios-arrow-thin-right" style="font-size: 28px;top: 11px;"></i>
+					<br>
+					
+					<!-- <div class="button badge-{{status.badge}}">{{status.text}}</div>  -->
+				</div>
+				<div class="col col-33" style="text-align: center;">
+					目的地
+					<br>
+					<div style="color: #666;font-size: 14px;">
+						{{current.uaddr}}
+					</div>
+				</div>
+			</div>
+			<div class="button button-small button-clear button-{{status.button}}" style="font-size: 15px;">
+			 	{{status.text}}
+			</div>
+
+		</div>
+
+					
+		<div class="item " style="padding-top: 0;padding-bottom: 0px;">
+			
+			<div class="row">
+				<div class="col col-50" style="text-align: left;height: 55px;">
+					<p>Customer</p>
+					<h2>{{current.uname}}</h2>
+				</div>
+				<div class="col col-50" >
+					<p>Order Id</p>
+					<h2>{{current.oid}}</h2>
+				</div>
+				
+			</div> 
+			<div class="row">
+				<div class="col col-50" style="text-align: left;height: 55px;">
+					<p>总价</p>
+					<h2>{{current.total | currency}}</h2>
+				</div>
+				<div class="col col-50" >
+					<p>Service</p>
+					<h2 style="overflow: visible;">647-515-6699</h2>
+				</div>
+			</div> 
+			<div class="row" ng-if="current.status == 5">
+			<!-- <div class="row"> -->
+				<button class="button button-block button-blue" ng-click="recover()">重新下单</button>
+			</div>
+				
+			<div class="row">
+				<div class="col col-33" style="text-align: left;">
+					<p>查询时间:</p>
+					
+				</div>
+				<div class="col col-33" style="text-align: left;">
+					<p>{{updated | date:'yyyy-MM-dd '}}</p>
+				</div>
+				<div class="col col-33" style="text-align: center;">
+					<p>{{updated | date:'h:mm:ss a'}} </p>
+					
+				</div>
+			</div>   
+		</div>
+	</div>
+
+
+
+
+
+<!-- 	  <div class="item item-divider center_text">
+			当前处理中订单: # {{current.oid}}
+	  </div>
+	  <div class="item item-text-wrap">
+				当前状态: <span class="badge badge-{{status.badge}}">{{status.text}}</span> 
+	  </div>
+	  <div class="item item-button-right" ng-if="available != null">
+			继续点单: <button class="button button-small button-positive" ng-click="recover()">要保留已点菜品</button>
+	  </div>
+	  <div class="item item-text-wrap">
+			查询时间: <span class="badge badge-stable">{{updated | date:'yyyy-MM-dd HH:mm:ss'}} </span>
+	  </div>
+	  <div class="item item-divider">
+			客服电话: 647-515-6699
+	  </div> -->
+	<!-- </div> -->
+	
+<!-- 	<div class="list" ng-if="current==null">
+	  <div class="item item-divider">
+			当前没有正在处理的订单
+	  </div>
+	</div> -->	
+
+	<div class=" card list cur_order_list" ng-if="current==null">
+		<label class="item cur_order_title" >
+			当前没有正在处理的订单
+		</label>
+	</div>
+
+	<div class="card list">
+		<div class="item  order_history_title">
+			历史订单
+		</div>
+		<ion-list>
+	
+		  <ion-item ng-repeat="order in orders"> <!-- href="#/tab/history/{{order.oid}}"> -->
+			<h3> # {{order.oid}} 总价: $ {{order.total}} — {{order.created | dateToISO | date:'mediumDate' }} </h3>
+		  </ion-item>
+		  
+		</ion-list>
+	</div>
+  </ion-content>
+</ion-view>

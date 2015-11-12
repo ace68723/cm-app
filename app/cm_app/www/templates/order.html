@@ -1,0 +1,48 @@
+<ion-view title="点餐" >
+	<ion-header-bar frosted-bar class="bar-frosted">
+	   <h1 class="title">点餐</h1>
+	</ion-header-bar>
+	
+	<ion-content class="has-header hide_tabs"  >
+		<ion-refresher
+			on-refresh="rrlist_refresh(pull)">
+		</ion-refresher>
+	 	
+	 	<div id="restaurant" class="list">
+			<a class="item "
+				href="#/tab/order/menu/{{rr.rid}}" 
+				ng-repeat="rr in restaurant_open.rrs" 
+				ng-click="gotoRR({{rr.rid}})"
+				style="
+					padding: 0px;*/;
+					border-color: #FFF;
+					border-bottom-width: 3px;
+					text-align: center;
+					background-color: rgba(0, 0, 0, 0);
+				"
+				>
+				<img ng-src="{{restaurant_open.img_url + rr.rid}}.jpg"style="width: 95%;border-radius: 5px; margin-top: 4px;"  alt="">
+			</a> 
+			<div>
+				<a class="item "
+					href="#/tab/order/menu/{{rr.rid}}" 
+					ng-repeat="rr in restaurant_close.rrs" 
+					ng-click="gotoRR({{rr.rid}})"
+					style="
+						padding: 0px;*/;
+						border-color: #FFF;
+						border-bottom-width: 3px;
+						text-align: center;
+						background-color: rgba(0, 0, 0, 0);
+					"
+					>
+					<img ng-src="{{restaurant_close.img_url + rr.rid}}.jpg"style="width: 95%;border-radius: 5px;margin-top: 4px;"  alt="">
+					<div class="button button-small button-blue rr_close" >店家休息啦</div>
+				</a>
+
+			</div>
+			
+	  	</div> 
+	  	<br><br><br>
+	</ion-content>
+</ion-view>

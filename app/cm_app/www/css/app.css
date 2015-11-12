@@ -1,0 +1,210 @@
+.ionic-logo {
+  display: block;
+  margin: 15px auto;
+  width: 96px;
+  height: 96px;
+}
+
+/*.chanmao-logo {
+  max-width: 63%;
+  max-height: 100%;
+  display: block;
+  margin: auto auto;
+  margin-top: 25%;
+}*/
+.chanmao-logo {
+/*   max-width: 63%; 
+   max-height: 100%; */
+  width: 218px;
+  display: block;
+  margin: auto auto;
+  margin-top: 70px;
+  margin-bottom: 44px;
+ /* width: 142px;
+  height: 142px;*/
+  left: 0px;
+  top: 4px;
+  position: relative;
+}
+
+.cmbg{
+  /*background-color:#f36d21;*/
+ background-image: url('../img/bg.png');
+}
+.button.button-cmconfirm {
+    border-color: #1489c5;
+    background-color: #9bc8df;
+    color: #1489c5; }
+    .button.button-cmconfirm:hover {
+      color: #1489c5;
+      text-decoration: none; }
+    .button.button-cmconfirm.active, .button.button-cmconfirm.activated {
+      border-color: #1489c5;
+      background-color: #1489c5;
+      box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.15); }
+    .button.button-cmconfirm.button-clear {
+      border-color: transparent;
+      background: none;
+      box-shadow: none;
+      color: #9bc8df; }
+    .button.button-cmconfirm.button-icon {
+      border-color: transparent;
+      background: none; }
+    .button.button-cmconfirm.button-outline {
+      border-color: #9bc8df;
+      background: transparent;
+      color: #9bc8df; }
+      .button.button-cmconfirm.button-outline.active, .button.button-cmconfirm.button-outline.activated {
+        background-color: #9bc8df;
+        box-shadow: none;
+        color: #1489c5; 
+}
+
+.button.button-cmwarning {
+    border-color: #ff8523;
+    background-color: #ffe68d;
+    color: #ff8523; }
+    .button.button-cmwarning:hover {
+      color: #ff8523;
+      text-decoration: none; }
+    .button.button-cmwarning.active, .button.button-cmwarning.activated {
+      border-color: #ff8523;
+      background-color: #ff8523;
+      box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.15); }
+    .button.button-cmwarning.button-clear {
+      border-color: transparent;
+      background: none;
+      box-shadow: none;
+      color: #ffe68d; }
+    .button.button-cmwarning.button-icon {
+      border-color: transparent;
+      background: none; }
+    .button.button-cmwarning.button-outline {
+      border-color: #ffe68d;
+      background: transparent;
+      color: #ffe68d; }
+      .button.button-cmwarning.button-outline.active, .button.button-cmwarning.button-outline.activated {
+        background-color: #ffe68d;
+        box-shadow: none;
+        color: #ff8523; 
+}
+.button.button-cmorange {
+    border-color: #EE7700;
+    background-color: #ff8523;
+    color: #fff; }
+    .button.button-cmorange:hover {
+      color: #fff;
+      text-decoration: none; }
+    .button.button-cmorange.active, .button.button-cmorange.activated {
+      border-color: #EE7700;
+      background-color: #EE7700;
+      box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.15); }
+    .button.button-cmorange.button-clear {
+      border-color: transparent;
+      background: none;
+      box-shadow: none;
+      color: #ff8523; }
+    .button.button-cmorange.button-icon {
+      border-color: transparent;
+      background: none; }
+    .button.button-cmorange.button-outline {
+      border-color: #ff8523;
+      background: transparent;
+      color: #ff8523; }
+      .button.button-cmorange.button-outline.active, .button.button-cmorange.button-outline.activated {
+        background-color: #ff8523;
+        box-shadow: none;
+        color: #fff; 
+}
+  /*.bar.bar-positive {
+    border-color: #145fd7;
+    background-color: #4a87ee;
+    background-image: linear-gradient(0deg, #145fd7, #145fd7 50%, transparent 50%);
+    color: #fff; }
+    .bar.bar-positive .title {
+      color: #fff; }*/
+      
+  .bar.bar-chanmao {
+ 		background-image: url('../img/bg.png');
+  }
+
+     
+.item-complex.right{
+ float:right;
+  /*text-align:right*/
+}
+
+.tabs-cmorange > .tabs, .tabs.tabs-cmorange {
+  border-color: #ff8523;
+  background-color: #ff8523;
+  background-image: linear-gradient(0deg, #ff8523, #ff8523 50%, transparent 50%);
+  color: #fff; }
+  .tabs-cmorange > .tabs .tab-item .badge, .tabs.tabs-cmorange .tab-item .badge {
+    background-color: #ffe68d;
+    color: #ff8523; }
+.bar.bar-cmorange {
+    border-color: #ff8523;
+    background-color: #ff8523;
+    background-image: linear-gradient(0deg, #ff8523, #ff8523 50%, transparent 50%);
+    color: #fff; }
+    .bar.bar-cmorange .title {
+      color: #000; }  
+.bar.bar-cmblue {
+    border-color: #1489c5;
+    background-color: #9bc8df;
+    background-image: linear-gradient(0deg, #9bc8df, #9bc8df 50%, transparent 50%);
+    color: #fff; }
+    .bar.bar-cmblue .title {
+      color: #1489c5; }          
+/*.padding-header {
+  padding: 5px 3px 0px 3px; }*/
+  
+  
+.bar.bar-loading {
+  display: block;
+  height: 24px;
+  
+  /* starts right below a normal header */
+  top: 44px;
+  
+  /* make the text centered vertically and horizontally */
+  text-align: center;
+  padding: 0;
+  line-height: 24px;
+
+  /* transition 'sliding down' (check below)*/
+  -webkit-transition: 200ms all;
+}
+
+
+/* 
+ * make the content's top changes animate.
+ * might not always look good, but looks
+ * good when our loader is added & removed
+ */
+.has-header {
+  -webkit-transition: 200ms top;
+}
+.has-header.has-loading {
+  /* 44px (header) + 24px */
+  top: 68px;
+}
+
+/* make loading bar slide up/down */
+.bar-loading.ng-enter,
+.bar-loading.ng-leave.ng-leave-active {
+  height: 0;
+  border-width: 0px;
+}
+.bar-loading.ng-enter.ng-enter-active,
+.bar-loading.ng-leave {
+  height: 24px;
+  border-width: 1px;
+}
+  
+  
+  
+input.ng-dirty.ng-invalid {
+   border: 1px solid #F00;
+}
+
