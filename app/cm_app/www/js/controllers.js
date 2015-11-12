@@ -107,7 +107,7 @@ angular.module('chanmao.controllers', [])
 
 // })
 
-.controller('RegisterFormCtrl', function( $scope, $state, $ionicLoading, $ionicPopup, LoginService) {
+.controller('RegisterFormCtrl', function( $scope, $state, $ionicLoading, $ionicPopup, LoginService,loadingService) {
 	$scope.showSuccess = function() {
 		$ionicPopup.alert({
 					  title: '注册成功',
@@ -140,7 +140,8 @@ angular.module('chanmao.controllers', [])
 		$ionicLoading.hide();
 	};
 	$scope.register = function() {
-		$scope.showLoading();
+		// $scope.showLoading();
+		
 		LoginService.register($scope, $ionicPopup);
 	};  
 	$scope.backLogin = function() {

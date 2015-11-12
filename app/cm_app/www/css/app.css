@@ -13,13 +13,15 @@
   margin-top: 25%;
 }*/
 .chanmao-logo {
-  /* max-width: 63%; */
-  /* max-height: 100%; */
+/*   max-width: 63%; 
+   max-height: 100%; */
+  width: 218px;
   display: block;
   margin: auto auto;
-  margin-top: 44px;
-  width: 142px;
-  height: 142px;
+  margin-top: 70px;
+  margin-bottom: 44px;
+ /* width: 142px;
+  height: 142px;*/
   left: 0px;
   top: 4px;
   position: relative;

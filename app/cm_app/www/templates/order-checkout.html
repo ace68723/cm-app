@@ -97,7 +97,7 @@
 		</div>	
 		<div class="item item-divider">
 			 总价格: {{dlexp+(totalpre*1.13) | currency}}
-		</div>		
+		</div>	
 		<div class="item item-divider">
 			 还有什么要嘱咐的:
 		
@@ -105,11 +105,15 @@
 	
 			</textarea>
 		</div>
+
+
 		<button class="button  button-block button-blue" ng-if="uaid == null ">在上面选取地址后才可下单</button>
 
 	    <button class="button  button-block button-blue" ng-if="uaid != null " ng-click="orderCheckout()">下单结账</button>
 	    <!-- <a class="button button-full button-cmwarning" href="#/tab/ordermenu">返回</a> -->
-	    
+        <p style="padding: 19px;">*以上费用均未含小费,如果司机小哥的服务您还满意,请给小哥一点小费吧,小哥送外卖也是很辛苦嗒,馋猫君带各位小哥谢谢客官啦～ 祝您用餐愉快～ </p>
+        
+        
      </div>  
 
   </ion-content>

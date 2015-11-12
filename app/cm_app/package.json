@@ -1,6 +1,6 @@
 {
   "name": "cm_app",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "cm_app: An Ionic project",
   "dependencies": {
     "gulp": "^3.5.6",

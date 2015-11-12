@@ -9,11 +9,11 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 
 
 // .run(function($ionicPlatform, $rootScope, $cordovaSplashscreen,$cordovaNetwork,$cordovaDialogs,$timeout) {
-.constant('version', '1.1.9')
+.constant('version', '1.1.10')
 .run(function($rootScope,$location,$ionicPlatform,$ionicFrostedDelegate,$ionicHistory,$cordovaGeolocation,$cordovaNetwork,auth,alertService,loadingService){
   $ionicPlatform.ready(function() {
 
-  	navigator.splashscreen.hide();
+  	
 	// setTimeout(function() {
 	// 	navigator.splashscreen.hide();
 	// }, 2000);
@@ -23,26 +23,30 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 	$rootScope.doUpdate = function() {
 		loadingService.showUpdate()
 		deploy.update().then(function(res) {
-		 console.log('Ionic Deploy: Update Success! ', res);
+		 // console.log('Ionic Deploy: Update Success! ', res);
 		 loadingService.hideLoading()
-		 auth.doAuth()
+		 	setTimeout(function() {
+		 		auth.doAuth()
+		 	}, 3000);
 		}, function(err) {
-		 console.log('Ionic Deploy: Update error! ', err);
+		 // console.log('Ionic Deploy: Update error! ', err);
 		 loadingService.hideLoading()
-		 auth.doAuth()
+		 	setTimeout(function() {
+		 		auth.doAuth()
+		 	}, 3000);
 		 // alertService.alert("更新失败","#_#")
 		}, function(prog) {
 			$rootScope.$evalAsync(function () {
 				$rootScope.prog = prog;
 			})
-		 console.log('Ionic Deploy: Progress... ', prog);
+		 // console.log('Ionic Deploy: Progress... ', prog);
 		});
 	};
 		 // Check Ionic Deploy for new code
 	$rootScope.checkForUpdates = function() {
-		console.log('Ionic Deploy: Checking for updates');
+		// console.log('Ionic Deploy: Checking for updates');
 		deploy.check().then(function(hasUpdate) {
-			console.log('Ionic Deploy: Update available: ' + hasUpdate);
+			// console.log('Ionic Deploy: Update available: ' + hasUpdate);
 			
 				$rootScope.hasUpdate = hasUpdate;
 			
@@ -50,11 +54,13 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 			if(hasUpdate){
 				$rootScope.doUpdate();
 			}else{
-				auth.doAuth()
+				setTimeout(function() {
+						auth.doAuth()
+				}, 3000);
 			}
 			
 		}, function(err) {
-			console.error('Ionic Deploy: Unable to check for updates', err);
+			// console.error('Ionic Deploy: Unable to check for updates', err);
 		});
 	};
 
@@ -75,37 +81,34 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 		cordova.plugins.Keyboard.disableScroll(true);
 
 	}
-	console.log(window.cordova.platformId)
 	if(window.cordova){
+		navigator.splashscreen.hide();
+		auth.isWechatInstalled()
+		.then(function(result) {
+			$rootScope.isWechatInstalled = result;
+			console.log($rootScope.isWechatInstalled)
+		})
+		
 		if(window.cordova.platformId == 'ios'){
 			auth.setChannel(1)
 			$rootScope.checkForUpdates();
 		}else if (window.cordova.platformId == 'android'){
 			auth.setChannel(2)
 			loadingService.showUpdate()
-			auth.doAuth()
+			setTimeout(function() {
+				auth.doAuth()
+			}, 3000);
 		}
+
 
 		auth.get_cur_position()
 	}else{
 		auth.setChannel(99)
 	}
-	// $routeUpdate   $locationChangeSuccess routeChangeStart
-	// var tabs;
-	// setTimeout(function() {
-	// 	tabs = document.querySelectorAll('div.tabs')[0];
-	// 	tabs = angular.element(tabs);
-	// 	tabs.addClass("animated");
-	// 	tabs.addClass("slideInUp");
-	// },100);
 	$rootScope.$on('$locationChangeStart', function(event){
 			var url = $location.url(),
 				params = $location.search();
-				// console.log(url)
-				//update header when location change
 				$ionicFrostedDelegate.update();
-				// console.log(url)
-				// var url_master = url.split('/');
 				var tabs = document.querySelectorAll('div.tabs')[0];
 					tabs = angular.element(tabs);
 					tabs.addClass("animated");
@@ -113,10 +116,12 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 					if(tabs.hasClass("slideOutDown")){
 						tabs.removeClass("slideOutDown")
 						tabs.addClass("slideInUp");
+						console.log('1')
 					}
 				}else{
 					if(tabs.hasClass("slideInUp")){
 						tabs.removeClass("slideInUp")
+						console.log('2')
 					}
 					tabs.addClass("slideOutDown");
 				}

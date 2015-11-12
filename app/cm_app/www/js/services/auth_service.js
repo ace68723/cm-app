@@ -8,8 +8,8 @@
  * Factory in the smartDriverApp.
  */
 angular.module('chanmao')
-  .factory('auth', ['$window','$injector','$location','alertService','loadingService','API_URL',
-    function ($window, $injector,$location,alertService,loadingService,API_URL) {
+  .factory('auth', ['$q','$window','$injector','$location','alertService','loadingService','API_URL',
+    function ($q,$window, $injector,$location,alertService,loadingService,API_URL) {
     
     var storage = $window.localStorage;
     var auth = {};
@@ -36,11 +36,13 @@ angular.module('chanmao')
         cachedToken = null;
     };
     auth.isWechatInstalled = function() {
-        console.log('here')
+        var deferred = $q.defer();
+
         Wechat.isInstalled(function (installed) {
-            alert("Wechat installed: " + (installed ? "Yes" : "No"));
-            return installed;
+            deferred.resolve(installed);
         });
+        
+        return deferred.promise;
        
     };
     auth.doWechatAuth = function() {

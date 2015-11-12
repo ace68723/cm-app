@@ -16,7 +16,7 @@
 	</ion-header-bar>
 	
   <!-- <ion-content class="has-loading has-header hide_tabs" delegate-handle="order_menu_scroll" on-scroll="menu_scroll()" > -->
-	<ion-content class="has-header hide_tabs" delegate-handle="order_menu_scroll"  >
+	<ion-content id="menu_content"class="has-header hide_tabs" delegate-handle="order_menu_scroll"  >
 	  <div id="menu"class="list" ng-show="show_menu">
 			<div ng-repeat="dish in menu | filter:search_dish" >
 				<div ng-if="dish.has_cate_name"

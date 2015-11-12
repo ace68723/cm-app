@@ -81,7 +81,7 @@ angular.module('chanmao')
 	  
 	  $scope.login = function() {
 	  // $scope.showLoading();
-	  loadingService.showLoading();
+	  
 	  LoginService.login($scope, $ionicPopup);
 	};  
 

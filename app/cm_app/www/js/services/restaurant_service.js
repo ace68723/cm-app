@@ -8,7 +8,7 @@
  * Factory in the helloIonicApp.
  */
 angular.module('chanmao')
-  .service('RRService', function( $state, $rootScope, $q,$injector,$timeout,$ionicScrollDelegate,loadingService,alertService,API_URL) {
+  .service('RRService', function( $state, $rootScope, $q,$injector,$timeout,$ionicScrollDelegate,$ionicFrostedDelegate,loadingService,alertService,API_URL) {
 	var RRService = {};
 	RRService.gotoRR  = function(rid) {
 		var old_rid = window.localStorage.getItem("sv_rid");
@@ -25,13 +25,11 @@ angular.module('chanmao')
 		$http.get(API_URL+'MobOrder/Rrlist')
 			.success(function(data, status, headers, config) {
 				if (data.result== 1){
-				
-					// data.folder = "http://cmtest.littlesailing.com/" + data.folder;
-					// data.folder = "http://cmtest.littlesailing.com/img/oldapp/";
-					  // $scope.types = [{ 'type':1, 'open': 1,'desc': '营业中','rrs': data.open,'img_url':data.folder }; { 'type':0, 'open': 0,'desc': '尚未营业', 'rrs': data.close,'img_url':data.folder }]
-					  $scope.restaurant_open  =   { 'type':1, 'open': 1,'desc': '营业中','rrs': data.open,'img_url':data.folder };
-					  $scope.restaurant_close =   { 'type':0, 'open': 0,'desc': '尚未营业', 'rrs': data.close,'img_url':data.folder };
-
+					$scope.restaurant_open  =   { 'type':1, 'open': 1,'desc': '营业中','rrs': data.open,'img_url':data.folder };
+					$scope.restaurant_close =   { 'type':0, 'open': 0,'desc': '尚未营业', 'rrs': data.close,'img_url':data.folder };
+					setTimeout(function() {
+						$ionicFrostedDelegate.update();
+					}, 3000);
 
 
 					// TweenMax.fromTo('#restaurant', 1, {
@@ -55,6 +53,15 @@ angular.module('chanmao')
 
 	RRService.rrmenu = function($scope) {
 		var $http =  $injector.get('$http')
+		//******************************
+		// anmiations
+		//******************************;
+		var menu_content 	= document.getElementById("menu_content")
+		var menu_nav 		= document.getElementById("menu_nav");
+		
+		TweenMax.set(menu_content, {"opacity":0})
+		TweenMax.set(menu_nav, {"left":"150%"})
+
 		var order_dishes = window.localStorage.getItem("sa_dishes");
 		if (order_dishes != null){
 		  order_dishes = JSON.parse(order_dishes);
@@ -62,30 +69,26 @@ angular.module('chanmao')
 		} else {
 		  $scope.totaldish = 0;
 		}
-
 		var rid = window.localStorage.getItem("sv_rid");    
 		var eo_data = {};
 		eo_data.rid = rid;
+
 		$http.post(API_URL + 'MobOrder/Rrmenu',eo_data)
 			.success(function(data, status, headers, config) {
 
 				if(data.result == 1){
-					// $scope.menu =  data.menu;
-					// $scope.name =  data.name;
-					// $scope.open =  data.open;
 					$scope.show_menu = true;
-					// TweenMax.fromTo('#menu', 1, {
-					//   "margin-top": "140%", 
-					// },
-					// {
-					//    "margin-top": "0", 
-					// });
-					TweenMax.fromTo('#menu_nav', 1, {
-					  "left": "140%", 
-					},
-					{
-					   "left": "0", 
-					});
+
+					//******************************
+					// anmiations
+					//******************************;
+					
+						var tl = new TimelineLite();
+						tl.add(	TweenMax.to(menu_content, 3, {"opacity":1}),0.5)
+						tl.add(	TweenMax.to(menu_nav, 1, {"left":0}),1.5);
+						
+						
+
 					var sorting_menu = RRService.sorting_menu(data.menu)
 					$scope.menu = sorting_menu.la_menu;
 					$scope.cate = sorting_menu.la_cate;
@@ -105,12 +108,11 @@ angular.module('chanmao')
 						   // console.log( cate.menu_position)
 					   })
 					   var nav_width       = document.getElementById('anchor_nav0').offsetWidth 
-					   	setTimeout(function() {
-					   	 	TweenMax.staggerTo(".nav_btn", 0.5, {width:nav_width + 3+'px'}, 0.1);
-					   	}, 500);
+						setTimeout(function() {
+							TweenMax.staggerTo(".nav_btn", 0.5, {width:nav_width + 3+'px'}, 0.1);
+						}, 500);
 					   $scope.cate[0].current = true;
 					   $scope.divice_width = $ionicScrollDelegate.$getByHandle('Nav').getScrollView().__clientWidth;
-					   console.log($scope.divice_width)
 					},500)
 					
 				}else{
@@ -122,9 +124,9 @@ angular.module('chanmao')
 				alertService.alert('没有网络连接了','阿西吧 #_#!')
 				loadingService.hideLoading()
 			}).then(function(){
-			 	setTimeout(function() {
- 					loadingService.hideLoading()
- 				}, 1000);
+				setTimeout(function() {
+					loadingService.hideLoading()
+				}, 1000);
 			   
 		   }); 
 	};
@@ -186,7 +188,7 @@ angular.module('chanmao')
 			ia_menu[re_index].amount = re_dish.amount
 			total += Number(ia_menu[re_index].amount) * Number(ia_menu[re_index].dish_price)
 			console.log(ia_menu[re_index])
- 			ia_menu[re_index].amount = Number(ia_menu[re_index].amount)-1
+			ia_menu[re_index].amount = Number(ia_menu[re_index].amount)-1
 			$scope.add_dish(ia_menu[re_index]) 
 		})
 		 

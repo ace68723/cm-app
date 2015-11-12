@@ -13,7 +13,7 @@
 		</div>
 	 	
 	 	<!-- <img src="img/logo.png" class="chanmao-logo"> -->
-		<img src="img/cat_head.png" class="chanmao-logo"/>
+		<img src="img/logo.png" class="chanmao-logo"/>
 		<form name="LoginForm" ng-controller="LoginFormCtrl">  
 			<div class="list list-inset cm-form">	
 				<label class="item item-input "style="border-top-right-radius: 10px;border-top-left-radius: 10px;" >
@@ -33,7 +33,14 @@
 		
 		<div class="row cm-register">
 			<div class="col col-50">
-				<button class="button button-blue-clear "  ng-click="wechat_login()" >
+				<a ng-hide="isWechatInstalled"
+						class="button button-blue-clear "  
+						href="#/register" >
+					注册新用户
+				</a>
+				<button ng-show="isWechatInstalled"
+						class="button button-blue-clear "  
+						ng-click="wechat_login()" >
 					注册新用户
 				</button>
 			</div>
@@ -46,7 +53,10 @@
 			</div>
 		</div>
 		
-		<img src="img/wechat.png" ng-click="wechat_login()" class="wechat_logo cm-wechat">
+		<img ng-show="isWechatInstalled" 
+			 src="img/wechat.png" 
+			 ng-click="wechat_login()" 
+			 class="wechat_logo cm-wechat">
 		
 		<div class="footer">	
 			<div class="center">
