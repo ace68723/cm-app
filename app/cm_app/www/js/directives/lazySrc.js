@@ -21,7 +21,6 @@ angular.module('chanmao')
 				var oScript = document.createElement("script");
 				oScript.type = "text\/javascript";
 				if (fOnload) { oScript.onload = fOnload; }
-				// console.log(oScript)
 				oHead.appendChild(oScript);
 				oScript.src = sSrc;
 				
@@ -56,7 +55,7 @@ angular.module('chanmao')
 			      		console.log(error)
 			      	})
 
-			    },1000)
+			    },2000)
 			}
   		}
   	}

@@ -3,7 +3,7 @@
 	   <h1 class="title">点餐</h1>
 	</ion-header-bar>
 	
-	<ion-content class="has-header hide_tabs"  >
+	<ion-content class="has-header hide_tabs" delegate-handle="order_scroll" >
 		<ion-refresher
 			on-refresh="rrlist_refresh(pull)">
 		</ion-refresher>
@@ -19,6 +19,7 @@
 					border-bottom-width: 3px;
 					text-align: center;
 					background-color: rgba(0, 0, 0, 0);
+					height:108px;
 				"
 				>
 				<img ng-src="{{restaurant_open.img_url + rr.rid}}.jpg"style="width: 95%;border-radius: 5px; margin-top: 4px;"  alt="">
@@ -34,6 +35,7 @@
 						border-bottom-width: 3px;
 						text-align: center;
 						background-color: rgba(0, 0, 0, 0);
+						height:108px;
 					"
 					>
 					<img ng-src="{{restaurant_close.img_url + rr.rid}}.jpg"style="width: 95%;border-radius: 5px;margin-top: 4px;"  alt="">

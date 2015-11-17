@@ -333,117 +333,94 @@ angular.module('chanmao.services', [])
 //   };
 // })
 
-.factory('HistoryService', function($http, $state,$location,$rootScope,$ionicScrollDelegate,auth,loadingService,API_URL) {
- return {
-	load: function($scope, mode) {  	
-	  	uid 			= window.localStorage.getItem("sv_uid");
-	  	var channel 	= auth.getChannel()  
-	  	var eo_data 	= {};
-	  	eo_data.uid 	= uid;
-	  	eo_data.channel = channel;
+// .factory('HistoryService', function($http, $state,$location,$rootScope,$ionicScrollDelegate,auth,loadingService,API_URL) {
+//  return {
+// 	load: function($scope, mode) {  	
+// 	  	uid 			= window.localStorage.getItem("sv_uid");
+// 	  	var channel 	= auth.getChannel()  
+// 	  	var eo_data 	= {};
+// 	  	eo_data.uid 	= uid;
+// 	  	eo_data.channel = channel;
 
-	  $http.post(API_URL+'MobOrder/historylist', eo_data)
-	  .success(function(data, status, headers, config) {
-			$scope.$evalAsync(function() {
-				if(data.current){
-					$scope.current      = data.current;
-					
-					$scope.available    = data.available; 
-					$scope.rid          = data.current.rid;  
-					var rrname 			= data.current.rrname.split('(')[0]
-					var rrarea 			= data.current.rrname.split('(')[1].split(')')[0]
-					$scope.current.rrname = rrname
-					$scope.current.rrarea = rrarea
-					$scope.current.uaddr  = data.current.uaddr.split(',')[0]	
-				}
-				$scope.orders       = data.historylist; 
+// 	  $http.post(API_URL+'MobOrder/historylist', eo_data)
+// 	  .success(function(data, status, headers, config) {
+// 			$scope.$evalAsync(function() {
+// 				if(data.current){
+// 					$scope.current      	= data.current;
+// 					$scope.available    	= data.available; 
+// 					$scope.rid          	= data.current.rid;  
+// 					var rrname 				= data.current.rrname.split('(')[0]
+// 					var rrarea 				= data.current.rrname.split('(')[1].split(')')[0]
+// 					$scope.current.rrname 	= rrname
+// 					$scope.current.rrarea 	= rrarea
+// 					$scope.current.uaddr  	= data.current.uaddr.split(',')[0]	
+// 				}
+// 				$scope.orders       = data.historylist; 
 				
-			});    
-				if (mode == 1){
-					setTimeout(function() {
-						$scope.$broadcast('scroll.refreshComplete');
-					}, 1000);
-				};
-		   }).error(function(data, status) { 
-			  $rootScope.noNetwork(); 
-		   }).then(function(){
-			  setTimeout(function() {
-					 loadingService.hideLoading()
-			  }, 1500);
-				$scope.$evalAsync(function() {
-				   if ($scope.current != null) {
-						$scope.updated = Date.now();
-						switch($scope.current.status) {
-									case '0':
-										$scope.status.button='stable';
-										$scope.status.text='等待商家确认';
-										break;
-									case '10':
-										$scope.status.button='balanced';
-										$scope.status.text='商家已确认, 准备中';
-										break;
-									case '20':
-										$scope.status.button='royal';
-										$scope.status.text='商家已确认, 准备中';
-										break;
-									case '30':
-										$scope.status.button='cmconfirm';
-										$scope.status.text='送餐员已开始送餐';
-										break;    
-									case '40':
-										$scope.status.button='calm';
-										$scope.status.text='已送到，满意吗？';
-										break;
-									case '55':
-										$scope.status.button='royal';
-										$scope.status.text='新用户订单确认中';
-										break;    
-									case '60':
-										$scope.status.button='royal';
-										$scope.status.text='客服稍后联系您改运费 >_<';
-										break;    
-									case '5':
-										$scope.status.button='assertive';
-										$scope.status.text='糟糕，有的菜没了 #_#';
-										break;
-								}
-				   }
-				});
-		   }); 
+// 			});    
+// 				if (mode == 1){
+// 					setTimeout(function() {
+// 						$scope.$broadcast('scroll.refreshComplete');
+// 					}, 1000);
+// 				};
+// 		   }).error(function(data, status) { 
+// 			  $rootScope.noNetwork(); 
+// 		   }).then(function(){
+// 			  setTimeout(function() {
+// 					 loadingService.hideLoading()
+// 			  }, 1500);
+// 				$scope.$evalAsync(function() {
+// 				   if ($scope.current != null) {
+// 						$scope.updated = Date.now();
+// 						switch($scope.current.status) {
+// 							case '0':
+// 								$scope.status.button='stable';
+// 								$scope.status.text='等待商家确认';
+// 								break;
+// 							case '10':
+// 								$scope.status.button='balanced';
+// 								$scope.status.text='商家已确认, 准备中';
+// 								break;
+// 							case '20':
+// 								$scope.status.button='royal';
+// 								$scope.status.text='商家已确认, 准备中';
+// 								break;
+// 							case '30':
+// 								$scope.status.button='cmconfirm';
+// 								$scope.status.text='送餐员已开始送餐';
+// 								break;    
+// 							case '40':
+// 								$scope.status.button='calm';
+// 								$scope.status.text='已送到，满意吗？';
+// 								break;
+// 							case '55':
+// 								$scope.status.button='royal';
+// 								$scope.status.text='新用户订单确认中';
+// 								break;    
+// 							case '60':
+// 								$scope.status.button='royal';
+// 								$scope.status.text='客服稍后联系您改运费 >_<';
+// 								break;    
+// 							case '5':
+// 								$scope.status.button='assertive';
+// 								$scope.status.text='糟糕，有的菜没了 #_#';
+// 								break;
+// 						}
+// 				   }
+// 				});
+// 		   }); 
 		   
-	},
-	scroll_refresh : function() {
-		// console.log('scroll_refresh')
-		var scrollView = $ionicScrollDelegate.$getByHandle('history_scroll').getScrollView()
-	        scrollView.__publish(
-	            scrollView.__scrollLeft, -scrollView.__refreshHeight,
-	            scrollView.__zoomLevel, true);
-
-	        var d = new Date();
-
-	        scrollView.refreshStartTime = d.getTime();
-
-	        scrollView.__refreshActive = true;
-	        scrollView.__refreshHidden = false;
-	        if (scrollView.__refreshShow) {
-	            scrollView.__refreshShow();
-	        }
-	        if (scrollView.__refreshActivate) {
-	            scrollView.__refreshActivate();
-	        }
-	        if (scrollView.__refreshStart) {
-	            scrollView.__refreshStart();
-	        }
-	},
-	recover: function($scope) {  	
-	   window.localStorage.setItem("sv_rid", $scope.rid);
-	   window.localStorage.setItem("sa_dishes", JSON.stringify($scope.available)); 
-	   // $state.go('tab.order');	
-	   $location.path('/tab/order/menu/' + $scope.rid)
-	},
+// 	},
 	
-  };
-})
+// 	recover: function($scope) {  	
+// 	   window.localStorage.setItem("sv_rid", $scope.rid);
+// 	   window.localStorage.setItem("sa_dishes", JSON.stringify($scope.available)); 
+// 	   // $state.go('tab.order');	
+// 	   $location.path('/tab/order/menu/' + $scope.rid)
+// 	},
+	
+//   };
+// })
 
 // .factory('AddressService', function($http, $state,$rootScope,API_URL) {
 //     var editing_addr;

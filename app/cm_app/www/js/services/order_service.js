@@ -8,7 +8,7 @@
  * Factory in the helloIonicApp.
  */
 angular.module('chanmao')
-  .factory('OrderService', function($http, $location, $window,$rootScope,$ionicHistory,loadingService, alertService, auth,HistoryService, API_URL) {
+  .factory('OrderService', function($http, $location, $window,$rootScope,$ionicHistory,loadingService, alertService, auth,scrollService, API_URL) {
 	var OrderService = {}
 	var storage = $window.localStorage;
 	var cached_order;
@@ -109,7 +109,7 @@ angular.module('chanmao')
 			var eo_data = { 
 				rid: parseInt(rid), 
 				uaid: parseInt($scope.uaid),
-				uid : parseInt(uid),
+				// uid : parseInt(uid),
 				channel : channel, // 0. Web 1. iOS 2.  Android
 				dltype : $scope.dltype,
 				dlexp : $scope.dlexp,
@@ -141,7 +141,8 @@ angular.module('chanmao')
 				$scope.confirm_dish = []
 				$location.path('/tab/history')
 				setTimeout(function() {
-					HistoryService.scroll_refresh()
+					// scrollService.scroll_refresh()
+					scrollService.scroll_refresh("history_scroll")
 				}, 200);
 				
 				
@@ -158,8 +159,6 @@ angular.module('chanmao')
 	  } 
 	  OrderService.save_order = function(ia_corder) {
 		cached_order = ia_corder;
-		// console.log(order)
-		// console.log(JSON.stringify(order))
 		storage.setItem('userOrder', JSON.stringify(ia_corder));
 	  }; 
 	  OrderService.get_order = function() {

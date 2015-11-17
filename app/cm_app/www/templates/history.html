@@ -10,7 +10,7 @@
 	</div> -->
   <ion-content  class="has-header" delegate-handle="history_scroll">
 	<ion-refresher
-		on-refresh="doRefresh(pull)">
+		on-refresh="doRefresh()">
 	</ion-refresher>
 	
 	<div class="card" ng-if="current!=null">
@@ -48,6 +48,7 @@
 			<div class="button button-small button-clear button-{{status.button}}" style="font-size: 15px;">
 			 	{{status.text}}
 			</div>
+			
 
 		</div>
 
@@ -75,10 +76,17 @@
 					<h2 style="overflow: visible;">647-515-6699</h2>
 				</div>
 			</div> 
-			<div class="row" ng-if="current.status == 5">
-			<!-- <div class="row"> -->
-				<button class="button button-block button-blue" ng-click="recover()">重新下单</button>
-			</div>
+			<div class="list" ng-if="current.status == 5">
+               <div class="item item-divider">
+                   下面的菜品木有了...
+               </div>
+               <div  class="item " ng-repeat="(id,dish) in unavailable_dish">
+                   {{id+1}}. {{dish.ds_name}}
+               </div>
+                   <button class="button button-block button-blue" ng-click="recover()">重新下单</button>
+              
+               
+           	</div>
 				
 			<div class="row">
 				<div class="col col-33" style="text-align: left;">

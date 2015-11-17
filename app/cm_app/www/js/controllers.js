@@ -229,28 +229,28 @@ angular.module('chanmao.controllers', [])
 })
 
 
-.controller('OrderCtrl', function($scope,$ionicFrostedDelegate,$ionicScrollDelegate,loadingService, RRService) {
-	RRService.rrlist($scope);
+// .controller('OrderCtrl', function($scope,$ionicFrostedDelegate,$ionicScrollDelegate,loadingService, RRService) {
+// 	RRService.rrlist($scope);
    
-	$scope.gotoRR = function(rid) { 
-		RRService.gotoRR(rid);
-	};  
-	$scope.rrlist_refresh = function(){
-		RRService.rrlist($scope);
-		setTimeout(function() {
-			$ionicScrollDelegate.resize();
-			$ionicFrostedDelegate.update();
-		}, 1500);
+// 	$scope.gotoRR = function(rid) { 
+// 		RRService.gotoRR(rid);
+// 	};  
+// 	$scope.rrlist_refresh = function(){
+// 		RRService.rrlist($scope);
+// 		setTimeout(function() {
+// 			$ionicScrollDelegate.resize();
+// 			$ionicFrostedDelegate.update();
+// 		}, 1500);
 	  
-	}
-	$scope.open_restaurant_close = function() {
-		$ionicScrollDelegate.resize();
-		$ionicFrostedDelegate.update();
-		$scope.restaurant_close.open = !$scope.restaurant_close.open
-	};
-	loadingService.showLoading()
+// 	}
+// 	$scope.open_restaurant_close = function() {
+// 		$ionicScrollDelegate.resize();
+// 		$ionicFrostedDelegate.update();
+// 		$scope.restaurant_close.open = !$scope.restaurant_close.open
+// 	};
+// 	loadingService.showLoading()
 	
-})
+// })
 
 // .controller('OrderMenuCtrl', function($scope, $state, $stateParams, $ionicLoading, $ionicModal,$ionicScrollDelegate, RRService,$rootScope) {
 // // Hide the tab
@@ -482,18 +482,14 @@ angular.module('chanmao.controllers', [])
 // })
 
 
-.controller('HistoryCtrl', function($scope, $location, $ionicLoading, $http, $timeout,$ionicFrostedDelegate, HistoryService, SystemService,loadingService) {
+.controller('HistoryCtrl', function($scope, $location, $ionicLoading, $http, $interval,$ionicFrostedDelegate, HistoryService,scrollService, SystemService,loadingService) {
 	loadingService.showLoading()
  
 	$scope.hideLoading = function(){
 		$ionicLoading.hide();
 	};  
-	$scope.doRefresh = function(pull) {
-		var page = $location.path();
-		if (page == '/tab/history') {
-			HistoryService.load($scope,1);
-			$timeout($scope.doRefresh, 60000);
-		}
+	$scope.doRefresh = function() {
+		HistoryService.load($scope,1);
 		$ionicFrostedDelegate.update();
 	};
 
@@ -503,8 +499,28 @@ angular.module('chanmao.controllers', [])
 
 	
 	$scope.status =  { text : null, badge : null}; 
-	HistoryService.load($scope,0);
-	$timeout($scope.doRefresh, 60000);
+
+	setTimeout(function() {
+        pull_scroll()
+    }, 200);
+    var pulling;
+	function pull_scroll() {
+		if(!pulling){
+			pulling = true;
+			var page = $location.path();
+			if (page == '/tab/history') {
+			 scrollService.scroll_refresh("history_scroll");
+			}
+			setTimeout(function() {
+				pulling = false;
+			}, 5000);
+		}
+		
+	};
+	$interval(function() {
+		pull_scroll()
+	},60000)
+	// $timeout(pull_scroll(), 60000);
 })
 
 

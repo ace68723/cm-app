@@ -9,7 +9,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 
 
 // .run(function($ionicPlatform, $rootScope, $cordovaSplashscreen,$cordovaNetwork,$cordovaDialogs,$timeout) {
-.constant('version', '1.1.10')
+.constant('version', '1.1.11')
 .run(function($rootScope,$location,$ionicPlatform,$ionicFrostedDelegate,$ionicHistory,$cordovaGeolocation,$cordovaNetwork,auth,alertService,loadingService){
   $ionicPlatform.ready(function() {
 
@@ -19,37 +19,31 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 	// }, 2000);
 
 	Ionic.io();
+	
 	var deploy = new Ionic.Deploy();
+	
 	$rootScope.doUpdate = function() {
 		loadingService.showUpdate()
 		deploy.update().then(function(res) {
-		 // console.log('Ionic Deploy: Update Success! ', res);
-		 loadingService.hideLoading()
-		 	setTimeout(function() {
-		 		auth.doAuth()
-		 	}, 3000);
+		 	loadingService.hideLoading()
+			 	setTimeout(function() {
+			 		auth.doAuth()
+			 	}, 3000);
 		}, function(err) {
-		 // console.log('Ionic Deploy: Update error! ', err);
-		 loadingService.hideLoading()
-		 	setTimeout(function() {
-		 		auth.doAuth()
-		 	}, 3000);
-		 // alertService.alert("更新失败","#_#")
+		 	loadingService.hideLoading()
+			 	setTimeout(function() {
+			 		auth.doAuth()
+			 	}, 3000);
 		}, function(prog) {
 			$rootScope.$evalAsync(function () {
 				$rootScope.prog = prog;
 			})
-		 // console.log('Ionic Deploy: Progress... ', prog);
 		});
 	};
-		 // Check Ionic Deploy for new code
+
 	$rootScope.checkForUpdates = function() {
-		// console.log('Ionic Deploy: Checking for updates');
 		deploy.check().then(function(hasUpdate) {
-			// console.log('Ionic Deploy: Update available: ' + hasUpdate);
-			
-				$rootScope.hasUpdate = hasUpdate;
-			
+			$rootScope.hasUpdate = hasUpdate;
 			
 			if(hasUpdate){
 				$rootScope.doUpdate();
@@ -58,9 +52,8 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 						auth.doAuth()
 				}, 3000);
 			}
-			
 		}, function(err) {
-			// console.error('Ionic Deploy: Unable to check for updates', err);
+			
 		});
 	};
 
@@ -91,7 +84,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 		
 		if(window.cordova.platformId == 'ios'){
 			auth.setChannel(1)
-			$rootScope.checkForUpdates();
+			// $rootScope.checkForUpdates();
 		}else if (window.cordova.platformId == 'android'){
 			auth.setChannel(2)
 			loadingService.showUpdate()
@@ -106,25 +99,26 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 		auth.setChannel(99)
 	}
 	$rootScope.$on('$locationChangeStart', function(event){
-			var url = $location.url(),
-				params = $location.search();
-				$ionicFrostedDelegate.update();
-				var tabs = document.querySelectorAll('div.tabs')[0];
-					tabs = angular.element(tabs);
-					tabs.addClass("animated");
-				if(url == "/tab/history" || url == "/tab/profile" || url == "/tab/order" ){
-					if(tabs.hasClass("slideOutDown")){
-						tabs.removeClass("slideOutDown")
-						tabs.addClass("slideInUp");
-						console.log('1')
-					}
-				}else{
-					if(tabs.hasClass("slideInUp")){
-						tabs.removeClass("slideInUp")
-						console.log('2')
-					}
-					tabs.addClass("slideOutDown");
-				}
+			
+		var url = $location.url(),
+			params = $location.search();
+		$ionicFrostedDelegate.update();
+
+		var tabs = document.querySelectorAll('div.tabs')[0];
+			tabs = angular.element(tabs);
+			tabs.addClass("animated");
+
+		if(url == "/tab/history" || url == "/tab/profile" || url == "/tab/order" ){
+			if(tabs.hasClass("slideOutDown")){
+				tabs.removeClass("slideOutDown")
+				tabs.addClass("slideInUp");
+			}
+		}else{
+			if(tabs.hasClass("slideInUp")){
+				tabs.removeClass("slideInUp")
+			}
+			tabs.addClass("slideOutDown");
+		}
 	})
 
 	$rootScope.go_back = function() {
@@ -274,27 +268,14 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 			}
 		}
 	})  
-
-	// .state('tab.about', {
-	  // url: '/about',
-	  // views: {
-		// 'about-tab': {
-		  // templateUrl: 'templates/about.html',
-		  // controller: 'AboutCtrl'
-		// }
-	  // }
-	// })
-	
 	;
 
-  // if none of the above states are matched, use this as the fallback
    $urlRouterProvider.otherwise('/login');
-   // $urlRouterProvider.otherwise('/tab/history');
 
    $httpProvider.interceptors.push('authInterceptor');
    
 })
-.constant('API_URL', 'http://www.chanmao.ca/index.php?r=');//api url constant
+.constant('API_URL', 'https://www.chanmao.ca/index.php?r=');
 ;
 
 
