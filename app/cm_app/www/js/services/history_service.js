@@ -23,7 +23,10 @@ angular.module('chanmao')
       $http.post(API_URL+'MobOrder/historylist', eo_data)
       .success(function(data, status, headers, config) {
             la_available = data.available
-            lv_oid                     = data.current.oid;
+            if(data.current){
+                lv_oid       = data.current.oid;
+            }
+           
             $scope.$evalAsync(function() {
                 if(data.current){
                     $scope.current          = data.current;
