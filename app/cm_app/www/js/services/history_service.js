@@ -85,34 +85,42 @@ angular.module('chanmao')
                     case '0':
                         $scope.status.button='stable';
                         $scope.status.text='等待商家确认';
+                        $scope.current.img = "./img/normal.png"
                         break;
                     case '10':
                         $scope.status.button='balanced';
                         $scope.status.text='商家已确认, 准备中';
+                        $scope.current.img = "./img/happy.png"
                         break;
                     case '20':
                         $scope.status.button='royal';
                         $scope.status.text='商家已确认, 准备中';
+                        $scope.current.img = "./img/happy.png"
                         break;
                     case '30':
                         $scope.status.button='cmconfirm';
                         $scope.status.text='送餐员已开始送餐';
+                        $scope.current.img = "./img/happy.png"
                         break;    
                     case '40':
                         $scope.status.button='calm';
                         $scope.status.text='已送到，满意吗？';
+                        $scope.current.img = "./img/happy.png"
                         break;
                     case '55':
                         $scope.status.button='royal';
                         $scope.status.text='新用户订单确认中';
+                        $scope.current.img = "./img/normal.png"
                         break;    
                     case '60':
                         $scope.status.button='royal';
                         $scope.status.text='客服稍后联系您改运费 >_<';
+                        $scope.current.img = "./img/normal.png"
                         break;    
                     case '5':
                         $scope.status.button='assertive';
                         $scope.status.text='糟糕，有的菜没了 #_#';
+                        $scope.current.img = "./img/unhappy.png"
                         break;
                 }
            }
