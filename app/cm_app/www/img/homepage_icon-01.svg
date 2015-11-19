@@ -1,0 +1,52 @@
+
+<svg  xmlns="http://www.w3.org/2000/svg" style="display: none">
+    <symbol id="circle-cross" viewBox="0 0 32 32">
+
+        <image overflow="visible" width="127" height="127" xlink:href="data:image/png;base64,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
+        AAMA9gVmdTdWUPoAAAAASUVORK5CYII=" transform="matrix(0.48 0 0 0.48 0 2)">
+        </image>
+    </symbol>
+</svg>

@@ -292,8 +292,21 @@ button.cm-button-block, button.cm-button-full, .button-full > button.cm-button, 
 
 
 
-
-
+/**
+ * tab 
+ * --------------------------------------------------
+ */
+.cm-home-icon{
+    background-color: #e6e6e6;
+    color: #999999;
+    opacity: 1;
+    background-image: url("../img/homepage_icon-01.png");
+    background-size: 23%;
+    background-repeat: no-repeat;
+    /* background-position: center; */
+    background-position-x: 50%;
+    background-position-y: 28%;
+}
 
 
 

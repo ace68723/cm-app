@@ -97,13 +97,15 @@ angular.module('chanmao')
 			var rid = window.localStorage.getItem("sv_rid");
 			var ea_dishes = []
 			_.forEach(order_dishes,function(dish,key) {
-				var lo_dish     = {};
-				lo_dish.ds_id   = dish.dish_id
-				lo_dish.amount  = dish.amount
-				lo_dish.int_no  = dish.int_no
-				lo_dish.ds_name = dish.ds_name
-				lo_dish.price   = dish.dish_price
-				ea_dishes.push(lo_dish)
+				if(dish.amount>0){
+					var lo_dish     = {};
+					lo_dish.ds_id   = dish.dish_id
+					lo_dish.amount  = dish.amount
+					lo_dish.int_no  = dish.int_no
+					lo_dish.ds_name = dish.ds_name
+					lo_dish.price   = dish.dish_price
+					ea_dishes.push(lo_dish)
+				}
 			})
 			var channel = auth.getChannel();
 			var eo_data = { 
