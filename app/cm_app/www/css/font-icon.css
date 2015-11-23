@@ -1,0 +1,40 @@
+.ion-cat:before, .ion-cat-a:before, .ion-home:before, .ion-home-a:before, .ion-food:before, .ion-food-a:before {
+    display: inline-block;
+    font-family: "Ionicons";
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-rendering: auto;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+   
+}
+
+
+
+.ion-home:before{
+    content: "\e902";
+}
+.ion-home-a:before {
+    content: "\e901";
+}
+
+.ion-cat:before{
+    content: "\e904";
+}
+.ion-cat-a:before {
+    content: "\e905";
+}
+
+.ion-food:before{
+    content: "\e903";
+}
+.ion-food-a:before {
+    content: "\e900";
+}
+
+
+

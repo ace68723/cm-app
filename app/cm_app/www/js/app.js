@@ -10,7 +10,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 
 // .run(function($ionicPlatform, $rootScope, $cordovaSplashscreen,$cordovaNetwork,$cordovaDialogs,$timeout) {
 .constant('version', '1.1.11')
-.run(function($rootScope,$location,$ionicPlatform,$ionicFrostedDelegate,$ionicHistory,$cordovaGeolocation,$cordovaNetwork,auth,alertService,loadingService){
+.run(function($rootScope,$location,$ionicPlatform,$ionicTabsDelegate,$ionicFrostedDelegate,$ionicHistory,$cordovaGeolocation,$cordovaNetwork,auth,alertService,loadingService){
   $ionicPlatform.ready(function() {
 
   	
@@ -84,7 +84,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 		
 		if(window.cordova.platformId == 'ios'){
 			auth.setChannel(1)
-			$rootScope.checkForUpdates();
+			// $rootScope.checkForUpdates();
 		}else if (window.cordova.platformId == 'android'){
 			auth.setChannel(2)
 			loadingService.showUpdate()
@@ -126,7 +126,30 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 	};
 
 	
+	$rootScope.selectTabWithIndex = function(index) {
 
+    	// $ionicTabsDelegate.select(index);
+    	if(index == 1){
+    		$location.url("/tab/order")
+    		
+    	}else if(index == 2){
+    		$location.url("/tab/history")
+    	}else if(index == 3){
+    		$location.url("/tab/profile")
+    	}
+    	// switch(index) {
+    	//     case '1':
+    	//         $location.url("/tab/order")
+    	//         break;
+    	//     case '2':
+    	//         $location.url("/tab/history")
+    	//         break;
+    	//     case '3':
+    	//      	$location.url("/tab/profile")
+    	//         break;
+    	// }
+    	
+  	}
 
   });
 
