@@ -8,8 +8,11 @@
  * Factory in the helloIonicApp.
  */
 angular.module('chanmao')
-  .factory('loadingService', ['$injector',function ($injector) {
+  .factory('loadingService', ['$injector','$window',function ($injector,$window) {
     var loadingService = {}
+    var storage = $window.localStorage;
+    var cachedTime;
+    
     loadingService.showLoading = function() {
         var $ionicLoading = $injector.get('$ionicLoading')
         $ionicLoading.show({
@@ -26,5 +29,26 @@ angular.module('chanmao')
         var $ionicLoading = $injector.get('$ionicLoading')
         $ionicLoading.hide();
     };
+
+    loadingService.setTime = function(time) {
+        cachedTime = time;
+        storage.setItem('last_time', time);
+    };
+    loadingService.getTime = function() {
+        if(!cachedTime)
+            cachedTime = storage.getItem('last_time');
+        return cachedTime;
+    };
+    loadingService.reLoading = function() {
+        if (!loadingService.getTime()) {
+            console.log('44')
+            var now =  Date.now()
+            console.log('55',now)
+        }else{
+            var now = Date.now()
+            console.log('55',now)
+        }
+    };
+
     return loadingService
   }]);

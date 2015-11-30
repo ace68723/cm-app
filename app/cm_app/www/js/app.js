@@ -9,7 +9,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 
 
 // .run(function($ionicPlatform, $rootScope, $cordovaSplashscreen,$cordovaNetwork,$cordovaDialogs,$timeout) {
-.constant('version', '1.1.11')
+.constant('version', '1.1.12')
 .run(function($rootScope,$location,$ionicPlatform,$ionicTabsDelegate,$ionicFrostedDelegate,$ionicHistory,$cordovaGeolocation,$cordovaNetwork,auth,alertService,loadingService){
   $ionicPlatform.ready(function() {
 
@@ -84,7 +84,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 		
 		if(window.cordova.platformId == 'ios'){
 			auth.setChannel(1)
-			// $rootScope.checkForUpdates();
+			$rootScope.checkForUpdates();
 		}else if (window.cordova.platformId == 'android'){
 			auth.setChannel(2)
 			loadingService.showUpdate()
@@ -98,27 +98,33 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 	}else{
 		auth.setChannel(99)
 	}
+	
 	$rootScope.$on('$locationChangeStart', function(event){
-			
+		
 		var url = $location.url(),
 			params = $location.search();
-		$ionicFrostedDelegate.update();
+		setTimeout(function() {
+			$ionicFrostedDelegate.update();
+		}, 1000);
+		
+		// setTimeout(function() {
+			var tabs = document.querySelectorAll('div.tabs')[0];
+				tabs = angular.element(tabs);
+				tabs.addClass("animated");
 
-		var tabs = document.querySelectorAll('div.tabs')[0];
-			tabs = angular.element(tabs);
-			tabs.addClass("animated");
-
-		if(url == "/tab/history" || url == "/tab/profile" || url == "/tab/order" ){
-			if(tabs.hasClass("slideOutDown")){
-				tabs.removeClass("slideOutDown")
-				tabs.addClass("slideInUp");
+			if(url == "/tab/history" || url == "/tab/profile" || url == "/tab/order" ){
+				if(tabs.hasClass("slideOutDown")){
+					tabs.removeClass("slideOutDown")
+					tabs.addClass("slideInUp");
+				}
+			}else{
+				if(tabs.hasClass("slideInUp")){
+					tabs.removeClass("slideInUp")
+				}
+				tabs.addClass("slideOutDown");
 			}
-		}else{
-			if(tabs.hasClass("slideInUp")){
-				tabs.removeClass("slideInUp")
-			}
-			tabs.addClass("slideOutDown");
-		}
+		// }, 500);
+		
 	})
 
 	$rootScope.go_back = function() {
@@ -137,17 +143,6 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
     	}else if(index == 3){
     		$location.url("/tab/profile")
     	}
-    	// switch(index) {
-    	//     case '1':
-    	//         $location.url("/tab/order")
-    	//         break;
-    	//     case '2':
-    	//         $location.url("/tab/history")
-    	//         break;
-    	//     case '3':
-    	//      	$location.url("/tab/profile")
-    	//         break;
-    	// }
     	
   	}
 

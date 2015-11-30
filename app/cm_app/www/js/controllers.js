@@ -496,7 +496,39 @@ angular.module('chanmao.controllers', [])
 	$scope.recover = function() {
 		HistoryService.recover($scope);
 	};
+	$scope.send_sms = function(oid) {
+		$scope.current.cell = 'verify'
+		HistoryService.send_sms(oid)
+	};
+	var can_verify = true;
 
+	$scope.verify_sms = function(oid,verify_code) {
+		console.log(oid,verify_code)
+	
+		if(can_verify){
+			can_verify = false;
+			HistoryService.verify_sms(oid,verify_code)
+			.then(function() {
+				$scope.doRefresh();	
+			})
+			.catch(function() {
+
+			});
+
+			$scope.wait_time = 30;
+			var wait_time = $interval(function() {
+				$scope.wait_time -= 1;
+				if($scope.wait_time<= 0 ){
+					$interval.cancel(wait_time)
+					$scope.wait_time = null
+					can_verify = true;
+				}
+			},1000)
+		}
+
+
+		
+	};
 	
 	$scope.status =  { text : null, badge : null}; 
 
@@ -521,6 +553,7 @@ angular.module('chanmao.controllers', [])
 		pull_scroll()
 	},60000)
 	// $timeout(pull_scroll(), 60000);
+
 })
 
 

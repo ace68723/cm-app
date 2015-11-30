@@ -23,7 +23,10 @@ angular.module('chanmao')
 		scrollService.scroll_refresh("order_scroll");
 	}, 200);
 	
-	$interval(function() {
-		scrollService.scroll_refresh("order_scroll");
-	},60000 * 15)
-  })
+	// $interval(function() {
+	// 	scrollService.scroll_refresh("order_scroll");
+	// },60000 * 15)
+  	$scope.$on('$ionicView.beforeEnter', function(){ 
+  		loadingService.reLoading()
+  	});
+})

@@ -8,7 +8,7 @@
  * Factory in the helloIonicApp.
  */
 angular.module('chanmao')
-  .factory('HistoryService', function($http, $state,$location,$window,$rootScope,$ionicScrollDelegate,auth,scrollService,loadingService,alertService,API_URL) {
+  .factory('HistoryService', function($http, $q, $state,$location,$window,$rootScope,$ionicScrollDelegate,auth,scrollService,loadingService,alertService,API_URL) {
     var HistoryService = {};
     var lv_oid;
     var lv_last_oid;
@@ -76,7 +76,42 @@ angular.module('chanmao')
        // $state.go('tab.order');   
        $location.path('/tab/order/menu/' + $scope.rid)
     };
-
+    
+    HistoryService.send_sms = function(oid) {     
+        $http({
+            method: 'post',
+            url: API_URL+'/MobOrder/sendcode',
+            data:{iv_oid:oid}
+        }).then(function successCallback(response) {
+            console.log(response)
+        }, function errorCallback(response) {
+            console.log(response)
+             // alertService.alert(message,"@_@没发出去")
+        })
+    };
+    HistoryService.verify_sms  = function(oid,verify_code) {
+        var deferred = $q.defer();
+        $http({
+            method: 'post',
+            url: API_URL+'MobOrder/verifysms',
+            data:{iv_oid:oid,iv_code:verify_code}
+        }).then(function successCallback(response) {
+            var data = response.data;
+            if(data.ev_result == 0){
+                deferred.resolve('done');
+                alertService.alert("验证成功")
+            }else{
+                deferred.reject('error');
+                alertService.alert("@_@验证码不对","出错啦")
+            }
+            
+        }, function errorCallback(response) {
+             deferred.reject('error');
+             alertService.alert("@_@没发出去","出错啦")
+        })
+        return deferred.promise;
+    }
+    
     function change_status ($scope) {
         $scope.$evalAsync(function() {
            if ($scope.current != null) {

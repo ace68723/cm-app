@@ -8,8 +8,8 @@
  * Factory in the smartDriverApp.
  */
 angular.module('chanmao')
-  .factory('auth', ['$q','$window','$injector','$location','alertService','loadingService','API_URL',
-    function ($q,$window, $injector,$location,alertService,loadingService,API_URL) {
+  .factory('auth', ['$q','$window','$injector','$location','$cordovaDevice','alertService','loadingService','API_URL','version',
+    function ($q,$window, $injector,$location,$cordovaDevice,alertService,loadingService,API_URL,version) {
     
     var storage = $window.localStorage;
     var auth = {};
@@ -18,7 +18,8 @@ angular.module('chanmao')
     var cachedChannel;
     var res_code;
 
-   
+    var version     = version;
+    
     auth.setToken = function(token) {
         cachedToken = token;
         storage.setItem('userToken', token);
@@ -65,9 +66,44 @@ angular.module('chanmao')
     
     auth.doAuth = function() {
         var $http =  $injector.get('$http')
-        $http.get(API_URL + 'MobLogin/loginwc').
-            success(function(data, status, headers,conifg) {
-                // console.log(data)
+        var uuid        = $cordovaDevice.getUUID();
+        var os_model    = $cordovaDevice.getModel()
+        var os_platfrom = $cordovaDevice.getPlatform();
+        var os_version  = $cordovaDevice.getVersion();
+
+        // $http.get(API_URL + 'MobLogin/loginwc').
+        //     success(function(data, status, headers,conifg) {
+        //         // console.log(data)
+        //         if(data.result == 1){
+        //             if(data.token){
+        //                 auth.setToken(data.token)
+        //             }
+        //             $location.path('/tab/history')
+        //         }else{
+        //             console.log('remove token')
+        //             auth.removeToken(); 
+        //             $location.path('/login')
+        //         }
+
+        //         loadingService.hideLoading()
+                
+        //     })
+        //     .error(function(data, status, headers,conifg) {
+        //         console.log('error send res code')
+        //         loadingService.hideLoading()
+        //     });
+
+        $http({
+          method: 'GET',
+          url: API_URL + 'MobLogin/loginwc',
+          headers: {
+           'Cmversion': version,
+           'Cmuuid':uuid,
+           'Cmos':os_model+" | " +os_platfrom +" | " +os_version
+         },
+        }).then(function successCallback(response) {
+             // console.log(data)
+                var data = response.data
                 if(data.result == 1){
                     if(data.token){
                         auth.setToken(data.token)
@@ -80,12 +116,10 @@ angular.module('chanmao')
                 }
 
                 loadingService.hideLoading()
-                
-            })
-            .error(function(data, status, headers,conifg) {
-                console.log('error send res code')
-                loadingService.hideLoading()
-            });
+          }, function errorCallback(response) {
+            console.log('error send res code')
+            loadingService.hideLoading()
+          });
 
     }
     auth.save_location = function(location) {

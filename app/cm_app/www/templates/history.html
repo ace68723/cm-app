@@ -51,6 +51,34 @@
 			<div class="button button-small button-clear button-{{status.button}}" style="font-size: 15px;">
 			 	{{status.text}}
 			</div>
+			<div ng-if="current.cell">
+				
+			 	<button class="button button-block button-blue" 
+			 		 	ng-click="send_sms(current.oid)"
+			 		 	ng-if="current.cell !== 'verify' && current.cell !== 'fail'" 
+			 		 	>
+			 		 获取手机验证码
+			 	</button>
+
+			 	<label class="item item-input" ng-if="current.cell == 'verify'">
+				  <input type="tel" ng-model="current.verify_code" placeholder="请输入验证码">
+				</label>
+			 	<button class="button button-block button-blue" 
+			         	ng-click="verify_sms(current.oid,current.verify_code)"
+			         	ng-if="current.cell == 'verify'"
+			         	ng-disabled="wait_time>0">
+			         验证手机{{wait_time + S}}
+			    </button>
+				<div class="button button-small button-clear button-{{status.button}}" style="font-size: 15px;"ng-if="current.cell !== 'fail'" >
+				 	请使用手机自行验证
+				</div>
+				<div class="button button-small button-clear button-{{status.button}}" 
+					 style="font-size: 15px;"
+					 ng-if="current.cell == 'fail'">
+				 	验证不通过,客服将稍后与您联系
+				</div>
+			</div>
+			
 			
 
 		</div>

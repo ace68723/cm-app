@@ -215,7 +215,8 @@ angular.module('chanmao', ['ionic', 'ngCordova','chanmao.services', 'chanmao.con
    $httpProvider.interceptors.push('authInterceptor');
    
 })
-.constant('API_URL', 'http://cmtest.littlesailing.com/index.php?r=');//api url constant
+// .constant('API_URL', 'http://cmtest.littlesailing.com/index.php?r=');//api url constant
+.constant('API_URL', 'http://cmtest.littlesailing.com/index.php?r=');
 ;
 
 

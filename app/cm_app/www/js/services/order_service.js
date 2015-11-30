@@ -8,7 +8,7 @@
  * Factory in the helloIonicApp.
  */
 angular.module('chanmao')
-  .factory('OrderService', function($http, $location, $window,$rootScope,$ionicHistory,loadingService, alertService, auth,scrollService, API_URL) {
+  .factory('OrderService', function($http, $location, $window,$rootScope,$ionicHistory,loadingService, alertService, auth,scrollService, API_URL,version) {
 	var OrderService = {}
 	var storage = $window.localStorage;
 	var cached_order;
@@ -112,13 +112,14 @@ angular.module('chanmao')
 				rid: parseInt(rid), 
 				uaid: parseInt($scope.uaid),
 				// uid : parseInt(uid),
-				channel : channel, // 0. Web 1. iOS 2.  Android
-				dltype : $scope.dltype,
-				dlexp : $scope.dlexp,
-				pretax : $scope.totalpre,
-				comment : $scope.comment,
-				items : ea_dishes,
-					   }
+				channel 	: channel, // 0. Web 1. iOS 2.  Android
+				dltype 		: $scope.dltype,
+				dlexp 		: $scope.dlexp,
+				pretax 		: $scope.totalpre,
+				comment 	: $scope.comment,
+				items 		: ea_dishes,
+				version		:  version
+			}
 				console.log(eo_data)       
 
 		   $http.post(API_URL+'MobOrder/checkout',eo_data )
