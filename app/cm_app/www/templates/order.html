@@ -1,5 +1,5 @@
 <ion-view title="点餐" >
-	<ion-header-bar frosted-bar class="bar-frosted">
+	<ion-header-bar>
 	   <h1 class="title">点餐</h1>
 	</ion-header-bar>
 	
@@ -23,6 +23,7 @@
 				"
 				>
 				<img ng-src="{{restaurant_open.img_url + rr.rid}}.jpg"style="width: 95%;border-radius: 5px; margin-top: 4px;"  alt="">
+				<div ng-if="rr.watermark == 1"class="button button-small button-orange  rr_recommend" >推荐商家</div>
 			</a> 
 			<div>
 				<a class="item "

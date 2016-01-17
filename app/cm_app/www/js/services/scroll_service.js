@@ -13,9 +13,10 @@ angular.module('chanmao')
     scrollService.scroll_refresh = function(Handle) {
         var $ionicScrollDelegate = $injector.get('$ionicScrollDelegate')
         var scrollView = $ionicScrollDelegate.$getByHandle(Handle).getScrollView()
-            scrollView.__publish(
-                scrollView.__scrollLeft, - scrollView.__refreshHeight,
-                scrollView.__zoomLevel, true);
+            console.log('scrollView',Handle,scrollView)
+            // scrollView.__publish(
+            //     scrollView.__scrollLeft, - scrollView.__refreshHeight,
+            //     scrollView.__zoomLevel, true);
 
             var d = new Date();
 
@@ -32,6 +33,7 @@ angular.module('chanmao')
             if (scrollView.__refreshStart) {
                 scrollView.__refreshStart();
             }
+            // scrollView.activatePullToRefresh()
     }
     return scrollService
   }]);

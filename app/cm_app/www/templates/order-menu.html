@@ -1,5 +1,5 @@
 <ion-view title="{{name}}" >
-	<ion-header-bar frosted-bar class="bar-frosted">
+	<ion-header-bar>
 		<div class="buttons button_on_blur ">
 			<button class="button   button-clear button-cm-blue" ng-click="go_back()"><_<</button>
 		  </div>
@@ -47,11 +47,12 @@
 					class=" item item-button-right" 
 					ng-if="!dish.has_cate_name && !dish.img_url "
 					on-tap="add_dish(dish)"
+					style="padding-right: 50px;"
 					>
 					<div class="row">
-						<div class="col col-66"><h2>{{dish.ds_name}}</h2>
+						<div class="col col-75"><h2>{{dish.ds_name}}</h2>
 						<p>{{dish.dish_price | currency}}</p></div>
-						<div class="col col-33">
+						<div class="col col-25">
 							<h2 ng-if="dish.amount >0">数量:{{dish.amount}}</h2>
 						</div>
 					</div>
@@ -61,7 +62,7 @@
 					<button class="button button-calm button-outline"
 							ng-if="dish.amount >0"
 							on-tap="dec_dish(dish) "
-							style="top: 30px;font-size: 35px;height: 38px;"
+							style="top: 22px;font-size: 35px;height: 38px;"
 							>
 					-   
 					</button>
@@ -87,7 +88,7 @@
 		</form>
 
 		<ion-scroll direction="x" class="nav-scroller" delegate-handle="Nav"style="width: 100%;z-index: 2;position: absolute;left: 33px;background-color: #f8f8f8">
-			<div id="nav_btn"class="nav_btn" style="border-color: #76d5ff"> 
+			<div id="nav_btn"class="nav_btn" > 
 			</div>  
 			<div  class="nav" 
 				ng-repeat="(id,nav) in cate"

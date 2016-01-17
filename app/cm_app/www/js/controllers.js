@@ -490,7 +490,9 @@ angular.module('chanmao.controllers', [])
 	};  
 	$scope.doRefresh = function() {
 		HistoryService.load($scope,1);
-		$ionicFrostedDelegate.update();
+		// if(window.cordova && window.cordova.platformId == 'ios'){	
+		// 	$ionicFrostedDelegate.update();
+		// }
 	};
 
 	$scope.recover = function() {
@@ -534,6 +536,7 @@ angular.module('chanmao.controllers', [])
 
 	setTimeout(function() {
         pull_scroll()
+        HistoryService.load($scope,1);
     }, 200);
     var pulling;
 	function pull_scroll() {
@@ -541,7 +544,7 @@ angular.module('chanmao.controllers', [])
 			pulling = true;
 			var page = $location.path();
 			if (page == '/tab/history') {
-			 scrollService.scroll_refresh("history_scroll");
+			 // scrollService.scroll_refresh("history_scroll");
 			}
 			setTimeout(function() {
 				pulling = false;

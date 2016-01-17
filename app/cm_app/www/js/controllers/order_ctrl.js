@@ -13,7 +13,9 @@ angular.module('chanmao')
 	  	RRService.rrlist($scope);
 	  	setTimeout(function() {
 			$ionicScrollDelegate.resize();
-			$ionicFrostedDelegate.update();
+			// if(window.cordova && window.cordova.platformId == 'ios'){	
+			// 	$ionicFrostedDelegate.update();
+			// }
 	  	}, 	1500);
 	  
 	};

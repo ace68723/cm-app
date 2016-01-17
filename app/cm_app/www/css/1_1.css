@@ -19,6 +19,16 @@
 .cm_blue{
 	color:#76d5ff;
 }
+.cm_orange{
+    color:#f8a226;
+}
+.button.button-orange {
+    border-color:#f8a226;
+    background-color: #f8a226;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 22px;
+}
 .button.button-blue {
 	border-color:#76d5ff;
 	background-color: #76d5ff;
@@ -258,6 +268,12 @@ button.cm-button-block, button.cm-button-full, .button-full > button.cm-button, 
     	top: 8px;
     	font-size: 15px;
  	}
+    .button.rr_recommend{
+            right: 14px;
+        position: absolute;
+        top: 8px;
+        font-size: 15px;
+    }
     .search_bar{
         width: 87%;
         height: 38px;

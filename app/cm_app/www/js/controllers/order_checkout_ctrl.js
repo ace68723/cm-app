@@ -55,7 +55,7 @@ angular.module('chanmao')
 	 
 	  $scope.selected_addr = JSON.parse(addr);
 	  $scope.uaid = $scope.selected_addr.uaid;
-
+	  
 	  if ($scope.totalpre >= 30) {
 		$scope.select.selected_dltype = 1
 		$scope.dltype = $scope.select.selected_dltype; // init dltype

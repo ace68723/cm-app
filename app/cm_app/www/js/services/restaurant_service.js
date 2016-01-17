@@ -28,7 +28,9 @@ angular.module('chanmao')
 					$scope.restaurant_open  =   { 'type':1, 'open': 1,'desc': '营业中','rrs': data.open,'img_url':data.folder };
 					$scope.restaurant_close =   { 'type':0, 'open': 0,'desc': '尚未营业', 'rrs': data.close,'img_url':data.folder };
 					setTimeout(function() {
-						$ionicFrostedDelegate.update();
+						// if(window.cordova && window.cordova.platformId == 'ios'){	
+						// 	$ionicFrostedDelegate.update();
+						// }
 					}, 3000);
 
 

@@ -9,7 +9,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 
 
 // .run(function($ionicPlatform, $rootScope, $cordovaSplashscreen,$cordovaNetwork,$cordovaDialogs,$timeout) {
-.constant('version', '1.1.12')
+.constant('version', '1.1.14')
 .run(function($rootScope,$location,$ionicPlatform,$ionicTabsDelegate,$ionicFrostedDelegate,$ionicHistory,$cordovaGeolocation,$cordovaNetwork,auth,alertService,loadingService){
   $ionicPlatform.ready(function() {
 
@@ -103,9 +103,11 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 		
 		var url = $location.url(),
 			params = $location.search();
-		setTimeout(function() {
-			$ionicFrostedDelegate.update();
-		}, 1000);
+		// if(window.cordova && window.cordova.platformId == 'ios'){	
+		// 	setTimeout(function() {
+		// 		$ionicFrostedDelegate.update();
+		// 	}, 1000);
+		// }
 		
 		// setTimeout(function() {
 			var tabs = document.querySelectorAll('div.tabs')[0];
@@ -152,7 +154,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 .config(function($stateProvider, $urlRouterProvider,$httpProvider,$ionicConfigProvider) {
 	$ionicConfigProvider.tabs.style('standard');
 	$ionicConfigProvider.tabs.position('bottom');
-	$ionicConfigProvider.platform.android.scrolling.jsScrolling(false)
+	// $ionicConfigProvider.platform.android.scrolling.jsScrolling(false)
 	
 
   $stateProvider
@@ -294,6 +296,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
    
 })
 .constant('API_URL', 'https://www.chanmao.ca/index.php?r=');
+// .constant('API_URL', 'http://cmtest.littlesailing.com/index.php?r=');
 ;
 
 
