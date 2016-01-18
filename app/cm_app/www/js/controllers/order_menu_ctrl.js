@@ -136,7 +136,7 @@ angular.module('chanmao')
 
                 // var nav_btn = document.getElementById("nav_btn");
                 // nav_btn.style.width = nav_width + 3+'px';
-                console.log(nav_position)
+                // console.log(nav_position)
                 // nav_btn.style.transform  = 'translate3d(' + nav_position +'px, 0px, 0px) scale(1)';
                 // setTimeout(function() {
                 setTimeout(function() {

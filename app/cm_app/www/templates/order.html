@@ -24,6 +24,12 @@
 				>
 				<img ng-src="{{restaurant_open.img_url + rr.rid}}.jpg"style="width: 95%;border-radius: 5px; margin-top: 4px;"  alt="">
 				<div ng-if="rr.watermark == 1"class="button button-small button-orange  rr_recommend" >推荐商家</div>
+
+				<!-- prommotion -->
+				<div ng-if="rr.promotion.type  == 3"class="button button-small button-orange  rr_recommend" >{{rr.promotion.desc}}</div>
+				<!-- ui  for prommotion -->
+				<!-- <div class="button button-small button-orange  rr_recommend" >全店20%折扣</div> -->
+
 			</a> 
 			<div>
 				<a class="item "
