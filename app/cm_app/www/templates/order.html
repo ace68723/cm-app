@@ -14,16 +14,27 @@
 				ng-repeat="rr in restaurant_open.rrs" 
 				ng-click="gotoRR({{rr.rid}})"
 				style="
-					padding: 0px;*/;
-					border-color: #FFF;
-					border-bottom-width: 3px;
-					text-align: center;
+					padding: 4px 0px;
 					background-color: rgba(0, 0, 0, 0);
-					height:108px;
+					border: none;
+					height:auto;
+					width: 95%;
+					margin: 0 auto;	
 				"
 				>
-				<img ng-src="{{restaurant_open.img_url + rr.rid}}.jpg"style="width: 95%;border-radius: 5px; margin-top: 4px;"  alt="">
-				<div ng-if="rr.watermark == 1"class="button button-small button-orange  rr_recommend" >推荐商家</div>
+				<div ng-class="{recommend:rr.watermark == 1}" class="restaurant_box">
+					<img class="restaurant_img" ng-src="{{restaurant_open.img_url + rr.rid}}.jpg"
+						 style=""  alt="">
+					<div class="promotion">
+						<img ng-if="rr.watermark == 1" src="img/minus.png" alt="">
+						<img ng-if="rr.watermark !== 1" src="img/discount.png" alt="">
+						<span class="dec" ng-if="rr.watermark !== 1">全店20%Off</span>
+						<span class="dec" ng-if="rr.watermark == 1">全店满$100减$50</span>
+					</div>
+					
+				</div>
+				
+				<!-- <div ng-if="rr.watermark == 1"class="button button-small button-orange  rr_recommend" >推荐商家</div> -->
 
 				<!-- prommotion -->
 				<div ng-if="rr.promotion.type  == 3"class="button button-small button-orange  rr_recommend" >{{rr.promotion.desc}}</div>
@@ -43,9 +54,15 @@
 						text-align: center;
 						background-color: rgba(0, 0, 0, 0);
 						height:108px;
+    					background-position: center; 
 					"
 					>
-					<img ng-src="{{restaurant_close.img_url + rr.rid}}.jpg"style="width: 95%;border-radius: 5px;margin-top: 4px;"  alt="">
+					<img ng-src="{{restaurant_close.img_url + rr.rid}}.jpg"
+						 style="width: 100%;
+						        border-radius: 12px;
+						 		height: auto;
+						        margin-top: 18px;
+						        padding: 2.4px;"  alt="">
 					<div class="button button-small button-blue rr_close" >店家休息啦</div>
 				</a>
 

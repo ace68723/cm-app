@@ -6,7 +6,18 @@
         </div>
         <h1 class="title">点餐</h1>
         <div class="buttons button_on_blur ">
-            <a class="button   button-outline button-cm-blue" href="#/tab/order/add_address">添加新地址</a>
+            <a class="button  button-small button-blue" 
+               href="#/tab/order/add_address"
+                style="font-size: 16px;
+                            line-height: 22px;
+                            min-height: 15px;
+                            height: 24px;
+                            top: 5px;
+                            border-radius: 4px;
+                            font-weight: 900;
+                        ">
+            添加新地址
+            </a>
         </div>
     </ion-header-bar>
 
@@ -22,7 +33,7 @@
        	<div ng-repeat="dish in dishes"  ng-if="dish.amount>0">
 
 		  	<div class="item item-complex">
-			  	<span class="button button-clear  button-blue" style="font-size: 15px;"> 
+			  	<span class="button button-clear  button-blue" style="font-size: 15px;font-weight: 900;"> 
 			  	 <!-- ng-click="dishModify(dish.ds_id, dish.int_no, dish.ds_name, dish.amount)"> -->
 				   	{{$index+1}}. {{dish.ds_name}} — {{dish.amount}} 份
 			  	</span>

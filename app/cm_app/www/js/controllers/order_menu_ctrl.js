@@ -96,13 +96,18 @@ angular.module('chanmao')
 //************************
 //scroll
 //************************
-
+    
 	var k = 0;
+    var interruptedAnimation;
 	setTimeout(function() {
 		// var scorll_view = $ionicScrollDelegate.$getByHandle('order_menu_scroll').getScrollView()
 		// console.log(scorll_view)
 		$ionicScrollDelegate.$getByHandle('order_menu_scroll').getScrollView().onScroll = function () {
 		  	$scope.menu_scroll()
+            // order_menu_scroll_is_complete = $ionicScrollDelegate.$getByHandle('order_menu_scroll').getScrollView().__didDecelerationComplete;
+            // console.log('hi',$ionicScrollDelegate.$getByHandle('order_menu_scroll').getScrollView().__interruptedAnimation)
+           
+
 		}
 	}, 200);
 	
@@ -116,9 +121,8 @@ angular.module('chanmao')
 
         if(!!position){
             $scope.position_top = position;
-            // console.log('position',position)    
+            console.log('position',position)    
         }
-
         // $timeout(function() {
             var cur_cat_id = _.findLastIndex($scope.cate, function(cate) {
                return $scope.position_top >(cate.menu_position-20)
@@ -201,11 +205,16 @@ angular.module('chanmao')
 
 //************************
 // dish
-//************************
+//******************interruptedAnimation******
 	$scope.confirm_dish = []
+    var interruptedAnimationCount = 0;
 	$scope.add_dish = function(dish) {
-		if(!$scope.disable_add){
+         interruptedAnimation = $ionicScrollDelegate.$getByHandle('order_menu_scroll').getScrollView().__interruptedAnimation
+         console.log('interruptedAnimation',interruptedAnimation)
+		console.log('interruptedAnimationCount',interruptedAnimationCount)
+        if(!$scope.disable_add && interruptedAnimationCount > 0 ){
 			dish.amount += 1
+            interruptedAnimationCount = 0;
 			var dish_id = dish.dish_id;
 			if(!!dish.confirm_index || dish.confirm_index == 0){
 				$scope.confirm_dish[dish.confirm_index].amount = dish.amount
@@ -226,6 +235,10 @@ angular.module('chanmao')
 			$scope.total += Number(dish.dish_price)
 			// console.log($scope.confirm_dish)
 		}
+        if (interruptedAnimation){
+             interruptedAnimationCount += 1;
+        }
+        console.log('interruptedAnimationCount',interruptedAnimationCount)
 	};
 	$scope.dec_dish = function(dish) {
 		$scope.disable_add = true;

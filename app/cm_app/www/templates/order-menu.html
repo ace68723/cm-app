@@ -5,23 +5,55 @@
 		  </div>
 		  <h1 class="title" style="font-size: 15px;">{{name}}</h1>
 		<div class="buttons button_on_blur " ng-if="open == 1">
-			<button class="button   button-outline button-cm-blue "  ng-click="open_confirm_order()">{{total|currency}}结账
-			</button>
+			<div class="button  button-small button-blue "  
+			        ng-click="open_confirm_order()"
+			        style="font-size: 16px;
+						    line-height: 22px;
+						    min-height: 15px;
+						    height: 24px;
+						    top: 5px;
+						    border-radius: 6px;
+						    font-weight: 900;
+						"
+			     >
+				<img src="img/checkout-icon.png" alt=""style="
+														       position: relative;
+															    height: 17px;
+															    margin-top: 2px;
+															    margin-bottom: -2px;
+															    padding-right: 0px
+														">
+				<span> {{total|currency}}结账</span>
+			     
+			</div>
 		</div>
 		<div class="buttons button_on_blur " ng-if="open == 0 ">
 			<button class="button   button-outline button-cm-blue " >
 				#_#还没开门
 			</button>
 		</div>
+
 	</ion-header-bar>
 	
+	<div class="bar bar-subheader menu_subheader">
+		<img src="img/notice.png" alt="">
+	  	<span class="notice">优惠活动：黄记煌 全店20% Off  时间：2016.1.15-2.15</span>
+	  	<div class="label">
+	  		<div style="top: 31px;position: relative;color: #fff;font-weight: 900; "> $100</div>
+	  		<div style="top: 37px;position: relative;color: #D9553F;font-weight: 900;"> $20</div>
+	  	</div>
+	  	<!-- <img class="label"src="img/discount-label.png" alt=""> -->
+	</div>
   <!-- <ion-content class="has-loading has-header hide_tabs" delegate-handle="order_menu_scroll" on-scroll="menu_scroll()" > -->
-	<ion-content id="menu_content"class="has-header hide_tabs" delegate-handle="order_menu_scroll"  >
+	<ion-content id="menu_content"
+	             class="has-header hide_tabs has_menu_subheader" 
+				 delegate-handle="order_menu_scroll"  >
 	  <div id="menu"class="list" ng-show="show_menu">
 			<div ng-repeat="dish in menu | filter:search_dish" >
 				<div ng-if="dish.has_cate_name"
 					class="item item-divider" 
 					id="{{dish.anchor}}">
+					<img src="img/thumb.png"ng-if="dish.cate_name == '新菜推荐'" alt="">
 						{{dish.cate_name}}
 				</div>          
 				<ion-item  

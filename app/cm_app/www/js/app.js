@@ -84,7 +84,8 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 		
 		if(window.cordova.platformId == 'ios'){
 			auth.setChannel(1)
-			$rootScope.checkForUpdates();
+			// $rootScope.checkForUpdates();
+			auth.doAuth()
 		}else if (window.cordova.platformId == 'android'){
 			auth.setChannel(2)
 			loadingService.showUpdate()
