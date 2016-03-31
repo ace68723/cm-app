@@ -15,7 +15,7 @@ angular.module('chanmao')
 	var order_dishes;
 	  OrderService.readyList =function($scope) {
 		order_dishes = window.localStorage.getItem("sa_dishes");
-		order_dishes = JSON.parse(order_dishes);  
+		order_dishes = JSON.parse(order_dishes);
 		totalpre = 0.00;
 		for (var i = 0; i < order_dishes.length; i++){
 		  totalpre = totalpre + order_dishes[i].price * order_dishes[i].amount;
@@ -24,7 +24,7 @@ angular.module('chanmao')
 		$scope.totaldish = order_dishes.length;
 		$scope.totalpre = totalpre;
 	  }
-	  
+
 	  OrderService.dishDelete =function($scope, ds_id) {
 		pre_dishes = window.localStorage.getItem("sa_dishes");
 		pre_dishes = JSON.parse(pre_dishes);
@@ -69,24 +69,24 @@ angular.module('chanmao')
 		$scope.dlexp = dlexp ;
 		if ($scope.dltype == 1) {
 		   var rid = storage.getItem("sv_rid");
-		   $http.post(API_URL+'MobOrder/calcdeli', { rid: parseInt(rid), uaid: parseInt($scope.uaid) })
+		   $http.post(API_URL+'MobOrder10/calcdeli', { rid: parseInt(rid), uaid: parseInt($scope.uaid) })
 			.success(function(data, status, headers, config) {
 				console.log('delifee',data)
-				$scope.result = data.result; 
+				$scope.result = data.result;
 				$scope.dlexp = data.dlexp;
-				 $scope.select.selected_dltype = 1;      
-			   }).error(function(data, status) { 
-					$rootScope.noNetwork(); 
+				 $scope.select.selected_dltype = 1;
+			   }).error(function(data, status) {
+					$rootScope.noNetwork();
 			   }).then(function(){
 					if ( $scope.result == 0) {
-						alertService.alert('您的地址已超出普通送餐范围，只能选择订制运费' );  
-						$scope.select.selected_dltype = 2;             
+						alertService.alert('您的地址已超出普通送餐范围，只能选择订制运费' );
+						$scope.select.selected_dltype = 2;
 					}
-			   }); 
+			   });
 		};
-		
+
 	  }
-	  
+
 	  OrderService.checkout =function($scope) {
 		order_dishes = window.localStorage.getItem("userOrder");
 		order_dishes = JSON.parse(order_dishes).dishes;
@@ -108,8 +108,8 @@ angular.module('chanmao')
 				}
 			})
 			var channel = auth.getChannel();
-			var eo_data = { 
-				rid: parseInt(rid), 
+			var eo_data = {
+				rid: parseInt(rid),
 				uaid: parseInt($scope.uaid),
 				// uid : parseInt(uid),
 				channel 	: channel, // 0. Web 1. iOS 2.  Android
@@ -120,21 +120,21 @@ angular.module('chanmao')
 				items 		: ea_dishes,
 				version		:  version
 			}
-				console.log(eo_data)       
+				console.log(eo_data)
 
-		   $http.post(API_URL+'MobOrder/checkout',eo_data )
+		   $http.post(API_URL+'MobOrder10/checkout',eo_data )
 			.success(function(data, status, headers, config) {
 					$scope.result = data.result;
-					$scope.content = data.errorcontent; 
-			   }).error(function(data, status) { 
+					$scope.content = data.errorcontent;
+			   }).error(function(data, status) {
 				  if ((status === null) || (status === undefined)){
-					
+
 				  } else {
-					  $rootScope.noNetwork(); 
+					  $rootScope.noNetwork();
 				  }
 			   }).then(function(){
 				loadingService.hideLoading()
-				if ($scope.result == 1) {
+				if ($scope.result == 0) {
 					alertService.alert('请不要关闭App,直至商家确认，谢谢');
 					window.localStorage.removeItem('sv_rid');
 					window.localStorage.removeItem('sa_dishes');
@@ -147,23 +147,23 @@ angular.module('chanmao')
 					// scrollService.scroll_refresh()
 					scrollService.scroll_refresh("history_scroll")
 				}, 200);
-				
-				
+
+
 				// var tabs = document.querySelectorAll('div.tabs')[0];
 				// tabs = angular.element(tabs);
 				// tabs.css('display', '');
-				
+
 				$ionicHistory.clearCache();
 				$ionicHistory.clearHistory()
 
-				
-			}); 
+
+			});
 		// };
-	  } 
+	  }
 	  OrderService.save_order = function(ia_corder) {
 		cached_order = ia_corder;
 		storage.setItem('userOrder', JSON.stringify(ia_corder));
-	  }; 
+	  };
 	  OrderService.get_order = function() {
 			 if(!cached_order){
 				 cached_order = storage.getItem('userOrder');
@@ -173,4 +173,3 @@ angular.module('chanmao')
 		 };
 	return  OrderService
   })
-

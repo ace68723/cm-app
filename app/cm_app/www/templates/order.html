@@ -2,16 +2,16 @@
 	<ion-header-bar>
 	   <h1 class="title">点餐</h1>
 	</ion-header-bar>
-	
+
 	<ion-content class="has-header hide_tabs" delegate-handle="order_scroll" >
 		<ion-refresher
 			on-refresh="rrlist_refresh(pull)">
 		</ion-refresher>
-	 	
+
 	 	<div id="restaurant" class="list">
 			<a class="item "
-				href="#/tab/order/menu/{{rr.rid}}" 
-				ng-repeat="rr in restaurant_open.rrs" 
+				href="#/tab/order/menu/{{rr.rid}}"
+				ng-repeat="rr in restaurant_open.rrs"
 				ng-click="gotoRR({{rr.rid}})"
 				style="
 					padding: 4px 0px;
@@ -19,7 +19,7 @@
 					border: none;
 					height:auto;
 					width: 95%;
-					margin: 0 auto;	
+					margin: 0 auto;
 				"
 				>
 				<div ng-class="{recommend:rr.watermark == 1}" class="restaurant_box">
@@ -31,9 +31,9 @@
 						<span class="dec" ng-if="rr.watermark !== 1">全店20%Off</span>
 						<span class="dec" ng-if="rr.watermark == 1">全店满$100减$50</span>
 					</div>
-					
+
 				</div>
-				
+
 				<!-- <div ng-if="rr.watermark == 1"class="button button-small button-orange  rr_recommend" >推荐商家</div> -->
 
 				<!-- prommotion -->
@@ -41,11 +41,11 @@
 				<!-- ui  for prommotion -->
 				<!-- <div class="button button-small button-orange  rr_recommend" >全店20%折扣</div> -->
 
-			</a> 
+			</a>
 			<div>
 				<a class="item "
-					href="#/tab/order/menu/{{rr.rid}}" 
-					ng-repeat="rr in restaurant_close.rrs" 
+					href="#/tab/order/menu/{{rr.rid}}"
+					ng-repeat="rr in restaurant_close.rrs"
 					ng-click="gotoRR({{rr.rid}})"
 					style="
 						padding: 0px;*/;
@@ -54,21 +54,20 @@
 						text-align: center;
 						background-color: rgba(0, 0, 0, 0);
 						height:108px;
-    					background-position: center; 
+    					background-position: center;
 					"
 					>
 					<img ng-src="{{restaurant_close.img_url + rr.rid}}.jpg"
 						 style="width: 100%;
 						        border-radius: 12px;
-						 		height: auto;
-						        margin-top: 18px;
+						 		 		height: auto;
 						        padding: 2.4px;"  alt="">
 					<div class="button button-small button-blue rr_close" >店家休息啦</div>
 				</a>
 
 			</div>
-			
-	  	</div> 
+
+	  	</div>
 	  	<br><br><br>
 	</ion-content>
 </ion-view>

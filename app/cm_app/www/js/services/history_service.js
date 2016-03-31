@@ -13,35 +13,39 @@ angular.module('chanmao')
     var lv_oid;
     var lv_last_oid;
     var la_available;
-    HistoryService.load = function($scope, mode) {      
-        var channel     = auth.getChannel()  
+    HistoryService.load = function($scope, mode) {
+        var channel     = auth.getChannel()
         var eo_data     = {};
         var oid;
         var last_oid;
         eo_data.channel = channel;
-     
-      $http.post(API_URL+'MobOrder/historylist', eo_data)
+
+      $http.post(API_URL+'MobOrder10/historylist', eo_data)
       .success(function(data, status, headers, config) {
             la_available = data.available
             if(data.current){
                 lv_oid       = data.current.oid;
             }
-           
+
             $scope.$evalAsync(function() {
                 if(data.current){
                     $scope.current          = data.current;
-                    $scope.available        = data.available; 
-                    $scope.rid              = data.current.rid;  
+                    $scope.available        = data.available;
+                    $scope.rid              = data.current.rid;
                     var rrname              = data.current.rrname.split('(')[0]
                     var rrarea              = data.current.rrname.split('(')[1].split(')')[0]
                     $scope.current.rrname   = rrname
                     $scope.current.rrarea   = rrarea
-                    $scope.current.uaddr    = data.current.uaddr.split(',')[0]  
-                    
+                    $scope.current.uaddr    = data.current.uaddr.split(',')[0]
+
+                }else if(!data.current){
+                    $scope.current          = null;
+                    $scope.available        = null;
+                    $scope.rid              = null;
                 }
-                $scope.orders       = data.historylist; 
-                
-            });    
+                $scope.orders       = data.historylist;
+
+            });
                 if (mode == 1){
                     setTimeout(function() {
                         $scope.$broadcast('scroll.refreshComplete');
@@ -55,32 +59,32 @@ angular.module('chanmao')
                           find_unavailable($scope)
                           lv_last_oid = lv_oid;
                       }
-                    
+
                   }
                 }
-           }).error(function(data, status) { 
-              $rootScope.noNetwork(); 
+           }).error(function(data, status) {
+              $rootScope.noNetwork();
            }).then(function(){
               setTimeout(function() {
                      loadingService.hideLoading()
               }, 1500);
-           
-              
-           }); 
-           
+
+
+           });
+
     };
-    
-    HistoryService.recover = function($scope) {     
+
+    HistoryService.recover = function($scope) {
        window.localStorage.setItem("sv_rid", $scope.rid);
-       window.localStorage.setItem("sa_dishes", JSON.stringify($scope.available)); 
-       // $state.go('tab.order');   
+       window.localStorage.setItem("sa_dishes", JSON.stringify($scope.available));
+       // $state.go('tab.order');
        $location.path('/tab/order/menu/' + $scope.rid)
     };
-    
-    HistoryService.send_sms = function(oid) {     
+
+    HistoryService.send_sms = function(oid) {
         $http({
             method: 'post',
-            url: API_URL+'/MobOrder/sendcode',
+            url: API_URL+'/MobOrder10/sendcode',
             data:{iv_oid:oid}
         }).then(function successCallback(response) {
             console.log(response)
@@ -93,7 +97,7 @@ angular.module('chanmao')
         var deferred = $q.defer();
         $http({
             method: 'post',
-            url: API_URL+'MobOrder/verifysms',
+            url: API_URL+'MobOrder10/verifysms',
             data:{iv_oid:oid,iv_code:verify_code}
         }).then(function successCallback(response) {
             var data = response.data;
@@ -104,14 +108,14 @@ angular.module('chanmao')
                 deferred.reject('error');
                 alertService.alert("@_@验证码不对","出错啦")
             }
-            
+
         }, function errorCallback(response) {
              deferred.reject('error');
              alertService.alert("@_@没发出去","出错啦")
         })
         return deferred.promise;
     }
-    
+
     function change_status ($scope) {
         $scope.$evalAsync(function() {
            if ($scope.current != null) {
@@ -136,7 +140,7 @@ angular.module('chanmao')
                         $scope.status.button='cmconfirm';
                         $scope.status.text='送餐员已开始送餐';
                         $scope.current.img = "./img/happy.png"
-                        break;    
+                        break;
                     case '40':
                         $scope.status.button='calm';
                         $scope.status.text='已送到，满意吗？';
@@ -146,12 +150,12 @@ angular.module('chanmao')
                         $scope.status.button='royal';
                         $scope.status.text='新用户订单确认中';
                         $scope.current.img = "./img/normal.png"
-                        break;    
+                        break;
                     case '60':
                         $scope.status.button='royal';
                         $scope.status.text='客服稍后联系您改运费 >_<';
                         $scope.current.img = "./img/normal.png"
-                        break;    
+                        break;
                     case '5':
                         $scope.status.button='assertive';
                         $scope.status.text='糟糕，有的菜没了 #_#';

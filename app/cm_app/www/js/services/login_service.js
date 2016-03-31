@@ -25,10 +25,10 @@ angular.module('chanmao')
 	
 	} else {  
 		loadingService.showLoading();
-		$http.post(API_URL+'MobLogin/login', { username: $scope.login.username, password: $scope.login.password,version:version })
+		$http.post(API_URL+'MobLogin10/login', { username: $scope.login.username, password: $scope.login.password,version:version })
 		.success(function(data, status, headers, config) {
 			$scope.result = data.result ;
-			if (data.result == 1) 
+			if (data.result == 0) 
 				auth.setToken(data.token)
 			   window.localStorage.setItem("sv_uid", data.uid);
 			   window.localStorage.removeItem('sv_last');
@@ -68,7 +68,7 @@ angular.module('chanmao')
 	  alertService.alert(errortext); 
 	} else {  
 		loadingService.showLoading();    
-		$http.post(API_URL+'MobLogin/register', { username: $scope.register.username, password: $scope.register.password, email: $scope.register.email })
+		$http.post(API_URL+'MobLogin10/register', { username: $scope.register.username, password: $scope.register.password, email: $scope.register.email })
 		.success(function(data, status, headers, config) {
 			$scope.result = data.result;  
 			if (data.result == 2){
@@ -79,7 +79,7 @@ angular.module('chanmao')
 			$rootScope.noNetwork(); 
 			loadingService.hideLoading();
 		}).then(function(){
-			if ($scope.result == 1){         
+			if ($scope.result == 0){         
 				alertService.alert('成功'); 
 		 	} else if ($scope.result == 2){  
 		  		alertService.alert(errortext); 
@@ -96,14 +96,14 @@ angular.module('chanmao')
 	if (errortext != ''){         
 	  alertService.alert(errortext); 
 	} else {      
-		$http.post(API_URL+'MobLogin/forget', { email: $scope.forget.email, mode: mode })
+		$http.post(API_URL+'MobLogin10/forget', { email: $scope.forget.email, mode: mode })
 		.success(function(data, status, headers, config) {
 			   $scope.result = data.result ; 
 			   errortext = data.errorcontent;
 			 }).error(function(data, status) { 
 				  $rootScope.noNetwork(); 
 			 }).then(function(){
-			   if ($scope.result == 1){         
+			   if ($scope.result == 0){         
 				$scope.showAlert(); 
 		 } else if ($scope.result == 2){  
 			alertService.alert(errortext); 

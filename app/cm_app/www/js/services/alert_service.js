@@ -3,7 +3,7 @@
 angular.module('chanmao')
     .factory('alertService', function ($q, $cordovaDialogs) {
         var alertService = {}
-        
+
         alertService.alert = function(iv_message, iv_title , iv_btn) {
             return $q(function(resolve, reject) {
                 var lv_message;
@@ -18,11 +18,11 @@ angular.module('chanmao')
                 if(iv_title){
                     lv_title = iv_title
                 }else{
-                    lv_title = "馋猫提请您"
+                    lv_title = "馋猫醒请您"
                 }
 
                 if (iv_btn) {
-                    lv_btn = iv_btn 
+                    lv_btn = iv_btn
                 } else{
                     lv_btn = "确认"
                 }
@@ -31,7 +31,7 @@ angular.module('chanmao')
                   .then(function(result) {
                     resolve(result);
                   });
-            });  
+            });
         };
 
         alertService.confirm = function(iv_message, iv_title , iv_btn1, iv_btn2) {
@@ -49,14 +49,14 @@ angular.module('chanmao')
                 if(iv_title){
                     lv_title = iv_title
                 }else{
-                    lv_title = "馋猫提请您"
+                    lv_title = "馋猫醒请您"
                 }
 
                 if (iv_btn1 && iv_btn2) {
-                    lv_btn1 = iv_btn1 
+                    lv_btn1 = iv_btn1
                     lv_btn2 = iv_btn2
                 } else{
-                    lv_btn1 = "取消" 
+                    lv_btn1 = "取消"
                     lv_btn2 = "确认"
                 }
 
@@ -64,7 +64,7 @@ angular.module('chanmao')
                   .then(function(result) {
                     resolve(result);
                   });
-            });  
+            });
         };
 
         return alertService;

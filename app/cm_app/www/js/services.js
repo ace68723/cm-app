@@ -16,7 +16,7 @@ angular.module('chanmao.services', [])
 	// check: function($scope) {
 	  // $http.post(API_URL+'MobOrder/historylist', { uid: 15 })
 	  // .success(function(data, status, headers, config) {
-			// if (data.result == 1)
+			// if (data.result == 0)
 			 // $scope.orders = data.historylist; 
 			 // $scope.loadingIndicator.hide();
 		   // }).error(function(data, status) { 
@@ -37,10 +37,10 @@ angular.module('chanmao.services', [])
 // 	  if (errortext != ''){	  		  
 // 		  $scope.showValidation(errortext); 
 // 	  } else {	
-//       	$http.post(API_URL+'MobLogin/login', { username: $scope.login.username, password: $scope.login.password })
+//       	$http.post(API_URL+'MobLogin10/login', { username: $scope.login.username, password: $scope.login.password })
 //       	.success(function(data, status, headers, config) {
 //             $scope.result = data.result ;
-//             if (data.result == 1) 
+//             if (data.result == 0) 
 //                 auth.setToken(data.token)
 //            	   window.localStorage.setItem("sv_uid", data.uid);
 //            	   window.localStorage.removeItem('sv_last');
@@ -75,7 +75,7 @@ angular.module('chanmao.services', [])
 // 	  if (errortext != ''){	  		  
 // 		  $scope.showValidation(errortext); 
 // 	  } else {	  	
-// 	      $http.post(API_URL+'MobLogin/register', { username: $scope.register.username, password: $scope.register.password, email: $scope.register.email })
+// 	      $http.post(API_URL+'MobLogin10/register', { username: $scope.register.username, password: $scope.register.password, email: $scope.register.email })
 // 	      .success(function(data, status, headers, config) {
 // 	            $scope.result = data.result;  
 // 	            if (data.result == 2)
@@ -83,7 +83,7 @@ angular.module('chanmao.services', [])
 // 	           }).error(function(data, status) { 
 // 	                $rootScope.noNetwork(); 
 // 	           }).then(function(){
-// 	           	 if ($scope.result == 1){      	 	
+// 	           	 if ($scope.result == 0){      	 	
 // 	           	 	$scope.showSuccess(); 
 // 				 } else if ($scope.result == 2){  
 // 				 	$scope.showValidation(errortext); 
@@ -99,14 +99,14 @@ angular.module('chanmao.services', [])
 // 	  if (errortext != ''){	  		  
 // 		  $scope.showValidation(errortext); 
 // 	  } else {		  
-// 	      $http.post(API_URL+'MobLogin/forget', { email: $scope.forget.email, mode: mode })
+// 	      $http.post(API_URL+'MobLogin10/forget', { email: $scope.forget.email, mode: mode })
 // 	      .success(function(data, status, headers, config) {
 // 	           	 $scope.result = data.result ; 
 // 	           	 errortext = data.errorcontent;
 // 	           }).error(function(data, status) { 
 // 	                $rootScope.noNetwork(); 
 // 	           }).then(function(){
-// 	           	 if ($scope.result == 1){      	 	
+// 	           	 if ($scope.result == 0){      	 	
 // 	           	 	$scope.showAlert(); 
 // 				 } else if ($scope.result == 2){  
 // 					 	$scope.showValidation(errortext); 
@@ -322,7 +322,7 @@ angular.module('chanmao.services', [])
 // 	                	$rootScope.noNetwork(); 
 // 	           		}
 // 	           }).then(function(){
-// 	           	if ($scope.result == 1) {
+// 	           	if ($scope.result == 0) {
 // 	           		$scope.showSuccess('请不要关闭App,直至商家确认，谢谢');
 // 	           		window.localStorage.removeItem('sv_rid');
 //   					window.localStorage.removeItem('sa_dishes');
@@ -427,9 +427,9 @@ angular.module('chanmao.services', [])
 //  return {
 //     all: function($scope) {
 //     	uid = window.localStorage.getItem("sv_uid");  
-//       $http.post(API_URL+'MobAddress/addresslist', { uid: uid  })
+//       $http.post(API_URL+'MobAddress10/addresslist', { uid: uid  })
 //       .success(function(data, status, headers, config) {
-//             if (data.result == 1)
+//             if (data.result == 0)
 //            	 $scope.address = data.address; 
 //            	 // $scope.loadingIndicator.hide();
 //            }).error(function(data, status) { 
@@ -439,9 +439,9 @@ angular.module('chanmao.services', [])
 //     exist: function($scope) {
 //     	uid = window.localStorage.getItem("sv_uid"); 
 //     	exist = 0; 
-//       $http.post(API_URL+'MobAddress/addressexist', { uid: uid  })
+//       $http.post(API_URL+'MobAddress10/addressexist', { uid: uid  })
 //       .success(function(data, status, headers, config) {
-//             if (data.result == 1)
+//             if (data.result == 0)
 //            	exist = data.exist; 
 //            }).error(function(data, status) { 
 //                  $rootScope.noNetwork(); 
@@ -480,14 +480,14 @@ angular.module('chanmao.services', [])
 // 	},
 // 	create: function($scope) {
 // 	  $scope.addr.uid = window.localStorage.getItem("sv_uid");
-//       $http.post(API_URL+'MobAddress/Addresscreate',  $scope.addr )
+//       $http.post(API_URL+'MobAddress10/Addresscreate',  $scope.addr )
 //       .success(function(data, status, headers, config) {
-//             if (data.result == 1)
+//             if (data.result == 0)
 //            	 $scope.result = data.result;          	 
 //            }).error(function(data, status) { 
 //                  $rootScope.noNetwork(); 
 //            }).then(function(){
-//            	 if ($scope.result == 1){
+//            	 if ($scope.result == 0){
 //            	 	$scope.closeModal();
 // 			 	$state.go('tab.address');
 // 			 }
@@ -505,9 +505,9 @@ angular.module('chanmao.services', [])
 //         var data = {};
 //         data.uaid = uaid;
 //         data.del = "1";
-//         $http.post(API_URL+'MobAddress/Addressupdate', data)
+//         $http.post(API_URL+'MobAddress10/Addressupdate', data)
 //         .success(function(data, status, headers, config) {
-//               if (data.result == 1){
+//               if (data.result == 0){
 
 //               }
 //              }).error(function(data, status) { 

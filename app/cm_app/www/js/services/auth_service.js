@@ -71,10 +71,10 @@ angular.module('chanmao')
         var os_platfrom = $cordovaDevice.getPlatform();
         var os_version  = $cordovaDevice.getVersion();
 
-        // $http.get(API_URL + 'MobLogin/loginwc').
+        // $http.get(API_URL + 'MobLogin10/loginwc').
         //     success(function(data, status, headers,conifg) {
         //         // console.log(data)
-        //         if(data.result == 1){
+        //         if(data.result == 0){
         //             if(data.token){
         //                 auth.setToken(data.token)
         //             }
@@ -95,7 +95,7 @@ angular.module('chanmao')
 
         $http({
           method: 'GET',
-          url: API_URL + 'MobLogin/loginwc',
+          url: API_URL + 'MobLogin10/loginwc',
           headers: {
            'Cmversion': version,
            'Cmuuid':uuid,
@@ -104,7 +104,7 @@ angular.module('chanmao')
         }).then(function successCallback(response) {
              // console.log(data)
                 var data = response.data
-                if(data.result == 1){
+                if(data.result == 0){
                     if(data.token){
                         auth.setToken(data.token)
                     }

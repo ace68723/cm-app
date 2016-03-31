@@ -7,21 +7,23 @@ angular.module('chanmao')
 	  // tabs = angular.element(tabs);
 	  // tabs.css('display', 'none');
    // Trigger the loading indicator
-   
+
    // Hide the tab
 	  // setTimeout(function() {
 		// var tabs = document.querySelectorAll('div.tabs')[0];
 		// tabs = angular.element(tabs);
 		// tabs.css('display', 'none');
 	 //  // }, 1000);
-	   
+
 	 // //tabs.css('class', 'tabs-item-hide');
 	 //   $scope.$on('$destroy', function() {
 		//  tabs.css('display', '');
 	 //   });
-	   $scope.show_menu = true;
-	var order_menu_scroll = $ionicScrollDelegate.$getByHandle('order_menu_scroll')
-
+    $scope.show_menu = true;
+	  var order_menu_scroll = $ionicScrollDelegate.$getByHandle('order_menu_scroll')
+    $scope.$on('$ionicView.leave',function () {
+        $ionicHistory.clearHistory()
+    })
 	  // $scope.showLoading = function() {
 	  // $ionicLoading.show({
 		 //  template: '<img src="http://cmtest.littlesailing.com/img/chanmao_logo.gif"style="height: 10%;"> </br>快到碗里来...'
@@ -29,11 +31,11 @@ angular.module('chanmao')
 	  // };
 	  // $scope.showLoading()
 
-	  
+
 	 //  $scope.$on('$destroy', function() {
 		// // tabs.css('display', '');
 		// $scope.modal.remove();
-		
+
 	 //  });
 
 	  $scope.open_dstype = function(dstype) {
@@ -45,18 +47,18 @@ angular.module('chanmao')
 		  });
 
 	  };
-		
-			  
+
+
 	  $scope.amountAdd = function(){
 		if ($scope.amount < 10)
 		$scope.amount = $scope.amount + 1;
 	  };
-	  
+
 	  $scope.amountRemove = function(){
 		if ($scope.amount > 1)
 		$scope.amount = $scope.amount - 1;
 	  };
-	
+
 	$scope.order = function(ds_id, int_no, ds_name, price) {
 	  $scope.amount = 1;
 	  $scope.ds_id = ds_id;
@@ -65,7 +67,7 @@ angular.module('chanmao')
 	  $scope.price = price;
 	  $scope.openModal();
 	};
-	   
+
 	 //  $ionicModal.fromTemplateUrl('order-menu-modal.html', function(modal) {
 		// $scope.modal = modal;
 	 //  }, {
@@ -80,14 +82,14 @@ angular.module('chanmao')
 	// };
 	// $scope.closeModal = function() {
 	// 	$scope.modal.hide();
-	// };    
-	  
+	// };
+
 	$scope.dishAdd = function(ds_id,amount,int_no,ds_name,price) {
 	  RRService.dishadd($scope,ds_id,amount,int_no,ds_name,price);
-	};    
-	
-	
-	
+	};
+
+
+
 	// $scope.$on( "$ionicView.enter", function( scopes, states ) {
 			RRService.rrmenu($scope);
 		// });
@@ -96,7 +98,7 @@ angular.module('chanmao')
 //************************
 //scroll
 //************************
-    
+
 	var k = 0;
     var interruptedAnimation;
 	setTimeout(function() {
@@ -106,13 +108,13 @@ angular.module('chanmao')
 		  	$scope.menu_scroll()
             // order_menu_scroll_is_complete = $ionicScrollDelegate.$getByHandle('order_menu_scroll').getScrollView().__didDecelerationComplete;
             // console.log('hi',$ionicScrollDelegate.$getByHandle('order_menu_scroll').getScrollView().__interruptedAnimation)
-           
+
 
 		}
 	}, 200);
-	
-	
-	
+
+
+
 	$scope.menu_scroll = function(position) {
         // console.log($ionicScrollDelegate.$getByHandle('menu').getScrollView())
         // $scope.$evalAsync(function() {
@@ -121,7 +123,7 @@ angular.module('chanmao')
 
         if(!!position){
             $scope.position_top = position;
-            console.log('position',position)    
+            console.log('position',position)
         }
         // $timeout(function() {
             var cur_cat_id = _.findLastIndex($scope.cate, function(cate) {
@@ -131,12 +133,12 @@ angular.module('chanmao')
                 cur_cat_id = 0
             }
             // console.log('$scope.position_top',$scope.position_top,cur_cat_id)
-            
+
             if (cur_cat_id !== k) {
                 var anchor = "anchor_nav" + cur_cat_id
                 var nav_position    = getOffset(document.getElementById(anchor)).left-55;
                 // console.log(getOffset(document.getElementById(anchor)).left)
-                var nav_width       = document.getElementById(anchor).offsetWidth  
+                var nav_width       = document.getElementById(anchor).offsetWidth
 
                 // var nav_btn = document.getElementById("nav_btn");
                 // nav_btn.style.width = nav_width + 3+'px';
@@ -144,9 +146,9 @@ angular.module('chanmao')
                 // nav_btn.style.transform  = 'translate3d(' + nav_position +'px, 0px, 0px) scale(1)';
                 // setTimeout(function() {
                 setTimeout(function() {
-                        TweenMax.staggerTo(".nav_btn", 0.5, {left: nav_position+ 18+'px',width:nav_width + 3+'px'}, 0.1);   
+                        TweenMax.staggerTo(".nav_btn", 0.5, {left: nav_position+ 18+'px',width:nav_width + 3+'px'}, 0.1);
                 },100);
-                                
+
                 // }, 1000);
                 // console.log(nav_position)
                 // console.log($ionicScrollDelegate.$getByHandle('Nav').getScrollView())
@@ -164,7 +166,7 @@ angular.module('chanmao')
                         $ionicScrollDelegate.$getByHandle('Nav').scrollTo(nav_position, 0, true)
                     },100)
                 }
-                
+
 
                 var nav = document.getElementById(anchor);
                 nav.style.color = '#f8a226'
@@ -176,7 +178,7 @@ angular.module('chanmao')
             };
         // },100)
     };
-	
+
 	function getOffset( el ) {
 		var _x = 0;
 		var _y = 0;
@@ -190,17 +192,17 @@ angular.module('chanmao')
 
 	var menu_position
 	$scope.nav_click = function(anchor_nav) {
-		// menu_position = getOffset( document.getElementById(anchor)).top-43; 
+		// menu_position = getOffset( document.getElementById(anchor)).top-43;
 		menu_position = _.result(_.findWhere($scope.cate, { 'anchor_nav': anchor_nav}), 'menu_position');
-		
+
 		if(anchor_nav == 'anchor_nav0' ){
 			$ionicScrollDelegate.$getByHandle('order_menu_scroll').scrollTop(true)
 			$scope.menu_scroll(menu_position)
-		  
+
 		}else{
 			$ionicScrollDelegate.$getByHandle('order_menu_scroll').scrollTo(0, menu_position-18, true)
 			$scope.menu_scroll(menu_position)
-		} 
+		}
 	};
 
 //************************
@@ -209,36 +211,28 @@ angular.module('chanmao')
 	$scope.confirm_dish = []
     var interruptedAnimationCount = 0;
 	$scope.add_dish = function(dish) {
-         interruptedAnimation = $ionicScrollDelegate.$getByHandle('order_menu_scroll').getScrollView().__interruptedAnimation
-         console.log('interruptedAnimation',interruptedAnimation)
-		console.log('interruptedAnimationCount',interruptedAnimationCount)
-        if(!$scope.disable_add && interruptedAnimationCount > 0 ){
-			dish.amount += 1
-            interruptedAnimationCount = 0;
-			var dish_id = dish.dish_id;
-			if(!!dish.confirm_index || dish.confirm_index == 0){
-				$scope.confirm_dish[dish.confirm_index].amount = dish.amount
-			}else{
-				var item = {}
-				item.dish_id    = dish.dish_id 
-				item.ds_name    = dish.ds_name;
-				item.dish_price = dish.dish_price;
-				item.amount     = dish.amount;
-				item.int_no     = dish.int_no;
-				item.menu_dish  = dish;
-				dish.confirm_index = $scope.confirm_dish.length;
-				$scope.confirm_dish.push(item);
-			}
-			if(!$scope.total){
-				$scope.total = 0
-			}
-			$scope.total += Number(dish.dish_price)
-			// console.log($scope.confirm_dish)
-		}
-        if (interruptedAnimation){
-             interruptedAnimationCount += 1;
-        }
-        console.log('interruptedAnimationCount',interruptedAnimationCount)
+        if(!$scope.disable_add ){
+      			dish.amount += 1
+      			var dish_id = dish.dish_id;
+      			if(!!dish.confirm_index || dish.confirm_index == 0){
+      				$scope.confirm_dish[dish.confirm_index].amount = dish.amount
+      			}else{
+      				var item = {}
+      				item.dish_id    = dish.dish_id
+      				item.ds_name    = dish.ds_name;
+      				item.dish_price = dish.dish_price;
+      				item.amount     = dish.amount;
+      				item.int_no     = dish.int_no;
+      				item.menu_dish  = dish;
+      				dish.confirm_index = $scope.confirm_dish.length;
+      				$scope.confirm_dish.push(item);
+      			}
+      			if(!$scope.total){
+      				$scope.total = 0
+      			}
+      			$scope.total += Number(dish.dish_price)
+      		}
+
 	};
 	$scope.dec_dish = function(dish) {
 		$scope.disable_add = true;
@@ -263,7 +257,7 @@ angular.module('chanmao')
 			}).then(function(confirm) {
 				// console.log(confirm)
 				$scope.confirm = confirm;
-			  
+
 			});
 
 		$scope.to_checkout = function() {
@@ -275,8 +269,8 @@ angular.module('chanmao')
 			setTimeout(function() {
 			   $location.path("/tab/order/ordercheckout")
 			}, 100);
-		   
-		};   
+
+		};
 
 			  // Open the confirm modal
 		  $scope.open_confirm_order = function() {
@@ -293,7 +287,7 @@ angular.module('chanmao')
                         }
                     })
             }
-			
+
 		  };
 			 // Open the confirm modal
 		   $scope.close_confirm_order = function() {
@@ -310,7 +304,7 @@ angular.module('chanmao')
             var nav_scroller = angular.element(document.getElementsByClassName("nav-scroller"));
             nav_scroller.removeClass("animated slideInUp")
             nav_scroller.addClass("animated slideOutDown");
-            
+
             var search_bar = angular.element(document.getElementsByClassName("search_bar"));
             search_bar.removeClass("animated slideOutDown");
             search_bar.addClass("animated slideInUp");
@@ -319,7 +313,7 @@ angular.module('chanmao')
             var nav_scroller = angular.element(document.getElementsByClassName("nav-scroller"));
             nav_scroller.removeClass("animated slideOutDown")
             nav_scroller.addClass("animated slideInUp");
-            
+
             var search_bar = angular.element(document.getElementsByClassName("search_bar"));
             search_bar.removeClass("animated slideInUp");
             search_bar.addClass("animated  slideOutDown");
@@ -327,9 +321,9 @@ angular.module('chanmao')
             if($scope.search_dish){
                 $scope.search_dish.ds_name = "";
             }
-           
+
         }
-        
+
     };
     $scope.do_search = function() {
         console.log(here)
