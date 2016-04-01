@@ -77,8 +77,11 @@ angular.module('chanmao')
     HistoryService.recover = function($scope) {
        window.localStorage.setItem("sv_rid", $scope.rid);
        window.localStorage.setItem("sa_dishes", JSON.stringify($scope.available));
-       // $state.go('tab.order');
-       $location.path('/tab/order/menu/' + $scope.rid)
+
+       window.location.assign('#/tab/order')
+       setTimeout(function () {
+           window.location.assign('#/tab/order/menu/' + $scope.rid)
+       })
     };
 
     HistoryService.send_sms = function(oid) {

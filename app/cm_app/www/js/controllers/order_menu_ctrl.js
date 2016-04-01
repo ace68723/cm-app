@@ -21,9 +21,9 @@ angular.module('chanmao')
 	 //   });
     $scope.show_menu = true;
 	  var order_menu_scroll = $ionicScrollDelegate.$getByHandle('order_menu_scroll')
-    $scope.$on('$ionicView.leave',function () {
-        $ionicHistory.clearHistory()
-    })
+    // $scope.$on('$ionicView.leave',function () {
+    //     $ionicHistory.clearHistory()
+    // })
 	  // $scope.showLoading = function() {
 	  // $ionicLoading.show({
 		 //  template: '<img src="http://cmtest.littlesailing.com/img/chanmao_logo.gif"style="height: 10%;"> </br>快到碗里来...'

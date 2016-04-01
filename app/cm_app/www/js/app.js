@@ -13,15 +13,15 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 .run(function($rootScope,$location,$ionicPlatform,$ionicTabsDelegate,$ionicFrostedDelegate,$ionicHistory,$cordovaGeolocation,$cordovaNetwork,auth,alertService,loadingService){
   $ionicPlatform.ready(function() {
 
-  	
+
 	// setTimeout(function() {
 	// 	navigator.splashscreen.hide();
 	// }, 2000);
 
 	Ionic.io();
-	
+
 	var deploy = new Ionic.Deploy();
-	
+
 	$rootScope.doUpdate = function() {
 		loadingService.showUpdate()
 		deploy.update().then(function(res) {
@@ -44,7 +44,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 	$rootScope.checkForUpdates = function() {
 		deploy.check().then(function(hasUpdate) {
 			$rootScope.hasUpdate = hasUpdate;
-			
+
 			if(hasUpdate){
 				$rootScope.doUpdate();
 			}else{
@@ -53,13 +53,13 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 				}, 3000);
 			}
 		}, function(err) {
-			
+
 		});
 	};
 
 	// cordova.plugins.market.open("itms-apps://itunes.apple.com/app/id888553991")
-	
-	
+
+
 
 	// var push = new Ionic.Push({});
 
@@ -68,7 +68,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 	//   console.log("Got Token:",token.token);
 	// });
 
-	
+
 	if (window.cordova && window.cordova.plugins.Keyboard) {
 		cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 		cordova.plugins.Keyboard.disableScroll(true);
@@ -81,7 +81,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 			$rootScope.isWechatInstalled = result;
 			console.log($rootScope.isWechatInstalled)
 		})
-		
+
 		if(window.cordova.platformId == 'ios'){
 			auth.setChannel(1)
 			// $rootScope.checkForUpdates();
@@ -99,17 +99,17 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 	}else{
 		auth.setChannel(99)
 	}
-	
+
 	$rootScope.$on('$locationChangeStart', function(event){
-		
+
 		var url = $location.url(),
 			params = $location.search();
-		// if(window.cordova && window.cordova.platformId == 'ios'){	
+		// if(window.cordova && window.cordova.platformId == 'ios'){
 		// 	setTimeout(function() {
 		// 		$ionicFrostedDelegate.update();
 		// 	}, 1000);
 		// }
-		
+
 		// setTimeout(function() {
 			var tabs = document.querySelectorAll('div.tabs')[0];
 				tabs = angular.element(tabs);
@@ -127,26 +127,26 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 				tabs.addClass("slideOutDown");
 			}
 		// }, 500);
-		
+
 	})
 
 	$rootScope.go_back = function() {
 		$ionicHistory.goBack()
 	};
 
-	
+
 	$rootScope.selectTabWithIndex = function(index) {
 
     	// $ionicTabsDelegate.select(index);
     	if(index == 1){
     		$location.url("/tab/order")
-    		
+
     	}else if(index == 2){
     		$location.url("/tab/history")
     	}else if(index == 3){
     		$location.url("/tab/profile")
     	}
-    	
+
   	}
 
   });
@@ -156,7 +156,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 	$ionicConfigProvider.tabs.style('standard');
 	$ionicConfigProvider.tabs.position('bottom');
 	// $ionicConfigProvider.platform.android.scrolling.jsScrolling(false)
-	
+
 
   $stateProvider
 	.state('login', {
@@ -164,19 +164,19 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 	  templateUrl: "templates/login.html",
 	  controller: 'LoginCtrl'
 	})
-	
+
 	.state('register', {
 	  url: "/register",
 	  templateUrl: "templates/login-register.html",
 	  controller: 'LoginCtrl'
 	})
-	
+
 	.state('forget', {
 	  url: "/forget",
 	  templateUrl: "templates/login-forget.html",
 	  controller: 'LoginCtrl'
 	})
-   
+
 	.state('logindone', {
 	  url: "/logindone",
 	  templateUrl: "templates/login-done.html",
@@ -191,13 +191,13 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 	.state('tab.order', {
 	  url: '/order',
 	  views: {
-		'order-tab': {
-		  templateUrl: 'templates/order.html',
-		  controller: 'OrderCtrl'
-		}
+  		'order-tab': {
+  		  templateUrl: 'templates/order.html',
+  		  controller: 'OrderCtrl'
+  		}
 	  }
 	})
-	
+
 	.state('tab.ordermenu', {
 	  url: '/order/menu/:rid',
 	  views: {
@@ -206,7 +206,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 		  controller: 'OrderMenuCtrl'
 		}
 	  }
-	})      
+	})
 	.state('tab.ordermodify', {
 	  url: '/ordermodify',
 	  views: {
@@ -215,7 +215,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 		  controller: 'OrderMenuCtrl'
 		}
 	  }
-	}) 
+	})
 	.state('tab.ordercheckout', {
 	  url: '/order/ordercheckout',
 	  views: {
@@ -224,7 +224,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 		  controller: 'OrderCheckoutCtrl'
 		}
 	  }
-	}) 
+	})
 	.state('tab.add_address', {
 	  url: '/order/add_address',
 	  views: {
@@ -233,7 +233,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 		  controller: 'AddressAddValidateCtrl'
 		}
 	  }
-	}) 
+	})
 	.state('tab.history', {
 	  url: '/history',
 	  views: {
@@ -261,7 +261,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 		  controller: 'AboutCtrl'
 		}
 	  }
-	})   
+	})
 	.state('tab.address', {
 	  url: '/address',
 	  views: {
@@ -288,17 +288,14 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 			controller: 'AddressAddCtrl'
 			}
 		}
-	})  
+	})
 	;
 
    $urlRouterProvider.otherwise('/login');
 
    $httpProvider.interceptors.push('authInterceptor');
-   
+
 })
 .constant('API_URL', 'https://www.chanmao.ca/index.php?r=');
 // .constant('API_URL', 'http://cmtest.littlesailing.com/index.php?r=');
 ;
-
-
-

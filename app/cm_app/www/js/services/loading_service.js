@@ -12,7 +12,7 @@ angular.module('chanmao')
     var loadingService = {}
     var storage = $window.localStorage;
     var cachedTime;
-    
+
     loadingService.showLoading = function() {
         var $ionicLoading = $injector.get('$ionicLoading')
         $ionicLoading.show({
@@ -41,12 +41,9 @@ angular.module('chanmao')
     };
     loadingService.reLoading = function() {
         if (!loadingService.getTime()) {
-            console.log('44')
             var now =  Date.now()
-            console.log('55',now)
         }else{
             var now = Date.now()
-            console.log('55',now)
         }
     };
 

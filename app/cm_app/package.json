@@ -31,7 +31,8 @@
     {
       "locator": "https://github.com/driftyco/ionic-plugin-deploy.git",
       "id": "ionic-plugin-deploy"
-    }
+    },
+    "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [
     "ios"
