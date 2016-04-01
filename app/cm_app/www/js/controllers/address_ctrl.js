@@ -11,29 +11,34 @@ angular.module('chanmao')
 	// $scope.$on('$destroy', function() {
 	//   tabs.css('display', '');
 	// });
-//  right Button 
-	$scope.addButton = function() {
-		  $state.go('tab.addradd');
-	 };  
-  
-// data loadings  
+//  right Button
+	// $scope.addButton = function() {
+	// 	  $state.go('tab.addradd');
+	//  };
+
+	 $scope.addButton = function() {
+			 $state.go('tab.addrSearch');
+		};
+
+// data loadings
 
 
 	$scope.hideLoading = function(){
 		$ionicLoading.hide();
 	};
-	$scope.addr_edit = function(addr) {
-		AddressService.save_addr(addr)
-		$state.go('tab.editradd');
-	};
+	// $scope.addr_edit = function(addr) {
+	// 	AddressService.save_addr(addr)
+	// 	$state.go('tab.editradd');
+	// };
+
 	$scope.addr_delete = function(addr,$index) {
 			console.log(addr,$index)
 			$scope.address.splice($index,1)
 			AddressService.addr_delete(addr)
-	}	
+	}
 	// loadingService.showLoading();
 	$scope.test = {}
 	$scope.show_address_list = false;
 	AddressService.all($scope);
-	
+
 })

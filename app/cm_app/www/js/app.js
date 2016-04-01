@@ -271,6 +271,15 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 		}
 	  }
 	})
+  .state('tab.addrSearch', {
+    url: '/addrSearch',
+    views: {
+      'profile-tab': {
+        templateUrl: 'templates/profile-address-search.html',
+        controller: 'AddressCtrl as ac'
+      }
+    }
+  })
 	.state('tab.addradd', {
 	  url: '/addradd',
 	  views: {
