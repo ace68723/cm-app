@@ -1,12 +1,12 @@
 <ion-view >
-  
+
    <ion-header-bar frosted-bar class="bar-frosted">
         <div class="buttons button_on_blur ">
             <button class="button   button-clear button-cm-blue" ng-click="go_back()"><_<</button>
         </div>
         <h1 class="title">点餐</h1>
         <div class="buttons button_on_blur ">
-            <a class="button  button-small button-blue" 
+            <a class="button  button-small button-blue"
                href="#/tab/order/add_address"
                 style="font-size: 16px;
                             line-height: 22px;
@@ -33,27 +33,27 @@
        	<div ng-repeat="dish in dishes"  ng-if="dish.amount>0">
 
 		  	<div class="item item-complex">
-			  	<span class="button button-clear  button-blue" style="font-size: 15px;font-weight: 900;"> 
+			  	<span class="button button-clear  button-blue" style="font-size: 15px;font-weight: 900;">
 			  	 <!-- ng-click="dishModify(dish.ds_id, dish.int_no, dish.ds_name, dish.amount)"> -->
 				   	{{$index+1}}. {{dish.ds_name}} — {{dish.amount}} 份
 			  	</span>
 		 	 </div>
 		</div>
-		
+
 
 		<div class="item item-input item-select "> <!-- 选择地址 -->
 		    <div class="input-label"style="width: 15%;">
 		     	地址:
 		    </div>
-		    <select name="uaidslect" 
-                    id="uaidslect" 
-                    ng-model="addr" 
+		    <select name="uaidslect"
+                    id="uaidslect"
+                    ng-model="addr"
                     ng-change="uaidChange(addr)"
                     style="max-width: 82%;"
                     ng-focus="select_focus()"
                     ng-blur="select_blur()">
 	          	<option ng-repeat="addr in address"  value="{{addr}}">
-		          	{{ addr.addr }} 
+		          	{{ addr.addr }}
 	          	</option>
 		    </select>
 		</div>
@@ -64,16 +64,16 @@
 		</div> <!-- 选择地址结束 -->
 
 
-		<!-- <ion-radio  name="uaidradio" 
+		<!-- <ion-radio  name="uaidradio"
 		ng-repeat="addr in address" ng-value="addr.uaid"
                    ng-model="uaid" ng-change="uaidChange(addr)"  >
-        			{{ addr.name }} - {{ addr.tel }} <br> {{ addr.addr }} 
+        			{{ addr.name }} - {{ addr.tel }} <br> {{ addr.addr }}
         </ion-radio> -->
 		<div class="item item-input item-select"><!-- 选择配送方式 -->
 		    <div class="input-label"style="width: 15%;">
 		     	配送方式:
 		    </div>
-		    <select name="uaidslect" 
+		    <select name="uaidslect"
     				id="uaidslect"
     	      		ng-options="delitype.value as delitype.name for delitype in select.delitypes "
     	      		ng-model="select.selected_dltype"
@@ -82,38 +82,52 @@
                     ng-focus="select_focus()"
                     ng-blur="select_blur()">
 		    </select>
-		</div>
-		
-<!-- 
-			
-				
+
+		</div><!-- 选择配送方式结束 -->
+
+    <div class="item item-input"><!-- 选择配送方式 -->
+        <!-- <div class="input-label"style="width: 15%;">
+          Coupon:
+        </div>
+        <input type='text'
+                  style='margin-left: 30px;'
+                  placeholder='请输入Coupon'> -->
+
+    </div><!-- 选择配送方式结束 -->
+
+<!--
+
+
 		<div class="item item-divider">
 			 请选取配送方式
-		</div>			
-		<ion-radio  name="dltyperadio" 
-					ng-repeat="delitype in delitypes" 
+		</div>
+		<ion-radio  name="dltyperadio"
+					ng-repeat="delitype in delitypes"
 					ng-value="delitype.value"
-                   	ng-model="dltype" 
+                   	ng-model="dltype"
                    	ng-change="dltypeChange(delitype)"  >
-          			{{ delitype.name }}  
+          			{{ delitype.name }}
         </ion-radio> -->
-        
-        
+
+
 
 		<div class="item item-divider">
 			 税前菜金: {{totalpre | currency}}
 		</div>
+    <!-- <div class="item item-divider">
+			 折扣后价格: {{totalpre | currency}}
+		</div> -->
 		<div class="item item-divider">
 			 运费: {{dlexp | currency}}
-		</div>	
+		</div>
 		<div class="item item-divider">
 			 总价格: {{dlexp+(totalpre*1.13) | currency}}
-		</div>	
+		</div>
 		<div class="item item-divider">
 			 还有什么要嘱咐的:
-		
+
 			<textarea ng-model="$parent.comment" style="width: 100%;" rows="5" placeholder="有什么特别要嘱咐的？辣度？葱姜蒜香菜？">
-	
+
 			</textarea>
 		</div>
 
@@ -123,9 +137,9 @@
 	    <button class="button  button-block button-blue" ng-if="uaid != null " ng-click="orderCheckout()">下单结账</button>
 	    <!-- <a class="button button-full button-cmwarning" href="#/tab/ordermenu">返回</a> -->
         <p style="padding: 19px;">*以上费用均未含小费,如果司机小哥的服务您还满意,请给小哥一点小费吧,小哥送外卖也是很辛苦嗒,馋猫君代各位小哥谢谢客官啦～ 祝您用餐愉快～ </p>
-        
-        
-     </div>  
+
+
+     </div>
 
   </ion-content>
 </ion-view>
@@ -149,7 +163,7 @@
 			  <button class="button button-clear button-positive icon ion-ios7-plus-outline"  ng-click="amountAdd()">
 			  </button>
 		  </div>
-          
+
           <button class="button button-full button-calm" ng-click="dishChange(ds_id, amount)">修改</button>
           <button class="button button-full button-calm" ng-click="dishDelete(ds_id)">不要了</button>
           <button class="button button-full button-energized" ng-click="closeModal()">关闭</button>

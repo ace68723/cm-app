@@ -67,23 +67,40 @@ angular.module('chanmao')
 	  OrderService.delifee =function($scope) {
 		var dlexp = 0.00;
 		$scope.dlexp = dlexp ;
-		if ($scope.dltype == 1) {
+		// if ($scope.dltype == 1) {
 		   var rid = storage.getItem("sv_rid");
-		   $http.post(API_URL+'MobOrder10/calcdeli', { rid: parseInt(rid), uaid: parseInt($scope.uaid) })
+
+      var CalcFeeData = {
+                      rid: parseInt(rid),
+                      uaid: parseInt($scope.uaid),
+                      pretax: Number($scope.totalpre),
+                      dltype: Number($scope.dltype),
+                      code: $scope.coupon
+                    }
+      console.log('CalcFeeData: ', CalcFeeData)
+
+		  $http.post(API_URL+'MobOrder10/CalcFee', CalcFeeData)
 			.success(function(data, status, headers, config) {
-				console.log('delifee',data)
-				$scope.result = data.result;
-				$scope.dlexp = data.dlexp;
-				 $scope.select.selected_dltype = 1;
+    				console.log('delifee',data)
+            // result 0 执行成果，1 执行失败
+            if(data.result == 0){
+                // dlout 1 定制运费，result 0 送餐
+                if ( $scope.dlout == 1) {
+                  alertService.alert('您的地址已超出普通送餐范围，只能选择订制运费' );
+                  $scope.select.selected_dltype = 2;
+                }else if($scope.dlout == 0){
+                  $scope.result = data.result;
+                  $scope.dlexp = data.dlexp;
+                  $scope.select.selected_dltype = 1;
+                }
+            }else{
+              $rootScope.noNetwork();
+            }
+
 			   }).error(function(data, status) {
-					$rootScope.noNetwork();
-			   }).then(function(){
-					if ( $scope.result == 0) {
-						alertService.alert('您的地址已超出普通送餐范围，只能选择订制运费' );
-						$scope.select.selected_dltype = 2;
-					}
+					  $rootScope.noNetwork();
 			   });
-		};
+		// };
 
 	  }
 
