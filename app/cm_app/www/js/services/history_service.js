@@ -28,9 +28,11 @@ angular.module('chanmao')
             }
 
             $scope.$evalAsync(function() {
+                console.log(data)
                 if(data.current){
                     $scope.current          = data.current;
                     $scope.available        = data.available;
+                    $scope.unavailable_dish = data.unavailable;
                     $scope.rid              = data.current.rid;
                     var rrname              = data.current.rrname.split('(')[0]
                     var rrarea              = data.current.rrname.split('(')[1].split(')')[0]
@@ -56,7 +58,18 @@ angular.module('chanmao')
                   change_status($scope);
                   if(data.current.status == '5'){
                       if(lv_last_oid !== lv_oid || lv_last_oid == undefined){
-                          find_unavailable($scope)
+                          var unavailable_dish = [];
+                          var message = "";;
+                          var count = 0;
+                          _.forEach(data.unavailable, function(dish) {
+
+                                  count += 1;
+                                  unavailable_dish.push(dish)
+                                  message += count + ". " + dish.ds_name + ';';
+                                  console.log(message)
+                          })
+                          $location.path('/tab/history')
+                          alertService.alert(message,"@_@没菜了")
                           lv_last_oid = lv_oid;
                       }
 
@@ -167,30 +180,6 @@ angular.module('chanmao')
                 }
            }
         });
-    };
-
-    function find_unavailable($scope) {
-        var userOrder = $window.localStorage.getItem('userOrder');
-        userOrder = JSON.parse(userOrder);
-        var unavailable_dish = [];
-        var message = "";
-        var count = 0;
-        _.forEach(userOrder.dishes, function(dish) {
-
-            var found = _.findIndex(la_available, function(ava_dish) {
-              return ava_dish.ds_id == dish.dish_id;
-            });
-
-            if(found == "-1"){
-                count += 1;
-                unavailable_dish.push(dish)
-                message += count + ". " + dish.ds_name + ';';
-            }
-        })
-        $location.path('/tab/history')
-        $scope.unavailable_dish = unavailable_dish;
-        alertService.alert(message,"@_@没菜了")
-
     };
 
     return HistoryService
