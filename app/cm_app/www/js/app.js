@@ -225,15 +225,6 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 		}
 	  }
 	})
-	.state('tab.add_address', {
-	  url: '/order/add_address',
-	  views: {
-		'order-tab': {
-		  templateUrl: 'templates/menu_address_add.html',
-		  controller: 'AddressAddValidateCtrl'
-		}
-	  }
-	})
 	.state('tab.history', {
 	  url: '/history',
 	  views: {
@@ -285,10 +276,28 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 	  views: {
 		'profile-tab': {
 		  templateUrl: 'templates/profile-address-add.html',
-		  controller: 'AddressAddCtrl'
+		  controller: 'AddressAddValidateCtrl'
 		}
 	  }
 	})
+  .state('tab.search_address', {
+    url: '/order/search_address',
+    views: {
+    'order-tab': {
+      templateUrl: 'templates/menu_address_search.html',
+      controller: 'AddressCtrl as ac'
+    }
+    }
+  })
+  .state('tab.add_address', {
+    url: '/order/add_address',
+    views: {
+    'order-tab': {
+      templateUrl: 'templates/menu_address_add.html',
+      controller: 'AddressAddValidateCtrl'
+    }
+    }
+  })
 	.state('tab.editradd', {
 		url: '/editradd',
 		views: {

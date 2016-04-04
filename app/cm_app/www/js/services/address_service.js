@@ -13,6 +13,7 @@ angular.module('chanmao')
 	var editing_addr;
 	var uid;
 	var editing_addr;
+	var lv_search_result;
 
 
 	AddressService.all=function($scope) {
@@ -39,7 +40,6 @@ angular.module('chanmao')
 			loadingService.hideLoading()
 		   });
 	};
-
 	AddressService.exist=function($scope) {
 	  // uid = window.localStorage.getItem("sv_uid");
 	  var exist = 0;
@@ -54,70 +54,69 @@ angular.module('chanmao')
 			  loadingService.hideLoading()
 		   });
 	};
-
   AddressService.validate=function($scope) {
-	var errortext = '';
-	if (($scope.addr.name   == null) ||
-		($scope.addr.tel    == null) ||
-		($scope.addr.city   == null) ||
-		($scope.addr.postal == null) ||
-		($scope.addr.addr   == null) ){
-		errortext = '* 请按正确格式填写所有字段<br>';
-	}
+		var errortext = '';
+		if (($scope.addr.name   == null) ||
+			($scope.addr.tel    == null) ||
+			($scope.addr.city   == null) ||
+			($scope.addr.postal == null) ||
+			($scope.addr.addr   == null) ){
+			errortext = '* 请按正确格式填写所有字段<br>';
+		}
 
-	if (errortext != ''){
-		alertService.alert(errortext);
-		loadingService.hideLoading()
-	} else  {
-		$scope.addr.postal = null
-		var address_str = $scope.addr.addr+'+'+$scope.addr.city+'+ON';
-		address_str = address_str.replace(/\s/g,"+");
-		var geocoder = new google.maps.Geocoder();
-		var geocoderRequest = { address: address_str };
-		geocoder.geocode(geocoderRequest, function(results, status){
-			if (status == 'OK'){
-
-				// $scope.addr.address = results[0]['formatted_address'];
-				$scope.addr.lat 	= results[0].geometry.location.lat();
-				$scope.addr.lng 	= results[0].geometry.location.lng();
-
-				var address_components = results[0].address_components;
-				_.forEach(address_components, function(component, key) {
-					_.forEach(component.types, function(type, key) {
-						switch(type) {
-							case "postal_code":
-								$scope.addr.postal = component.long_name;
-								break;
-							case "locality":
-								$scope.addr.city = component.long_name;
-								break;
-							case "route":
-								$scope.addr.route = component.long_name;
-								break;
-							case "street_number":
-								$scope.addr.street_number = component.long_name;
-								break;
-
-						}
-					});
-				});
-
-				$scope.addr.address = $scope.addr.street_number + " " + $scope.addr.route;
-				console.log($scope.addr.address)
-				if(!$scope.addr.postal){
-					$scope.addr.address = "系统无法检测到您的地址，请返回重新检查地址格式";
-				}
-
-		  } else {
-			$scope.addr.address = "系统无法检测到您的地址，请返回重新检查地址格式";
-		  }
-			console.log("service_inner"+$scope.addr.address+"service_inner"+$scope.addr.lat+$scope.addr.lng);
-			$scope.openModal();
+		if (errortext != ''){
+			alertService.alert(errortext);
 			loadingService.hideLoading()
-		});
-	}
+		} else  {
+				$scope.addr.postal = null
+				var address_str = $scope.addr.addr+'+'+$scope.addr.city+'+ON';
+				address_str = address_str.replace(/\s/g,"+");
+				var geocoder = new google.maps.Geocoder();
+				var geocoderRequest = { address: address_str };
+				geocoder.geocode(geocoderRequest, function(results, status){
+					if (status == 'OK'){
+
+						// $scope.addr.address = results[0]['formatted_address'];
+						$scope.addr.lat 	= results[0].geometry.location.lat();
+						$scope.addr.lng 	= results[0].geometry.location.lng();
+
+						var address_components = results[0].address_components;
+						_.forEach(address_components, function(component, key) {
+							_.forEach(component.types, function(type, key) {
+								switch(type) {
+									case "postal_code":
+										$scope.addr.postal = component.long_name;
+										break;
+									case "locality":
+										$scope.addr.city = component.long_name;
+										break;
+									case "route":
+										$scope.addr.route = component.long_name;
+										break;
+									case "street_number":
+										$scope.addr.street_number = component.long_name;
+										break;
+
+								}
+							});
+						});
+
+						$scope.addr.address = $scope.addr.street_number + " " + $scope.addr.route;
+						console.log($scope.addr.address)
+						if(!$scope.addr.postal){
+							$scope.addr.address = "系统无法检测到您的地址，请返回重新检查地址格式";
+						}
+
+				  } else {
+						$scope.addr.address = "系统无法检测到您的地址，请返回重新检查地址格式";
+				  }
+					console.log("service_inner"+$scope.addr.address+"service_inner"+$scope.addr.lat+$scope.addr.lng);
+					$scope.openModal();
+					loadingService.hideLoading()
+				});
+		}
   };
-  	AddressService.create=function($scope) {
+  AddressService.create=function($scope) {
 		// $scope.addr.uid = window.localStorage.getItem("sv_uid");
 		return $q(function(resolve, reject) {
 	      	$scope.addr.addr = $scope.addr.address
@@ -131,11 +130,13 @@ angular.module('chanmao')
 	    			 reject('');
 	    		}).then(function(){
 	    			if ($scope.result == 0){
-	    				$scope.closeModal();
-	    				// AddressService.all()
-	    				// $state.go('tab.address');
 	    				$rootScope.go_back()
-	    			}
+							setTimeout(function () {
+									$rootScope.go_back()
+							},500)
+	    			}else{
+							alertService.alert('地址添加失败');
+						}
 	    			loadingService.hideLoading()
 	    		});
 		});
@@ -148,7 +149,6 @@ angular.module('chanmao')
 		return editing_addr;
 	};
 	AddressService.addr_delete = function(addr) {
-		// console.log(addr)
 		var uaid = addr.uaid
 		var data = {};
 		data.uaid = uaid;
@@ -162,8 +162,56 @@ angular.module('chanmao')
 				 $rootScope.noNetwork();
 			 }).then();
 	}
+	AddressService.save_search_result = function (address) {
+			lv_search_result = address;
+	}
+	AddressService.get_search_result = function () {
+			// return lv_search_result
+		 var deferred = $q.defer();
+		 		loadingService.showLoading()
+				var addr = {};
+				var geocoder = new google.maps.Geocoder();
+				var geocoderRequest = { address: lv_search_result.description };
+				geocoder.geocode(geocoderRequest, function(results, status){
+					if (status == 'OK'){
+							addr.lat 	= results[0].geometry.location.lat();
+							addr.lng 	= results[0].geometry.location.lng();
+							var address_components = results[0].address_components;
+							_.forEach(address_components, function(component, key) {
+									_.forEach(component.types, function(type, key) {
+										switch(type) {
+											case "postal_code":
+												addr.postal = component.long_name;
+												break;
+											case "locality":
+												addr.city = component.long_name;
+												break;
+											case "sublocality":
+												addr.city = component.long_name;
+												break;
+										}
+									});
+							});
+							if(!addr.city){
+								addr.city = ' ';
+							}
+						addr.address = lv_search_result.description + '\n ' + addr.postal
+						if(!addr.postal){
+							addr.address = "系统无法检测到您的地址，请返回重新检查地址格式";
+						}
+						loadingService.hideLoading()
+						deferred.resolve(addr);
+					} else {
+						var error = "系统无法检测到您的地址，请返回重新检查地址格式";
+						loadingService.hideLoading()
+						deferred.reject(error)
+					}
+					// console.log("service_inner"+addr.address+"service_inner"+addr.lat+addr.lng);
+				});
 
+		 return deferred.promise;
+	}
 
-   return AddressService;
+	return AddressService;
 
 })

@@ -14,7 +14,6 @@ angular.module('chanmao')
                 }else{
                     reject('need message')
                 }
-
                 if(iv_title){
                     lv_title = iv_title
                 }else{
@@ -26,7 +25,6 @@ angular.module('chanmao')
                 } else{
                     lv_btn = "确认"
                 }
-
                 $cordovaDialogs.alert(lv_message, lv_title, lv_btn)
                   .then(function(result) {
                     resolve(result);
