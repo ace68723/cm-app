@@ -41,7 +41,7 @@
   	height: 100px;
     /*position: absolute;*/
     left: 0;
-   
+
 }
 .nav_tabs{
   position: absolute;
@@ -70,7 +70,7 @@
 }
 
 .check_out_box {
-	text-align:center;margin-top: 10px;	
+	text-align:center;margin-top: 10px;
 }
 .nav_btn {
     position: absolute;
@@ -92,7 +92,7 @@
 .recommend{
     background-image: url(../img/recommend.png);
     background-size: 100% 100%;
-    background-position: center; 
+    background-position: center;
 }
 
 .recommend .restaurant_img{
@@ -149,7 +149,7 @@
   right: 9%;
   position: absolute;
  /* width: 80px;       斜
-  height: 132px;*/ 
+  height: 132px;*/
   width: 36.4px;
   height: 80px;
   top: -11px;
@@ -169,7 +169,5 @@
   top: 69px;
 }
 .platform-ios.platform-cordova:not(.fullscreen) .has-header, .platform-ios.platform-cordova:not(.fullscreen) .has_menu_subheader {
-    top: 89px;
+    /*top: 89px;*/
 }
-
-

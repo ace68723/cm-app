@@ -5,7 +5,7 @@
 		  </div>
 		  <h1 class="title" style="font-size: 15px;">{{name}}</h1>
 		<div class="buttons button_on_blur " ng-if="open == 1">
-			<div class="button  button-small button-blue "  
+			<div class="button  button-small button-blue "
 			        ng-click="open_confirm_order()"
 			        style="font-size: 16px;
 						    line-height: 22px;
@@ -24,7 +24,7 @@
 															    padding-right: 0px
 														">
 				<span> {{total|currency}}结账</span>
-			     
+
 			</div>
 		</div>
 		<div class="buttons button_on_blur " ng-if="open == 0 ">
@@ -34,7 +34,7 @@
 		</div>
 
 	</ion-header-bar>
-	
+
 	<div class="bar bar-subheader menu_subheader">
 		<img src="img/notice.png" alt="">
 	  	<span class="notice">优惠活动：黄记煌 全店20% Off  时间：2016.1.15-2.15</span>
@@ -46,37 +46,38 @@
 	</div>
   <!-- <ion-content class="has-loading has-header hide_tabs" delegate-handle="order_menu_scroll" on-scroll="menu_scroll()" > -->
 	<ion-content id="menu_content"
-	             class="has-header hide_tabs has_menu_subheader" 
-				 delegate-handle="order_menu_scroll"  >
+	             class="has-header hide_tabs has_menu_subheader"
+				 		 	 delegate-handle="order_menu_scroll"
+							 style="top:89px">
 	  <div id="menu"class="list" ng-show="show_menu">
 			<div ng-repeat="dish in menu | filter:search_dish" >
 				<div ng-if="dish.has_cate_name"
-					class="item item-divider" 
+					class="item item-divider"
 					id="{{dish.anchor}}">
 					<img src="img/thumb.png"ng-if="dish.cate_name == '新菜推荐'" alt="">
 						{{dish.cate_name}}
-				</div>          
-				<ion-item  
-					class=" item-thumbnail-left item-button-right" 
+				</div>
+				<ion-item
+					class=" item-thumbnail-left item-button-right"
 					ng-if="!dish.has_cate_name && dish.img_url "
 					on-tap="add_dish(dish)"
 					>
-					
+
 					<img ng-src="http://lorempixel.com/250/250/?q=2">
 					<h2>{{dish.ds_name}}</h2>
 					<p>{{dish.dish_price | currency}}</p>
 					<h2 ng-if="dish.amount >0">数量:{{dish.amount}}</h2>
-					
+
 					<button class="button button-calm button-outline"
 							ng-if="dish.amount >0"
 							on-tap="dec_dish(dish) "
 							style="top: 30px;font-size: 35px;height: 38px;"
 							>
-					-   
+					-
 					</button>
 				</ion-item >
-				<ion-item  
-					class=" item item-button-right" 
+				<ion-item
+					class=" item item-button-right"
 					ng-if="!dish.has_cate_name && !dish.img_url "
 					on-tap="add_dish(dish)"
 					style="padding-right: 50px;"
@@ -88,51 +89,51 @@
 							<h2 ng-if="dish.amount >0">数量:{{dish.amount}}</h2>
 						</div>
 					</div>
-					
-					
-					
+
+
+
 					<button class="button button-calm button-outline"
 							ng-if="dish.amount >0"
 							on-tap="dec_dish(dish) "
 							style="top: 22px;font-size: 35px;height: 38px;"
 							>
-					-   
+					-
 					</button>
 				</ion-item >
 			</div>
-	  
+
 
 		<button class="button button-full button-light button-clear button-small">
-		</button>       
+		</button>
 
-	  </div>  
+	  </div>
 
   </ion-content>
 	<div id="menu_nav"class="tabs"  style="left: 90%;" keyboard-attach>
 		<!-- <input type="text"style="width: 36px;"> -->
-		
-		<i 	class="icon ion-ios-search-strong" 
+
+		<i 	class="icon ion-ios-search-strong"
 			style="font-size:33px;z-index: 3;padding: 8px;"
 			ng-click="search()"></i>
-		
+
 		<form action="do_search()" class="item item-input search_bar" >
 		  	<input type="text" name="search" ng-model="search_dish.ds_name">
 		</form>
 
 		<ion-scroll direction="x" class="nav-scroller" delegate-handle="Nav"style="width: 100%;z-index: 2;position: absolute;left: 33px;background-color: #f8f8f8">
-			<div id="nav_btn"class="nav_btn" > 
-			</div>  
-			<div  class="nav" 
+			<div id="nav_btn"class="nav_btn" >
+			</div>
+			<div  class="nav"
 				ng-repeat="(id,nav) in cate"
 				ng-click="nav_click(nav.anchor_nav)"
 				ng-class="{nav_color: nav.current}"
 				id="{{nav.anchor_nav}}"
 				 >
 			 {{nav.cate_name}}
-				  
+
 			  </div>
-							
-		</ion-scroll> 
+
+		</ion-scroll>
 	</div>
 
 
