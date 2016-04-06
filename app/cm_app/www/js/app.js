@@ -104,11 +104,11 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 
 		var url = $location.url(),
 			params = $location.search();
-		// if(window.cordova && window.cordova.platformId == 'ios'){
-		// 	setTimeout(function() {
-		// 		$ionicFrostedDelegate.update();
-		// 	}, 1000);
-		// }
+		if(window.cordova && window.cordova.platformId == 'ios'){
+			setTimeout(function() {
+				$ionicFrostedDelegate.update();
+			}, 1000);
+		}
 
 		// setTimeout(function() {
 			var tabs = document.querySelectorAll('div.tabs')[0];

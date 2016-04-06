@@ -66,7 +66,7 @@ angular.module('chanmao')
 
 	  OrderService.delifee =function(uaid,pretax,dltype,coupon) {
         var deferred = $q.defer();
-
+          loadingService.showLoading();
     		  var rid = storage.getItem("sv_rid");
 
           var CalcFeeData     = {}
@@ -86,15 +86,18 @@ angular.module('chanmao')
                     if ( data.dltype == 2) {
                       alertService.alert('您的地址已超出普通送餐范围，只能选择订制运费');
                     }
+                    loadingService.hideLoading();
                     deferred.resolve(data);
 
                 }else{
                   $rootScope.noNetwork();
+                  loadingService.hideLoading();
                   deferred.reject()
                 }
 
-  			   }).error(function(data, status) {
+              }).error(function(data, status) {
   					  $rootScope.noNetwork();
+              loadingService.hideLoading();
               deferred.reject()
   			   });
   		  return deferred.promise;
@@ -103,6 +106,7 @@ angular.module('chanmao')
 
     OrderService.beforeCheckout = function (totalpre) {
       var deferred = $q.defer();
+          loadingService.showLoading();
           var rid = storage.getItem("sv_rid");
           var beforecoData = {
             pretax: Number(totalpre),
@@ -113,12 +117,15 @@ angular.module('chanmao')
           .success(function(data, status, headers, config) {
                 // result 0 执行成果，1 执行失败
                 if(data.result == 0){
+                   loadingService.hideLoading();
                     deferred.resolve(data);
                 }else{
+                   loadingService.hideLoading();
                    deferred.reject('network error');
                   $rootScope.noNetwork();
                 }
              }).error(function(data, status) {
+                loadingService.hideLoading();
                 deferred.reject('network error');
                 $rootScope.noNetwork();
              });

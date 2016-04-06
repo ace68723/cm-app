@@ -1,10 +1,10 @@
 <ion-view title="我的订单" >
-	
-	<ion-header-bar>
-		
+
+	<ion-header-bar frosted-bar class="bar-frosted">
+
 	   <h1 class="title">我的订单</h1>
 	 </ion-header-bar>
-	
+
 	<!-- <div class="bar bar-loading bar-cmblue" >
 		<i class="icon ion-ios7-heart"></i> 该页面分钟会自动刷新，也可以手动刷新
 	</div> -->
@@ -12,14 +12,14 @@
 	<ion-refresher
 		on-refresh="doRefresh()">
 	</ion-refresher>
-	
+
 	<div class="card" ng-if="current!=null">
-		
+
 		<div class="item center_text ng-binding" style="
 			background-color: #76D5FF;
 			color: #fff;
 		">
-			   ORDER PASS 	
+			   ORDER PASS
 		</div>
 
 		<div class="item item-body " style="padding-bottom: 0px;margin-bottom: 0px;padding-top: 6px;padding-left:2px;padding-right: 2px;text-align: center;">
@@ -34,7 +34,7 @@
 				<div class="col col-33" style="text-align: center;">
 					<i class="icon ion-ios-arrow-thin-right" style="font-size: 28px;top: 11px;"></i>
 					<br>
-					
+
 					<!-- <div class="button badge-{{status.badge}}">{{status.text}}</div>  -->
 				</div>
 				<div class="col col-33" style="text-align: center;">
@@ -52,10 +52,10 @@
 			 	{{status.text}}
 			</div>
 			<div ng-if="current.cell">
-				
-			 	<button class="button button-block button-blue" 
+
+			 	<button class="button button-block button-blue"
 			 		 	ng-click="send_sms(current.oid)"
-			 		 	ng-if="current.cell !== 'verify' && current.cell !== 'fail'" 
+			 		 	ng-if="current.cell !== 'verify' && current.cell !== 'fail'"
 			 		 	>
 			 		 获取手机验证码
 			 	</button>
@@ -63,7 +63,7 @@
 			 	<label class="item item-input" ng-if="current.cell == 'verify'">
 				  <input type="tel" ng-model="current.verify_code" placeholder="请输入验证码">
 				</label>
-			 	<button class="button button-block button-blue" 
+			 	<button class="button button-block button-blue"
 			         	ng-click="verify_sms(current.oid,current.verify_code)"
 			         	ng-if="current.cell == 'verify'"
 			         	ng-disabled="wait_time>0">
@@ -72,20 +72,20 @@
 				<div class="button button-small button-clear button-{{status.button}}" style="font-size: 15px;"ng-if="current.cell !== 'fail'" >
 				 	请使用手机自行验证
 				</div>
-				<div class="button button-small button-clear button-{{status.button}}" 
+				<div class="button button-small button-clear button-{{status.button}}"
 					 style="font-size: 15px;"
 					 ng-if="current.cell == 'fail'">
 				 	验证不通过,客服将稍后与您联系
 				</div>
 			</div>
-			
-			
+
+
 
 		</div>
 
-					
+
 		<div class="item " style="padding-top: 0;padding-bottom: 0px;">
-			
+
 			<div class="row">
 				<div class="col col-50" style="text-align: left;height: 55px;">
 					<p>Customer</p>
@@ -95,8 +95,8 @@
 					<p>Order Id</p>
 					<h2>{{current.oid}}</h2>
 				</div>
-				
-			</div> 
+
+			</div>
 			<div class="row">
 				<div class="col col-50" style="text-align: left;height: 55px;">
 					<p>总价</p>
@@ -106,8 +106,8 @@
 					<p>Service</p>
 					<h2 style="overflow: visible;">647-515-6699</h2>
 				</div>
-			</div> 
-			
+			</div>
+
 			<div class="list" ng-if="current.status == 5">
                <div class="item item-divider">
                    下面的菜品木有了...
@@ -116,24 +116,24 @@
                    {{id+1}}. {{dish.ds_name}}
                </div>
                    <button class="button button-block button-blue" ng-click="recover()">重新下单</button>
-              
-               
+
+
            	</div>
 
-				
+
 			<div class="row">
 				<div class="col col-33" style="text-align: left;">
 					<p>查询时间:</p>
-					
+
 				</div>
 				<div class="col col-33" style="text-align: left;">
 					<p>{{updated | date:'yyyy-MM-dd '}}</p>
 				</div>
 				<div class="col col-33" style="text-align: center;">
 					<p>{{updated | date:'h:mm:ss a'}} </p>
-					
+
 				</div>
-			</div>   
+			</div>
 		</div>
 	</div>
 
@@ -145,7 +145,7 @@
 			当前处理中订单: # {{current.oid}}
 	  </div>
 	  <div class="item item-text-wrap">
-				当前状态: <span class="badge badge-{{status.badge}}">{{status.text}}</span> 
+				当前状态: <span class="badge badge-{{status.badge}}">{{status.text}}</span>
 	  </div>
 	  <div class="item item-button-right" ng-if="available != null">
 			继续点单: <button class="button button-small button-positive" ng-click="recover()">要保留已点菜品</button>
@@ -157,12 +157,12 @@
 			客服电话: 647-515-6699
 	  </div> -->
 	<!-- </div> -->
-	
+
 <!-- 	<div class="list" ng-if="current==null">
 	  <div class="item item-divider">
 			当前没有正在处理的订单
 	  </div>
-	</div> -->	
+	</div> -->
 
 	<div class=" card list cur_order_list" ng-if="current==null">
 		<label class="item cur_order_title" >
@@ -175,11 +175,11 @@
 			历史订单
 		</div>
 		<ion-list>
-	
+
 		  <ion-item ng-repeat="order in orders"> <!-- href="#/tab/history/{{order.oid}}"> -->
 			<h3> # {{order.oid}} 总价: $ {{order.total}} — {{order.created | dateToISO | date:'mediumDate' }} </h3>
 		  </ion-item>
-		  
+
 		</ion-list>
 	</div>
   </ion-content>
