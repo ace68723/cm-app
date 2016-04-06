@@ -35,20 +35,19 @@
 
 	</ion-header-bar>
 
-	<div class="bar bar-subheader menu_subheader">
+	<!-- <div class="bar bar-subheader menu_subheader">
 		<img src="img/notice.png" alt="">
 	  	<span class="notice">优惠活动：黄记煌 全店20% Off  时间：2016.1.15-2.15</span>
 	  	<div class="label">
 	  		<div style="top: 31px;position: relative;color: #fff;font-weight: 900; "> $100</div>
 	  		<div style="top: 37px;position: relative;color: #D9553F;font-weight: 900;"> $20</div>
-	  	</div>
+	  	</div> -->
 	  	<!-- <img class="label"src="img/discount-label.png" alt=""> -->
-	</div>
+	<!-- </div> -->
   <!-- <ion-content class="has-loading has-header hide_tabs" delegate-handle="order_menu_scroll" on-scroll="menu_scroll()" > -->
 	<ion-content id="menu_content"
-	             class="has-header hide_tabs has_menu_subheader"
-				 		 	 delegate-handle="order_menu_scroll"
-							 style="top:89px">
+	             class="has-header hide_tabs "
+				 		 	 delegate-handle="order_menu_scroll">
 	  <div id="menu"class="list" ng-show="show_menu">
 			<div ng-repeat="dish in menu | filter:search_dish" >
 				<div ng-if="dish.has_cate_name"
