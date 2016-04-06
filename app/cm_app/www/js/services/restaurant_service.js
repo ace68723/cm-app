@@ -166,9 +166,10 @@ angular.module('chanmao')
 				item.has_cate_name = false;
 				item.ds_name  = dish.ds_name;
 				item.dish_price = dish.price;
-				item.dish_id    = dish.ds_id
-				item.status     = dish.status
-				item.int_no     = dish.int_no
+        item.dish_old_price = dish.old_price;
+				item.dish_id    = dish.ds_id;
+				item.status     = dish.status;
+				item.int_no     = dish.int_no;
 				// item.height = 100;
 				item.amount = 0;
 				la_menu.push(item);

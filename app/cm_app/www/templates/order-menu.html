@@ -16,13 +16,13 @@
 						    font-weight: 900;
 						"
 			     >
-				<img src="img/checkout-icon.png" alt=""style="
+				<!-- <img src="img/checkout-icon.png" alt=""style="
 														       position: relative;
 															    height: 17px;
 															    margin-top: 2px;
 															    margin-bottom: -2px;
 															    padding-right: 0px
-														">
+														"> -->
 				<span> {{total|currency}}结账</span>
 
 			</div>
@@ -57,6 +57,7 @@
 					<img src="img/thumb.png"ng-if="dish.cate_name == '新菜推荐'" alt="">
 						{{dish.cate_name}}
 				</div>
+				<!-- 有图 item -->
 				<ion-item
 					class=" item-thumbnail-left item-button-right"
 					ng-if="!dish.has_cate_name && dish.img_url "
@@ -76,6 +77,8 @@
 					-
 					</button>
 				</ion-item >
+
+				<!-- 无图 item -->
 				<ion-item
 					class=" item item-button-right"
 					ng-if="!dish.has_cate_name && !dish.img_url "
@@ -83,8 +86,20 @@
 					style="padding-right: 50px;"
 					>
 					<div class="row">
-						<div class="col col-75"><h2>{{dish.ds_name}}</h2>
-						<p>{{dish.dish_price | currency}}</p></div>
+						<div class="col col-75">
+							<h2>{{dish.ds_name}}</h2>
+							<p ng-if="!dish.dish_old_price">
+									{{dish.dish_price | currency}}
+							</p>
+							<p ng-if="dish.dish_old_price"style="color: #d9553f;">
+									{{dish.dish_price | currency}}
+									<span ng-if="dish.dish_old_price"
+											  style="text-decoration:line-through;color: #666;">
+												{{dish.dish_old_price | currency}}
+									</span>
+							</p>
+						</div>
+
 						<div class="col col-25">
 							<h2 ng-if="dish.amount >0">数量:{{dish.amount}}</h2>
 						</div>
@@ -95,7 +110,7 @@
 					<button class="button button-calm button-outline"
 							ng-if="dish.amount >0"
 							on-tap="dec_dish(dish) "
-							style="top: 22px;font-size: 35px;height: 38px;"
+							style="top: 22px;font-size: 35px;height: 38px;border-radius: 6px;"
 							>
 					-
 					</button>

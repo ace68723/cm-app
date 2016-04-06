@@ -63,12 +63,6 @@
 			    {{selected_addr.addr}}
 		</div> <!-- 选择地址结束 -->
 
-
-		<!-- <ion-radio  name="uaidradio"
-		ng-repeat="addr in address" ng-value="addr.uaid"
-                   ng-model="uaid" ng-change="uaidChange(addr)"  >
-        			{{ addr.name }} - {{ addr.tel }} <br> {{ addr.addr }}
-        </ion-radio> -->
 		<div class="item item-input item-select"><!-- 选择配送方式 -->
 		    <div class="input-label"style="width: 15%;">
 		     	配送方式:
@@ -85,48 +79,41 @@
 
 		</div><!-- 选择配送方式结束 -->
 
-    <div class="item item-input"><!-- 选择配送方式 -->
-        <!-- <div class="input-label"style="width: 15%;">
+    <div class="item item-input" ng-if="uaid != null"><!-- 输入cpopon -->
+        <div class="input-label"style="width: 15%;">
           Coupon:
         </div>
         <input type='text'
-                  style='margin-left: 30px;'
-                  placeholder='请输入Coupon'> -->
+               style='margin-left: 30px;'
+               ng-model="checkout.coupon"
+               placeholder='请输入Coupon'>
 
-    </div><!-- 选择配送方式结束 -->
-
-<!--
+    </div><!-- 输入cpopon结束 -->
 
 
-		<div class="item item-divider">
-			 请选取配送方式
+
+    <div class="item item-divider"ng-if="promoted == 0">
+       税前菜金: {{pretax_ori | currency}}
+    </div>
+		<div class="item item-divider"ng-if="promoted == 1" style="text-decoration:line-through;">
+			 税前菜金: {{pretax_ori | currency}}
 		</div>
-		<ion-radio  name="dltyperadio"
-					ng-repeat="delitype in delitypes"
-					ng-value="delitype.value"
-                   	ng-model="dltype"
-                   	ng-change="dltypeChange(delitype)"  >
-          			{{ delitype.name }}
-        </ion-radio> -->
-
-
-
-		<div class="item item-divider">
-			 税前菜金: {{totalpre | currency}}
+    <div class="item item-divider" style="color: #d9553f;" ng-if="promoted == 1">
+			 折后价格: {{pretax | currency}}
 		</div>
-    <!-- <div class="item item-divider">
-			 折扣后价格: {{totalpre | currency}}
-		</div> -->
 		<div class="item item-divider">
 			 运费: {{dlexp | currency}}
 		</div>
 		<div class="item item-divider">
-			 总价格: {{dlexp+(totalpre*1.13) | currency}}
+			 总价格: {{total| currency}}
 		</div>
 		<div class="item item-divider">
 			 还有什么要嘱咐的:
 
-			<textarea ng-model="$parent.comment" style="width: 100%;" rows="5" placeholder="有什么特别要嘱咐的？辣度？葱姜蒜香菜？">
+			<textarea ng-model="$parent.comment"
+                style="width: 100%;"
+                rows="5"
+                placeholder="有什么特别要嘱咐的？辣度？葱姜蒜香菜？">
 
 			</textarea>
 		</div>
@@ -143,31 +130,3 @@
 
   </ion-content>
 </ion-view>
-
-<!-- <script id="order-checkout-modal.html" type="text/ng-template">
-  <div class="modal">
-    <header class="bar bar-header bar-chanmao">
-      <h1 class="title"></h1>
-    </header>
-    <ion-content has-header="true" padding="true">
-        <div class="card">
-		  <div class="item item-divider">
-		     	{{ds_name}}
-		  </div>
-		  <div class="item item-text-wrap">
-			  <button class="button button-clear button-positive icon ion-ios7-minus-outline"   ng-click="amountRemove()">
-			  </button>
-			  <button class="button button-outline button-positive">
-			  改成 {{amount}} 份
-			  </button>
-			  <button class="button button-clear button-positive icon ion-ios7-plus-outline"  ng-click="amountAdd()">
-			  </button>
-		  </div>
-
-          <button class="button button-full button-calm" ng-click="dishChange(ds_id, amount)">修改</button>
-          <button class="button button-full button-calm" ng-click="dishDelete(ds_id)">不要了</button>
-          <button class="button button-full button-energized" ng-click="closeModal()">关闭</button>
-        </div>
-    </ion-content>
-  </div>
-</script> -->

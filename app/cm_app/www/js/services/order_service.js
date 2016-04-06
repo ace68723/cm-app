@@ -8,7 +8,7 @@
  * Factory in the helloIonicApp.
  */
 angular.module('chanmao')
-  .factory('OrderService', function($http, $location, $window,$rootScope,$ionicHistory,loadingService, alertService, auth,scrollService, API_URL,version) {
+  .factory('OrderService', function($http, $q,$location, $window,$rootScope,$ionicHistory,loadingService, alertService, auth,scrollService, API_URL,version) {
 	var OrderService = {}
 	var storage = $window.localStorage;
 	var cached_order;
@@ -26,85 +26,106 @@ angular.module('chanmao')
 	  }
 
 	  OrderService.dishDelete =function($scope, ds_id) {
-		pre_dishes = window.localStorage.getItem("sa_dishes");
-		pre_dishes = JSON.parse(pre_dishes);
-		totalpre = 0.00;
-		order_dishes = new Array();
-		for (var i = 0; i < pre_dishes.length; i++){
-		  if (pre_dishes[i].ds_id != ds_id){
-			order_dishes.push(pre_dishes[i]);
-			totalpre = totalpre + pre_dishes[i].price * pre_dishes[i].amount;
-		  }
-		};
-		$scope.dishes = order_dishes;
-		$scope.totaldish = order_dishes.length;
-		$scope.totalpre = totalpre;
-		window.localStorage.setItem("sa_dishes", JSON.stringify(order_dishes));
-		// window.localStorage.setItem("sv_pretax", $scope.totalpre);
-		$scope.closeModal();
+  		pre_dishes = window.localStorage.getItem("sa_dishes");
+  		pre_dishes = JSON.parse(pre_dishes);
+  		totalpre = 0.00;
+  		order_dishes = new Array();
+  		for (var i = 0; i < pre_dishes.length; i++){
+  		  if (pre_dishes[i].ds_id != ds_id){
+  			order_dishes.push(pre_dishes[i]);
+  			totalpre = totalpre + pre_dishes[i].price * pre_dishes[i].amount;
+  		  }
+  		};
+  		$scope.dishes = order_dishes;
+  		$scope.totaldish = order_dishes.length;
+  		$scope.totalpre = totalpre;
+  		window.localStorage.setItem("sa_dishes", JSON.stringify(order_dishes));
+  		// window.localStorage.setItem("sv_pretax", $scope.totalpre);
+  		$scope.closeModal();
 	  }
 
 	  OrderService.dishChange =function($scope, ds_id, amount) {
-		pre_dishes = window.localStorage.getItem("sa_dishes");
-		pre_dishes = JSON.parse(pre_dishes);
-		order_dishes = new Array();
-		totalpre = 0.00;
-		for (var i = 0; i < pre_dishes.length; i++){
-		  if (pre_dishes[i].ds_id == ds_id){
-			pre_dishes[i].amount = amount;
-		  };
-		  order_dishes.push(pre_dishes[i]);
-		  totalpre = totalpre + pre_dishes[i].price * pre_dishes[i].amount;
-		};
-		$scope.dishes = order_dishes;
-		$scope.totaldish = order_dishes.length;
-		$scope.totalpre = totalpre;
-		window.localStorage.setItem("sa_dishes", JSON.stringify(order_dishes));
-		// window.localStorage.setItem("sv_pretax", $scope.totalpre);
-		$scope.closeModal();
+		    pre_dishes = window.localStorage.getItem("sa_dishes");
+  		pre_dishes = JSON.parse(pre_dishes);
+  		order_dishes = new Array();
+  		totalpre = 0.00;
+  		for (var i = 0; i < pre_dishes.length; i++){
+  		  if (pre_dishes[i].ds_id == ds_id){
+  			pre_dishes[i].amount = amount;
+  		  };
+  		  order_dishes.push(pre_dishes[i]);
+  		  totalpre = totalpre + pre_dishes[i].price * pre_dishes[i].amount;
+  		};
+  		$scope.dishes = order_dishes;
+  		$scope.totaldish = order_dishes.length;
+  		$scope.totalpre = totalpre;
+  		window.localStorage.setItem("sa_dishes", JSON.stringify(order_dishes));
+  		// window.localStorage.setItem("sv_pretax", $scope.totalpre);
+  		$scope.closeModal();
 	  }
 
-	  OrderService.delifee =function($scope) {
-		var dlexp = 0.00;
-		$scope.dlexp = dlexp ;
-		// if ($scope.dltype == 1) {
-		   var rid = storage.getItem("sv_rid");
+	  OrderService.delifee =function(uaid,pretax,dltype,coupon) {
+        var deferred = $q.defer();
 
-      var CalcFeeData = {
-                      rid: parseInt(rid),
-                      uaid: parseInt($scope.uaid),
-                      pretax: Number($scope.totalpre),
-                      dltype: Number($scope.dltype),
-                      code: $scope.coupon
+    		  var rid = storage.getItem("sv_rid");
+
+          var CalcFeeData     = {}
+
+          CalcFeeData.rid     = rid;
+          CalcFeeData.uaid    = uaid;
+          CalcFeeData.pretax  = pretax;
+          CalcFeeData.dltype  = dltype;
+          CalcFeeData.code    = coupon;
+
+          console.log('CalcFeeData: ', CalcFeeData)
+
+    		  $http.post(API_URL+'MobOrder10/CalcFee', CalcFeeData)
+    			.success(function(data, status, headers, config) {
+        				console.log('delifee',data)
+                if(data.result == 0){// result 0 执行成果，1 执行失败
+                    if ( data.dltype == 2) {
+                      alertService.alert('您的地址已超出普通送餐范围，只能选择订制运费');
                     }
-      console.log('CalcFeeData: ', CalcFeeData)
+                    deferred.resolve(data);
 
-		  $http.post(API_URL+'MobOrder10/CalcFee', CalcFeeData)
-			.success(function(data, status, headers, config) {
-    				console.log('delifee',data)
-            // result 0 执行成果，1 执行失败
-            if(data.result == 0){
-                // dlout 1 定制运费，result 0 送餐
-                if ( $scope.dlout == 1) {
-                  alertService.alert('您的地址已超出普通送餐范围，只能选择订制运费' );
-                  $scope.select.selected_dltype = 2;
-                }else if($scope.dlout == 0){
-                  $scope.result = data.result;
-                  $scope.dlexp = data.dlexp;
-                  $scope.select.selected_dltype = 1;
+                }else{
+                  $rootScope.noNetwork();
+                  deferred.reject()
                 }
-            }else{
-              $rootScope.noNetwork();
-            }
 
-			   }).error(function(data, status) {
-					  $rootScope.noNetwork();
-			   });
-		// };
+  			   }).error(function(data, status) {
+  					  $rootScope.noNetwork();
+              deferred.reject()
+  			   });
+  		  return deferred.promise;
 
 	  }
 
+    OrderService.beforeCheckout = function (totalpre) {
+      var deferred = $q.defer();
+          var rid = storage.getItem("sv_rid");
+          var beforecoData = {
+            pretax: Number(totalpre),
+            rid: parseInt(rid),
+          }
+          var eo_data = {};
+          $http.post(API_URL+'MobOrder10/BeforeCO', beforecoData)
+          .success(function(data, status, headers, config) {
+                // result 0 执行成果，1 执行失败
+                if(data.result == 0){
+                    deferred.resolve(data);
+                }else{
+                   deferred.reject('network error');
+                  $rootScope.noNetwork();
+                }
+             }).error(function(data, status) {
+                deferred.reject('network error');
+                $rootScope.noNetwork();
+             });
+      return deferred.promise;
+    }
 	  OrderService.checkout =function($scope) {
+
 		order_dishes = window.localStorage.getItem("userOrder");
 		order_dishes = JSON.parse(order_dishes).dishes;
 		$scope.dltype =  $scope.select.selected_dltype;
@@ -132,7 +153,7 @@ angular.module('chanmao')
 				channel 	: channel, // 0. Web 1. iOS 2.  Android
 				dltype 		: $scope.dltype,
 				dlexp 		: $scope.dlexp,
-				pretax 		: $scope.totalpre,
+				pretax 		: $scope.pretax_ori,
 				comment 	: $scope.comment,
 				items 		: ea_dishes,
 				version		:  version
