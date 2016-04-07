@@ -20,9 +20,14 @@ angular.module("chanmao")
 																		 ng-click="goToAddress(address)">
 									    {{address.description}}
 									  </a>
+										<a class="item item-text-wrap" ng-if="predictions.length == 0">
+												<p>	小提示：请直接输入地址，类似 100 Abc St, Toronto, 前面不要加任何Unit信息哦
+												</p>
+										</a>
 								</div>`,
 
           link: function($scope, element, attrs) {
+						  	$scope.predictions = [];
                 $scope.onChange = function(){
                   $scope.search()
                 };
