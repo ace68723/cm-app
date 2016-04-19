@@ -10,9 +10,9 @@ angular.module('chanmao.controllers', [])
 					network_tag = false
 				})
 		}
-		
+
 	};
-		
+
   $rootScope.message = function(title, content) {
 		$ionicPopup.alert({
 					  title: title,
@@ -21,7 +21,7 @@ angular.module('chanmao.controllers', [])
 					}).then(function(res) {
 						 // SystemService.logout($scope);
 					});
-		};      
+		};
 })
 .filter('dateToISO', function() {
   return function(input) {
@@ -33,11 +33,11 @@ angular.module('chanmao.controllers', [])
 
 
 // .controller('LoginCtrl', function($scope, $state,auth) {
-//      uid = window.localStorage.getItem("sv_uid");  
+//      uid = window.localStorage.getItem("sv_uid");
 //  if (uid != null){
 //      $state.go('tab.history');
 //  }
-//  //  new version 
+//  //  new version
 
 //  $scope.isInstalledWechat = function() {
 //      Wechat.isInstalled(function (installed) {
@@ -46,14 +46,14 @@ angular.module('chanmao.controllers', [])
 //          alert("Failed: " + reason);
 //      });
 //  };
-	
+
 //  $scope.wechat_login = function() {
 //      auth.doWechatAuth()
 //  };
 // })
 
 .controller('IntroCtrl', function( $scope) {
-	
+
   $scope.startApp = function() {
 	// $state.go('tabs.history');
   };
@@ -72,10 +72,10 @@ angular.module('chanmao.controllers', [])
 })
 // .controller('LoginFormCtrl', function( $scope, $state, $ionicLoading, $ionicPopup, LoginService, $window) {
 //  $scope.showSuccess = function() {
-		
+
 //      $state.go('tab.history');
 //  };
-		
+
 //  $scope.showValidation = function(content) {
 //      $ionicPopup.alert({
 //                    title: '请检查以下错误',
@@ -84,7 +84,7 @@ angular.module('chanmao.controllers', [])
 //                  }).then(function(res) {
 //                       // $state.go('login');
 //                  });
-//      };  
+//      };
 
 //  $scope.showLoading = function() {
 //          $ionicLoading.show({
@@ -93,16 +93,16 @@ angular.module('chanmao.controllers', [])
 //          showBackdrop: true,
 //          maxWidth: 200,
 //         // showDelay: 500
-//      }); 
+//      });
 //     };
 //     $scope.hideLoading = function(){
 //      $ionicLoading.hide();
 //      };
-	
+
 //     $scope.login = function() {
 //      $scope.showLoading();
 //      LoginService.login($scope, $ionicPopup);
-//  };  
+//  };
 
 
 // })
@@ -117,7 +117,7 @@ angular.module('chanmao.controllers', [])
 						 $state.go('logindone');
 					});
 		};
-		
+
 	$scope.showValidation = function(content) {
 		$ionicPopup.alert({
 					  title: '请检查以下错误',
@@ -126,7 +126,7 @@ angular.module('chanmao.controllers', [])
 					}).then(function(res) {
 						 // $state.go('login');
 					});
-		};      
+		};
 	$scope.showLoading = function() {
 		$ionicLoading.show({
 			content: '注册进行中...',
@@ -134,19 +134,19 @@ angular.module('chanmao.controllers', [])
 			showBackdrop: true,
 			maxWidth: 200,
 		// showDelay: 500
-		}); 
+		});
 	};
 	$scope.hideLoading = function(){
 		$ionicLoading.hide();
 	};
 	$scope.register = function() {
 		// $scope.showLoading();
-		
+
 		LoginService.register($scope, $ionicPopup);
-	};  
+	};
 	$scope.backLogin = function() {
 		$state.go('login');
-	};  
+	};
 
 })
 
@@ -169,7 +169,7 @@ angular.module('chanmao.controllers', [])
 					}).then(function(res) {
 						 // $state.go('login');
 					});
-		};      
+		};
 	$scope.showLoading = function() {
 		$ionicLoading.show({
 			content: '处理进行中...',
@@ -177,12 +177,12 @@ angular.module('chanmao.controllers', [])
 			showBackdrop: true,
 			maxWidth: 200,
 		// showDelay: 500
-		}); 
+		});
 	};
 	$scope.hideLoading = function(){
 		$ionicLoading.hide();
-	};  
-		
+	};
+
 	$scope.forget = function(mode) {
 		// $scope.showLoading();
 		if($scope.forget.email){
@@ -207,7 +207,7 @@ angular.module('chanmao.controllers', [])
 						}
 					})
 				}else if (window.cordova.platformId == 'android'){
-					
+
 					$cordovaInAppBrowser.open('http://gmail.com', '_blank')
 					  .then(function(event) {
 						// success
@@ -215,33 +215,33 @@ angular.module('chanmao.controllers', [])
 					  .catch(function(event) {
 						// error
 					  });
-				}	
+				}
 			}
 		}
-		
-	};  
+
+	};
 
 	$scope.backLogin = function() {
 		$state.go('login');
-	};  
-	
+	};
+
 	$scope.forget.email = null;
 })
 
 
 // .controller('OrderCtrl', function($scope,$ionicFrostedDelegate,$ionicScrollDelegate,loadingService, RRService) {
 // 	RRService.rrlist($scope);
-   
-// 	$scope.gotoRR = function(rid) { 
+
+// 	$scope.gotoRR = function(rid) {
 // 		RRService.gotoRR(rid);
-// 	};  
+// 	};
 // 	$scope.rrlist_refresh = function(){
 // 		RRService.rrlist($scope);
 // 		setTimeout(function() {
 // 			$ionicScrollDelegate.resize();
 // 			$ionicFrostedDelegate.update();
 // 		}, 1500);
-	  
+
 // 	}
 // 	$scope.open_restaurant_close = function() {
 // 		$ionicScrollDelegate.resize();
@@ -249,7 +249,7 @@ angular.module('chanmao.controllers', [])
 // 		$scope.restaurant_close.open = !$scope.restaurant_close.open
 // 	};
 // 	loadingService.showLoading()
-	
+
 // })
 
 // .controller('OrderMenuCtrl', function($scope, $state, $stateParams, $ionicLoading, $ionicModal,$ionicScrollDelegate, RRService,$rootScope) {
@@ -258,7 +258,7 @@ angular.module('chanmao.controllers', [])
 //     // tabs = angular.element(tabs);
 //     // tabs.css('display', 'none');
 //  // Trigger the loading indicator
- 
+
 //  // Hide the tab
 //      var tabs = document.querySelectorAll('div.tabs')[0];
 //      tabs = angular.element(tabs);
@@ -278,7 +278,7 @@ angular.module('chanmao.controllers', [])
 //     $scope.$on('$destroy', function() {
 //       // tabs.css('display', '');
 //       $scope.modal.remove();
-	  
+
 //     });
 
 //     $scope.open_dstype = function(dstype) {
@@ -290,22 +290,22 @@ angular.module('chanmao.controllers', [])
 //          });
 
 //     };
-	
+
 //  $scope.gotoModify = function() {
-//      if ($scope.totaldish == 0) $rootScope.message('注意', '当前还没点任何菜品'); 
+//      if ($scope.totaldish == 0) $rootScope.message('注意', '当前还没点任何菜品');
 //       else $state.go('tab.ordermodify');
-//  };    
-			
+//  };
+
 //     $scope.amountAdd = function(){
 //      if ($scope.amount < 10)
 //      $scope.amount = $scope.amount + 1;
 //     };
-	
+
 //     $scope.amountRemove = function(){
 //      if ($scope.amount > 1)
 //      $scope.amount = $scope.amount - 1;
 //     };
-	
+
 //      $scope.order = function(ds_id, int_no, ds_name, price) {
 //          $scope.amount = 1;
 //          $scope.ds_id = ds_id;
@@ -314,7 +314,7 @@ angular.module('chanmao.controllers', [])
 //          $scope.price = price;
 //      $scope.openModal();
 //  };
-	   
+
 //     $ionicModal.fromTemplateUrl('order-menu-modal.html', function(modal) {
 //      $scope.modal = modal;
 //    }, {
@@ -329,13 +329,13 @@ angular.module('chanmao.controllers', [])
 //  };
 //  $scope.closeModal = function() {
 //      $scope.modal.hide();
-//  };    
-	
+//  };
+
 //      $scope.dishAdd = function(ds_id,amount,int_no,ds_name,price) {
 //      RRService.dishadd($scope,ds_id,amount,int_no,ds_name,price);
-//  };    
-	
-	
+//  };
+
+
 //     RRService.rrmenu($scope);
 //      if ($scope.totaldish == null) $scope.totaldish = 0;
 //  // $scope.orderModify = function(){
@@ -356,24 +356,24 @@ angular.module('chanmao.controllers', [])
 	$scope.openModal = function() {
 		$scope.modal.show();
 	};
-	
+
 	$scope.closeModal = function() {
 		$scope.modal.hide();
-	}; 
-	
+	};
+
 	$scope.amountAdd = function(){
 		if ($scope.amount < 10)
 		$scope.amount = $scope.amount + 1;
 	};
-	
+
 	$scope.amountRemove = function(){
 		if ($scope.amount > 1)
 		$scope.amount = $scope.amount - 1;
 	};
-		
+
 	$scope.dishDelete = function(ds_id) {
 		OrderService.dishDelete($scope,ds_id);
-		
+
 	};
 
 	$scope.dishModify = function(ds_id, int_no, ds_name, amount) {
@@ -382,24 +382,24 @@ angular.module('chanmao.controllers', [])
 		$scope.int_no = int_no;
 		$scope.ds_name = ds_name;
 		$scope.openModal();
-	};  
-	
+	};
+
 	$scope.dishChange = function(ds_id, amount) {
 		OrderService.dishChange($scope, ds_id, amount);
-		
+
 	};
-	
+
 	$scope.exist = null;
 	AddressService.exist($scope);
 	OrderService.readyList($scope);
-	
-	  
+
+
 })
 
 
 // .controller('OrderCheckoutCtrl', function($scope, $state, $location, $ionicPopup, $ionicLoading, OrderService, AddressService) {
 
-	
+
 //  $scope.showLoading = function() {
 //      $ionicLoading.show({
 //              content: '数据提交中...',
@@ -411,20 +411,20 @@ angular.module('chanmao.controllers', [])
 //      $scope.hideLoading = function(){
 //      $ionicLoading.hide();
 //      };
-	
+
 //  $scope.showExceed = function() {
 //      $ionicPopup.alert({
 //                    title: '请注意',
 //                    content: '您的地址已超出普通送餐范围，只能选择订制运费',
 //                    okText: '好的，我了解'
 //                  }).then(function(res) {
-//                       // $state.go('login');  
-						
+//                       // $state.go('login');
+
 //                              $scope.select.selected_dltype =  2;
-							  
+
 //                  });
-//      };      
-	
+//      };
+
 //  $scope.showSuccess = function(content) {
 //      $ionicPopup.alert({
 //                    title: '订单提交成功',
@@ -442,55 +442,55 @@ angular.module('chanmao.controllers', [])
 //                  }).then(function(res) {
 //                       // $state.go('tab.history');
 //                  });
-//      };          
+//      };
 //      $scope.dltypeChange = function(delitype){
 //          $scope.dltype = $scope.select.selected_dltype;
-//          $scope.deliChange();//$scope.dltype, $scope.uaid); 
-//      };  
+//          $scope.deliChange();//$scope.dltype, $scope.uaid);
+//      };
 //      $scope.uaidChange = function(addr){
 //          $scope.selected_addr = JSON.parse(addr);
 //          $scope.uaid = $scope.selected_addr.uaid;
 //          $scope.select.selected_dltype = 1
 //          $scope.dltype = $scope.select.selected_dltype; // init dltype
 //          $scope.deliChange();
-//      };  
-		
+//      };
+
 //      $scope.deliChange = function(){
 //           // console.log($scope.dltype, $scope.uaid);
 //          if ($scope.uaid != null) OrderService.delifee($scope);
-//      };      
-	
+//      };
+
 //      $scope.orderCheckout = function(){
 //            $scope.showLoading();
 //            OrderService.checkout($scope);
-//      };  
+//      };
 //      $scope.select = {}
 //      $scope.select.delitypes = [
 //       { value: 0, name: "自取" },
 //       { value: 1, name: "送餐" },
 //       { value: 2, name: "订制运费" }
 //     ];
-   
-	
-	
-	
+
+
+
+
 //      $scope.dltype = 1;
 //  $scope.showLoading();
 //  OrderService.readyList($scope);
 //     AddressService.all($scope);
-	  
+
 // })
 
 
 .controller('HistoryCtrl', function($scope, $location, $ionicLoading, $http, $interval,$ionicFrostedDelegate, HistoryService,scrollService, SystemService,loadingService) {
 	loadingService.showLoading()
- 
+
 	$scope.hideLoading = function(){
 		$ionicLoading.hide();
-	};  
+	};
 	$scope.doRefresh = function() {
 		HistoryService.load($scope,1);
-		// if(window.cordova && window.cordova.platformId == 'ios'){	
+		// if(window.cordova && window.cordova.platformId == 'ios'){
 		// 	$ionicFrostedDelegate.update();
 		// }
 	};
@@ -506,12 +506,12 @@ angular.module('chanmao.controllers', [])
 
 	$scope.verify_sms = function(oid,verify_code) {
 		console.log(oid,verify_code)
-	
+
 		if(can_verify){
 			can_verify = false;
 			HistoryService.verify_sms(oid,verify_code)
 			.then(function() {
-				$scope.doRefresh();	
+				$scope.doRefresh();
 			})
 			.catch(function() {
 
@@ -529,10 +529,10 @@ angular.module('chanmao.controllers', [])
 		}
 
 
-		
+
 	};
-	
-	$scope.status =  { text : null, badge : null}; 
+
+	$scope.status =  { text : null, badge : null};
 
 	setTimeout(function() {
         pull_scroll()
@@ -544,13 +544,13 @@ angular.module('chanmao.controllers', [])
 			pulling = true;
 			var page = $location.path();
 			if (page == '/tab/history') {
-			 // scrollService.scroll_refresh("history_scroll");
+			 scrollService.scroll_refresh("history_scroll");
 			}
 			setTimeout(function() {
 				pulling = false;
 			}, 5000);
 		}
-		
+
 	};
 	$interval(function() {
 		pull_scroll()
@@ -563,8 +563,8 @@ angular.module('chanmao.controllers', [])
 .controller('ProfileCtrl', function($scope, SystemService) {
 	$scope.logout = function() {
 		SystemService.logout($scope);
-		
-	}; 
+
+	};
 })
 
 .controller('AboutCtrl', function($scope,version) {
@@ -580,12 +580,12 @@ angular.module('chanmao.controllers', [])
 //     $scope.$on('$destroy', function() {
 //       tabs.css('display', '');
 //     });
-// //  right Button 
+// //  right Button
 //  $scope.addButton = function() {
 //        $state.go('tab.addradd');
-//   };  
-  
-// // data loadings  
+//   };
+
+// // data loadings
 
 //     $scope.showLoading = function() {
 //      $ionicLoading.show({
@@ -606,9 +606,9 @@ angular.module('chanmao.controllers', [])
 //              console.log(addr,$index)
 //              $scope.address.splice($index,1)
 //              AddressService.addr_delete(addr)
-//      }       
+//      }
 //      $scope.showLoading();
-	
+
 //     AddressService.all($scope);
 // })
 
@@ -620,7 +620,7 @@ angular.module('chanmao.controllers', [])
 	// var tabs = document.querySelectorAll('div.tabs')[0];
 	// tabs = angular.element(tabs);
 	// tabs.css('display', 'none');
-  
+
 	// $scope.$on('$destroy', function() {
 	//   tabs.css('display', '');
 	// });
@@ -636,7 +636,7 @@ angular.module('chanmao.controllers', [])
 //     var tabs = document.querySelectorAll('div.tabs')[0];
 //     tabs = angular.element(tabs);
 //     tabs.css('display', 'none');
-	
+
 //     $scope.$on('$destroy', function() {
 //       tabs.css('display', '');
 //       $scope.modal.remove();
@@ -649,13 +649,13 @@ angular.module('chanmao.controllers', [])
 //          showBackdrop: true,
 //          maxWidth: 200,
 //         // showDelay: 500
-//      }); 
+//      });
 //     };
 
 //      $scope.hideLoading = function(){
 //      $ionicLoading.hide();
 //      };
-	
+
 //  $scope.showValidation = function(content) {
 //      $ionicPopup.alert({
 //                    title: '请检查以下错误',
@@ -664,13 +664,13 @@ angular.module('chanmao.controllers', [])
 //                  }).then(function(res) {
 //                       // $state.go('login');
 //                  });
-//      };  
-	
-// // Address Validation by Google Map    
+//      };
+
+// // Address Validation by Google Map
 //  $scope.validate = function() {
 //      $scope.showLoading();
 //      AddressService.validate($scope);
-//  };  
+//  };
 
 //     $ionicModal.fromTemplateUrl('addr-validate-modal.html', function(modal) {
 //      $scope.modal = modal;
@@ -687,7 +687,7 @@ angular.module('chanmao.controllers', [])
 //  $scope.closeModal = function() {
 //      $scope.modal.hide();
 //    };
-	
+
 
 //  $scope.createAddr = function() {
 //      $scope.result = 0;
@@ -700,7 +700,7 @@ angular.module('chanmao.controllers', [])
 //      AddressService.addr_delete(addr)
 
 //  };
-	
+
 //  $scope.addr =  { name : null, tel : null ,city : null, postal : null,addr : null};
 
 

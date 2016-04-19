@@ -189,7 +189,6 @@ angular.module('chanmao')
 				$scope.confirm_dish = []
 				$location.path('/tab/history')
 				setTimeout(function() {
-					// scrollService.scroll_refresh()
 					scrollService.scroll_refresh("history_scroll")
 				}, 200);
 
