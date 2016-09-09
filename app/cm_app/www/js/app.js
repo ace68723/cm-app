@@ -9,7 +9,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 
 
 // .run(function($ionicPlatform, $rootScope, $cordovaSplashscreen,$cordovaNetwork,$cordovaDialogs,$timeout) {
-.constant('version', '1.1.15')
+.constant('version', '1.1.16')
 .run(function($rootScope,$location,$ionicPlatform,$ionicTabsDelegate,$ionicFrostedDelegate,$ionicHistory,$cordovaGeolocation,$cordovaNetwork,auth,alertService,loadingService){
   $ionicPlatform.ready(function() {
 
@@ -84,7 +84,7 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 
 		if(window.cordova.platformId == 'ios'){
 			auth.setChannel(1)
-			$rootScope.checkForUpdates();
+		
 			// auth.doAuth()
 		}else if (window.cordova.platformId == 'android'){
 			auth.setChannel(2)
@@ -307,9 +307,14 @@ angular.module('chanmao', ['ionic','ionic.service.core', 'ngIOS9UIWebViewPatch',
 			}
 		}
 	})
+  .state('update', {
+	  url: "/update",
+	  templateUrl: "templates/update.html",
+	  controller: 'UpdateCtrl'
+	})
 	;
 
-   $urlRouterProvider.otherwise('/login');
+   $urlRouterProvider.otherwise('/update');
 
    $httpProvider.interceptors.push('authInterceptor');
 

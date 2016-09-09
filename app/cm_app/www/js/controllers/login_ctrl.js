@@ -10,7 +10,7 @@ angular.module('chanmao')
 		  alert("Failed: " + reason);
 	  });
 	};
-	
+
 	$scope.wechat_login = function() {
 	  auth.doWechatAuth()
 	};
@@ -44,18 +44,16 @@ angular.module('chanmao')
 	tl.add( TweenMax.to(cm_wechat,3,{"opacity":1}),5.5)
 	tl.add( TweenMax.to(copyright,0.5,{"top": "0" }),6)
 	tl.add(	TweenMax.to(logo_mockup, 3, {"display":"none"}),5.5)
-	// tl.add( TweenMax.to(logo, 3, {opacity:0}));
 
-	// tl.add( TweenMax.to(logo, 3, {opacity:0}));
-	
+
   })
 
   .controller('LoginFormCtrl', function( $scope, $state, $ionicLoading, $ionicPopup, LoginService,loadingService, $window) {
 	$scope.showSuccess = function() {
-	  
+
 		// $state.go('tab.history');
 	};
-	  
+
 	$scope.showValidation = function(content) {
 	  $ionicPopup.alert({
 					title: '请检查以下错误',
@@ -64,7 +62,7 @@ angular.module('chanmao')
 				  }).then(function(res) {
 					   // $state.go('login');
 				  });
-	  };  
+	  };
 
 	$scope.showLoading = function() {
 		$ionicLoading.show({
@@ -73,17 +71,17 @@ angular.module('chanmao')
 			showBackdrop: true,
 			maxWidth: 200,
 		  // showDelay: 500
-		}); 
+		});
 	  };
 	  $scope.hideLoading = function(){
 		$ionicLoading.hide();
 	  };
-	  
+
 	  $scope.login = function() {
 	  // $scope.showLoading();
-	  
+
 	  LoginService.login($scope, $ionicPopup);
-	};  
+	};
 
 
   })
