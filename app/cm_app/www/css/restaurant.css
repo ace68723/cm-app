@@ -97,17 +97,17 @@
 
 .recommend .restaurant_img{
   width: 100%;
-  border-radius: 12px;
+  /*border-radius: 12px;*/
   height: auto;
   margin-top: 5%;
-  border-color: #33ADE4;
-  border-style: solid;
-  border-width: 3px;
+  /*border-color: #33ADE4;*/
+  /*border-style: solid;*/
+  /*border-width: 3px;*/
 }
 .restaurant_box {}
-.restaurant_box .restaurant_img{
+.restaurant_img{
   width: 100%;
-  border-radius: 12px;
+  /*border-radius: 12px;*/
   margin-top: 5%;
 }
 .promotion{

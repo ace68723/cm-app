@@ -17,22 +17,37 @@
 					padding: 4px 0px;
 					background-color: rgba(0, 0, 0, 0);
 					border: none;
-					height:auto;
+					height:300px;
+					overflow:hidden;
 					width: 95%;
 					margin: 0 auto;
 				"
 				>
-				<div ng-class="{recommend:rr.watermark == 1}" class="restaurant_box">
-					<img class="restaurant_img" ng-src="{{restaurant_open.img_url + rr.rid}}.jpg"
-						 style=""  alt="">
+				<!-- <div ng-class="{recommend:rr.watermark == 1}" class="restaurant_box"> -->
+
+					<img class="restaurant_img"
+							 ng-src="{{rr.mob_banner}}"
+							 alt="">
 					<!-- <div class="promotion">
 						<img ng-if="rr.watermark == 1" src="img/minus.png" alt="">
 						<img ng-if="rr.watermark !== 1" src="img/discount.png" alt="">
 						<span class="dec" ng-if="rr.watermark !== 1">全店20%Off</span>
 						<span class="dec" ng-if="rr.watermark == 1">全店满$100减$50</span>
 					</div> -->
+					<div style="background-color: #ffffff;
+									    padding: 8px;
+									    position: absolute;
+									    bottom: 0;
+									    width: 100%;">
+											{{rr.name}}
+											<div style="font-size: 14px;color: #ababb0;">
+												{{rr.desc}}
+											</div>
 
-				</div>
+
+
+           </div>
+				<!-- </div> -->
 
 				<!-- <div ng-if="rr.watermark == 1"class="button button-small button-orange  rr_recommend" >推荐商家</div> -->
 
